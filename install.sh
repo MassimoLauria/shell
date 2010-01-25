@@ -5,7 +5,26 @@
 
 SUFFIX=config-shell
 BACKUPLIST=".bashrc .zshrc"
+CHECK=pass
 
+# Check if it is running in the appropriate directory
+if [ ! -f $PWD/bashrc ]; then 
+        CHECK="fail"
+    fi
+if [ ! -f $PWD/zshrc ]; then 
+        CHECK="fail"
+    fi
+if [ ! -f $PWD/install.sh ]; then 
+        CHECK="fail"
+    fi
+
+if  [ $CHECK = "fail" ]; then
+    echo ""
+    echo "INSTALLATION ERROR:" 
+    echo "Not running in the appropriate directory."
+    echo ""
+    exit 1
+fi
 
 # Check backup possibility.
 CHECK="pass"
@@ -37,16 +56,16 @@ fi
 # Do backup (by copying and not moving)
 for FILENAME in $BACKUPLIST; do
 
-    SRC=~/$FILENAME
-    DST=~/$FILENAME.$SUFFIX
+    SRC="~/$FILENAME"
+    DST="~/$FILENAME.$SUFFIX"
 
     mv $SRC $DST
 done
 
 # Do install
 echo "Installing 'bashrc' in HOME directory."
-ln -s $(dirname $0)/bashrc ~/.bashrc
+ln -s $PWD/bashrc ~/.bashrc
 echo "Installing  'zshrc' in HOME directory."
-ln -s $(dirname $0)/zshrc ~/.zshrc
+ln -s $PWD/zshrc ~/.zshrc
 echo "Bye, bye!"
 

@@ -1,0 +1,74 @@
+#!/bin/sh
+
+# Massimo Lauria, 2010
+#
+# Common enviroment variables to be loaded in bash, zsh, X11, ...
+#
+
+# Where everything starts
+CONFIGDIR=$HOME/config/
+
+
+# {{{ Aliases ------------------------------------------------------------------
+
+if [ "$TERM" != "dumb" ]; then
+    eval "`dircolors -b`"
+    alias ls='ls --color=auto'
+fi
+alias rm="rm -iv"
+
+# }}} --------------------------------------------------------------------------
+
+
+# {{{ Pager --------------------------------------------------------------------
+if [ -f `which most` ]; then
+    PAGER=most
+elif [ -f `which less` ]; then
+    PAGER=less
+else
+    PAGER=more
+fi
+export PAGER
+# }}} --------------------------------------------------------------------------
+
+# {{{ Editor -------------------------------------------------------------------
+
+EDITOR="ec"
+
+if [[ -f `which qemacs` ]]; then
+    ALTERNATE_EDITOR="qemacs"
+elif [[ -f `which jed` ]]; then
+    ALTERNATE_EDITOR="jed"
+elif [[ -f `which zile` ]]; then
+    ALTERNATE_EDITOR="zile"
+elif [[ -f `which mg` ]]; then
+    ALTERNATE_EDITOR="mg"
+elif [[ -f `which vim` ]]; then
+    ALTERNATE_EDITOR="vim"
+else
+    ALTERNATE_EDITOR="vi"
+fi
+
+alias ec="emacsclient -t"
+alias ecx="emacsclient -n -c"
+
+export EDITOR
+export ALTERNATE_EDITOR
+
+
+
+# Python enviroment variables
+export PYTHONSTARTUP=$CONFIGDIR/pythonrc.py
+
+# LaTeX enviroment variables
+export TEXMFHOME=$CONFIGDIR/texmf
+
+# Customised gtkrc file is loaded.
+export GTK2_RC_FILES=$HOME/.gtkrc-2.0
+
+### Include other files
+source $CONFIGDIR/shell/shenv-gnupg
+
+
+## Umask
+umask 0077

@@ -19,46 +19,7 @@ bindkey -e
 
 #### User customization #####
 
-
-# {{{ Aliases ------------------------------------------------------------------
-
-if [ "$TERM" != "dumb" ]; then
-    eval "`dircolors -b`"
-    alias ls='ls --color=auto'
-fi
-alias rm="rm -iv"
-
-# }}} --------------------------------------------------------------------------
-
-
-
-# {{{ Default editor configuration ---------------------------------------------
-
-EDITOR="ec"
-
-if [[ -f `which qemacs` ]]; then
-    ALTERNATE_EDITOR="qemacs"
-elif [[ -f `which jed` ]]; then
-    ALTERNATE_EDITOR="jed"
-elif [[ -f `which zile` ]]; then
-    ALTERNATE_EDITOR="zile"
-elif [[ -f `which mg` ]]; then
-    ALTERNATE_EDITOR="mg"
-elif [[ -f `which vim` ]]; then
-    ALTERNATE_EDITOR="vim"
-else
-    ALTERNATE_EDITOR="vi"
-fi
-
-alias ec="emacsclient -t"
-alias ecx="emacsclient -n -c"
-
-export EDITOR
-export ALTERNATE_EDITOR
-export TEXMFHOME=$HOME/config/texmf
-export PAGER=/usr/bin/most
-
-# }}} --------------------------------------------------------------------------
+source ~/config/shell/shenv-common
 
 
 
@@ -79,10 +40,6 @@ fi
 
 # {{{ Items --------------------------------------------------------------------
 
-umask 077
-
-# Make sure our customised gtkrc file is loaded.
-export GTK2_RC_FILES=$HOME/.gtkrc-2.0
 
 bindkey ";5C" forward-word
 bindkey ";5D" backward-word

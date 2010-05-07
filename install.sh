@@ -4,34 +4,40 @@
 
 
 SUFFIX=config-shell
-BACKUPLIST=".bashrc .zshrc"
-CHECK=pass
+
+RCFILES="bashrc zshrc inputrc"
+ENVFILES="shenv-common shenv-gnupg"
+OTHERFILES="install.sh"
+ALLFILES="$RCFILES $ENVFILES $OTHERFILES"
+BACKUPLIST=$RCFILES
+
+DESTDIR="~"
 
 # Check if it is running in the appropriate directory
-if [ ! -f $PWD/bashrc ]; then 
+# by checking files are present.
+CHECK=pass
+
+for FILENAME in $ALLFILES; do
+    if [ ! -f $PWD/$FILENAME ]; then 
         CHECK="fail"
     fi
-if [ ! -f $PWD/zshrc ]; then 
-        CHECK="fail"
-    fi
-if [ ! -f $PWD/install.sh ]; then 
-        CHECK="fail"
-    fi
+done
 
 if  [ $CHECK = "fail" ]; then
     echo ""
     echo "INSTALLATION ERROR:" 
-    echo "Not running in the appropriate directory."
+    echo "Not running in the appropriate directory or some files are missing."
     echo ""
     exit 1
 fi
+
 
 # Check backup possibility.
 CHECK="pass"
 for FILENAME in $BACKUPLIST; do
 
-    SRC=~/$FILENAME
-    DST=~/$FILENAME.$SUFFIX
+    SRC=$DESTDIR/.$FILENAME
+    DST=$DESTDIR/.$FILENAME.$SUFFIX
     CHECKITEM="pass"
 
     if [ -f $SRC ] && [ -f $DST ]; then 
@@ -49,6 +55,7 @@ if  [ $CHECK = "fail" ]; then
     echo ""
     echo "INSTALLATION ERROR:" 
     echo "Can't make backup files where necessary."
+    echo "You may want to remove old backup files manually."
     echo ""
     exit 1
 fi
@@ -56,16 +63,20 @@ fi
 # Do backup (by copying and not moving)
 for FILENAME in $BACKUPLIST; do
 
-    SRC="~/$FILENAME"
-    DST="~/$FILENAME.$SUFFIX"
-
-    mv $SRC $DST
+    SRC=$DESTDIR/.$FILENAME
+    DST=$DESTDIR/.$FILENAME.$SUFFIX
+    
+    if [ -f $SRC ]; then 
+        cp $SRC $DST
+        rm -f $SRC
+    fi
+    
 done
 
 # Do install
-echo "Installing 'bashrc' in HOME directory."
-ln -s $PWD/bashrc ~/.bashrc
-echo "Installing  'zshrc' in HOME directory."
-ln -s $PWD/zshrc ~/.zshrc
+for FILENAME in $RCFILES; do
+    echo "Installing '$FILENAME' in HOME directory."
+    ln -s $PWD/$FILENAME $DESTDIR/.$FILENAME
+done
 echo "Bye, bye!"
 

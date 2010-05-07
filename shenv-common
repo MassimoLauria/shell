@@ -72,3 +72,7 @@ source $CONFIGDIR/shell/shenv-gnupg
 
 ## Umask
 umask 0077
+
+## We don't need start/stop terminal
+stty stop  '^q'
+stty start '^q'

@@ -19,18 +19,9 @@ set bell-style none
 #"\e[4~": end-of-line
 # 
 ## allow the use of the Delete/Insert keys
-"\e[3~": delete-char
 "\e[2~": quoted-insert
 
 
-# mappings for "page up" and "page down" to step to the beginning/end
-# of the history
-#"\e[5~": beginning-of-history
-#"\e[6~": end-of-history
-
-# alternate mappings for "page up" and "page down" to search the history
-#"\e[5~": history-search-backward
-#"\e[6~": history-search-forward
 
 # mappings for Ctrl-left-arrow and Ctrl-right-arrow for word moving
 #"\e[1;5C": forward-word
@@ -104,6 +95,7 @@ M-o: end-of-line
 "\e[1;5A": history-search-backward # C-Up
 "\e[1;5B": history-search-forward  # C-Down
 
+
 # C-Home/End
 "\e[1;5H": beginning-of-history    # C-Home
 "\e[1;5F": end-of-history          # C-End
@@ -128,3 +120,22 @@ M-d: backward-delete-char
 M-f: delete-char
 
 # Backspace, Delete, C-Backspace, C-Delete
+"\e[3~":  delete-char
+
+##################
+#     Others     #
+##################
+"\e[5~": history-search-backward
+"\e[6~": history-search-forward
+
+
+##################
+# Cut/Paste/Mark #
+##################
+M-x: kill-region
+M-c: copy-region-as-kill
+M-v: yank
+M-y: yank-pop
+M-z: undo
+M-\ : set-mark
+

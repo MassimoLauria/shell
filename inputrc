@@ -8,63 +8,49 @@ set editing-mode emacs
 # Be 8 bit clean.
 set input-meta on
 set output-meta on
-# set convert-meta off
+set convert-meta on
 
 
 # do not bell on tab-completion
 set bell-style none
 
-# some defaults / modifications for the emacs mode
-$if mode=emacs
-
 # allow the use of the Home/End keys
-"\e[1~": beginning-of-line
-"\e[4~": end-of-line
-
-# allow the use of the Delete/Insert keys
+#"\e[1~": beginning-of-line
+#"\e[4~": end-of-line
+# 
+## allow the use of the Delete/Insert keys
 "\e[3~": delete-char
 "\e[2~": quoted-insert
 
 
 # mappings for "page up" and "page down" to step to the beginning/end
 # of the history
-# "\e[5~": beginning-of-history
-# "\e[6~": end-of-history
+#"\e[5~": beginning-of-history
+#"\e[6~": end-of-history
 
 # alternate mappings for "page up" and "page down" to search the history
-# "\e[5~": history-search-backward
-# "\e[6~": history-search-forward
+#"\e[5~": history-search-backward
+#"\e[6~": history-search-forward
 
 # mappings for Ctrl-left-arrow and Ctrl-right-arrow for word moving
-"\e[1;5C": forward-word
-"\e[1;5D": backward-word
-"\e[5C": forward-word
-"\e[5D": backward-word
-"\e\e[C": forward-word
-"\e\e[D": backward-word
-
-$if term=rxvt
-"\e[8~": end-of-line
-"\eOc": forward-word
-"\eOd": backward-word
-$endif
-
-# for non RH/Debian xterm, can't hurt for RH/Debian xterm
-# "\eOH": beginning-of-line
-# "\eOF": end-of-line
-
-# for freebsd console
-# "\e[H": beginning-of-line
-# "\e[F": end-of-line
-
-$endif
+#"\e[1;5C": forward-word
+#"\e[1;5D": backward-word
+#"\e[5C": forward-word
+#"\e[5D": backward-word
+#"\e\e[C": forward-word
+#"\e\e[D": backward-word
 
 
 # Other personal customization
+
+set blink-matching-parent on
+
 # Completion
+set show-all-if-ambiguous  on
 set completion-ignore-case on
 set completion-query-items 50
 set mark-symlinked-directories on
+set visible-stats on
 
 # History
 set history-preserve-point on
@@ -72,4 +58,73 @@ set history-size 10000
 # Scroll
 set horizontal-scroll-mode on
 
+########################
+#                      #
+#    Key settings      #
+#                      #
+########################
 
+# Rationale
+# 
+# j = Left
+# l = Right
+# i = Up
+# k = Down
+#
+# u = Home
+# o = End
+#
+# Special keys are implemented with Alt modifier.
+# Control-special keys are implemented with Control modifier. 
+
+
+# Arrows
+"\e[D": backward-char     # Left
+"\e[C": forward-char      # Right
+"\e[A": previous-history  # Up
+"\e[B": next-history      # Down
+
+# Home/End
+"\e[H": beginning-of-line # Home
+"\e[F": end-of-line       # End
+
+# Arrows on home row
+M-j: backward-char
+M-l: forward-char
+M-i: previous-history
+M-k: next-history
+
+# Home/End on home row
+M-u: beginning-of-line
+M-o: end-of-line      
+
+# C-Arrows
+"\e[1;5D": backward-word           # C-Left
+"\e[1;5C": forward-word            # C-Right
+"\e[1;5A": history-search-backward # C-Up
+"\e[1;5B": history-search-forward  # C-Down
+
+# C-Home/End
+"\e[1;5H": beginning-of-history    # C-Home
+"\e[1;5F": end-of-history          # C-End
+
+
+# C-Arrows on home row
+C-j: backward-word
+C-l: forward-word
+C-i: history-search-backward
+C-k: history-search-forward
+
+# C-Home/End
+C-u: beginning-of-history    
+C-o: end-of-history 
+
+
+##################
+# Deletion keys  #
+##################
+M-w: backward-kill-word
+M-d: backward-delete-char
+M-f: delete-char
+
+# Backspace, Delete, C-Backspace, C-Delete

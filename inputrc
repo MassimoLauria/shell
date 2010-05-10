@@ -1,6 +1,4 @@
-# /etc/inputrc - global inputrc for libreadline
 # See readline(3readline) and `info rluserman' for more information.
-
 
 # Main editing mode
 set editing-mode emacs
@@ -22,6 +20,14 @@ set bell-style none
 "\e[2~": quoted-insert
 
 
+# mappings for "page up" and "page down" to step to the beginning/end
+# of the history
+#"\e[5~": beginning-of-history
+#"\e[6~": end-of-history
+
+# alternate mappings for "page up" and "page down" to search the history
+"\e[5~": history-search-backward
+"\e[6~": history-search-forward
 
 # mappings for Ctrl-left-arrow and Ctrl-right-arrow for word moving
 #"\e[1;5C": forward-word
@@ -42,6 +48,7 @@ set completion-ignore-case on
 set completion-query-items 50
 set mark-symlinked-directories on
 set visible-stats on
+TAB: complete
 
 # History
 set history-preserve-point on
@@ -102,10 +109,10 @@ M-o: end-of-line
 
 
 # C-Arrows on home row
-C-j: backward-word
-C-l: forward-word
-C-i: history-search-backward
-C-k: history-search-forward
+#C-j: backward-word
+#C-l: forward-word
+#C-i: history-search-backward
+#C-k: history-search-forward
 
 # C-Home/End
 C-u: beginning-of-history    
@@ -118,24 +125,22 @@ C-o: end-of-history
 M-w: backward-kill-word
 M-d: backward-delete-char
 M-f: delete-char
+C-d: backward-kill-word
+C-f: backward-kill-word
+
 
 # Backspace, Delete, C-Backspace, C-Delete
-"\e[3~":  delete-char
-
-##################
-#     Others     #
-##################
-"\e[5~": history-search-backward
-"\e[6~": history-search-forward
 
 
 ##################
-# Cut/Paste/Mark #
+# Cut/Paste/Undo #
 ##################
 M-x: kill-region
 M-c: copy-region-as-kill
 M-v: yank
 M-y: yank-pop
 M-z: undo
-M-\ : set-mark
+M-RET: set-mark
 
+
+$include /etc/inputrc

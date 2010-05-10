@@ -51,7 +51,7 @@ set completion-ignore-case on
 set completion-query-items 50
 set mark-symlinked-directories on
 set visible-stats on
-tab: complete
+TAB: complete
 
 # History
 set history-preserve-point on
@@ -127,7 +127,19 @@ C-o: end-of-history
 M-w: backward-kill-word
 M-d: backward-delete-char
 M-f: delete-char
+C-d: backward-kill-word
+C-f: backward-kill-word
+
 
 # Backspace, Delete, C-Backspace, C-Delete
 
 
+##################
+# Cut/Paste/Undo #
+##################
+M-z: undo
+M-x: kill-region
+M-c: copy-region-as-kill
+M-v: yank
+M-y: yank-pop
+M-RET: set-mark

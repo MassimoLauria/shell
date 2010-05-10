@@ -1,6 +1,4 @@
-# /etc/inputrc - global inputrc for libreadline
 # See readline(3readline) and `info rluserman' for more information.
-
 
 # Main editing mode
 set editing-mode emacs
@@ -111,10 +109,10 @@ M-o: end-of-line
 
 
 # C-Arrows on home row
-C-j: backward-word
-C-l: forward-word
-C-i: history-search-backward
-C-k: history-search-forward
+#C-j: backward-word
+#C-l: forward-word
+#C-i: history-search-backward
+#C-k: history-search-forward
 
 # C-Home/End
 C-u: beginning-of-history    
@@ -143,3 +141,6 @@ M-c: copy-region-as-kill
 M-v: yank
 M-y: yank-pop
 M-RET: set-mark
+
+
+$include /etc/inputrc

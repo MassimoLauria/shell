@@ -126,7 +126,7 @@ M-w: backward-kill-word
 M-d: backward-delete-char
 M-f: delete-char
 C-d: backward-kill-word
-C-f: backward-kill-word
+C-f: kill-word
 
 
 # Backspace, Delete, C-Backspace, C-Delete

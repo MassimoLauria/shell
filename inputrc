@@ -17,7 +17,6 @@ set bell-style none
 #"\e[4~": end-of-line
 # 
 ## allow the use of the Delete/Insert keys
-"\e[3~": delete-char
 "\e[2~": quoted-insert
 
 
@@ -103,6 +102,7 @@ M-o: end-of-line
 "\e[1;5A": history-search-backward # C-Up
 "\e[1;5B": history-search-forward  # C-Down
 
+
 # C-Home/End
 "\e[1;5H": beginning-of-history    # C-Home
 "\e[1;5F": end-of-history          # C-End
@@ -135,11 +135,11 @@ C-f: kill-word
 ##################
 # Cut/Paste/Undo #
 ##################
-M-z: undo
 M-x: kill-region
 M-c: copy-region-as-kill
 M-v: yank
 M-y: yank-pop
+M-z: undo
 M-RET: set-mark
 
 

@@ -66,8 +66,14 @@ export TEXMFHOME=$CONFIGDIR/texmf
 # Customised gtkrc file is loaded.
 export GTK2_RC_FILES=$HOME/.gtkrc-2.0
 
+
 ### Include other files
 source $CONFIGDIR/shell/shenv-gnupg
+
+if [ -f "$HOME/personal/conf/shenv-personal" ]; then
+	source $HOME/personal/conf/shenv-personal
+fi
+
 
 
 ## Umask

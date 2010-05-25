@@ -58,7 +58,10 @@ export ALTERNATE_EDITOR
 
 
 # Python enviroment variables
-export PYTHONSTARTUP=$CONFIGDIR/pythonrc.py
+PYTHONSTARTUP=$CONFIGDIR/pythonrc/pythonrc.py
+if [ -f $PYTHONSTARTUP ]; then
+    export PYTHONSTARTUP
+fi
 
 # LaTeX enviroment variables
 export TEXMFHOME=$CONFIGDIR/texmf

@@ -19,8 +19,11 @@ bindkey -e
 
 #### User customization #####
 
+# Common shell environment
 source ~/config/shell/shenv-common
 
+# Z-shell script directory
+ZSHD=~/config/shell/zsh.d 
 
 
 # {{{ GnuPG/SSH Agent ----------------------------------------------------------
@@ -37,34 +40,44 @@ fi
 # }}} --------------------------------------------------------------------------
 
 
-
 # {{{ Items --------------------------------------------------------------------
 
-
-bindkey ";5C" forward-word
-bindkey ";5D" backward-word
-bindkey ";3C" forward-word
-bindkey ";3D" backward-word
-bindkey ";2C" forward-word
-bindkey ";2D" backward-word
-
-bindkey ";5A" beginning-of-line
-bindkey ";5B" end-of-line
-bindkey ";3A" beginning-of-line
-bindkey ";3B" end-of-line
-bindkey ";2A" beginning-of-line
-bindkey ";2B" end-of-line
-
-
+# Keybinding
+source $ZSHD/00_keybindings.zsh
 # }}} --------------------------------------------------------------------------
 
 
+# Prompt char function. (BROKEN)
+function prompt_char {
+    git branch >/dev/null 2>/dev/null && echo '±' && return
+    hg root >/dev/null 2>/dev/null && echo '☿' && return
+    echo '$'
+}
+
+function find_repo_priority {
+    START=$PWD
+    while [ $PWD != "/" ]; do
+        if [ -d .git ]; then
+            echo '±' && return
+        elif [ -d .hg ]; then
+            echo "☿" && return
+        else          
+            cd ..
+        fi
+    done
+    
+    # 
+    echo "$" && return
+}
+
 
 # {{{ Prompt -------------------------------------------------------------------
-
-PROMPT='%n@%m:%~$ ' # default prompt
-RPROMPT='[%* on %D]' # prompt for right side of screen
-
+autoload -U colors && colors
+PR_BLUE="%{$fg_bold[blue]%}"
+PR_YELLOW="%{$fg_bold[yellow]%}"
+PR_RESET="%{$reset_color%}"
+PROMPT="$PR_BLUE%1~$PR_RESET$ " # default prompt
+RPROMPT="[%n@%m:$PR_BLUE%~$PR_RESET($PR_YELLOW%*$PR_RESET)]" # prompt for right side of screen
 # }}} --------------------------------------------------------------------------
 
 

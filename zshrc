@@ -44,40 +44,44 @@ fi
 
 # Keybinding
 source $ZSHD/00_keybindings.zsh
+source $ZSHD/10_vcs.zsh
 # }}} --------------------------------------------------------------------------
 
 
-# Prompt char function. (BROKEN)
-function prompt_char {
-    git branch >/dev/null 2>/dev/null && echo '±' && return
-    hg root >/dev/null 2>/dev/null && echo '☿' && return
-    echo '$'
-}
-
-function find_repo_priority {
-    START=$PWD
-    while [ $PWD != "/" ]; do
-        if [ -d .git ]; then
-            echo '±' && return
-        elif [ -d .hg ]; then
-            echo "☿" && return
-        else          
-            cd ..
-        fi
-    done
-    
-    # 
-    echo "$" && return
-}
-
 
 # {{{ Prompt -------------------------------------------------------------------
-autoload -U colors && colors
-PR_BLUE="%{$fg_bold[blue]%}"
-PR_YELLOW="%{$fg_bold[yellow]%}"
+###
+# See if we can use colors.
+autoload colors zsh/terminfo
+if [[ "$terminfo[colors]" -ge 8 ]]; then
+colors
+fi
+for color in RED GREEN YELLOW BLUE MAGENTA CYAN WHITE; do
+	eval PR_$color='%{$terminfo[bold]$fg[${(L)color}]%}'
+	eval PR_LIGHT_$color='%{$fg[${(L)color}]%}'
+	(( count = $count + 1 ))
+done
+PR_NO_COLOUR="%{$terminfo[sgr0]%}"
 PR_RESET="%{$reset_color%}"
-PROMPT="$PR_BLUE%1~$PR_RESET$ " # default prompt
-RPROMPT="[%n@%m:$PR_BLUE%~$PR_RESET($PR_YELLOW%*$PR_RESET)]" # prompt for right side of screen
+
+
+###
+# See if we can use extended characters to look nicer.
+typeset -A altchar
+set -A altchar ${(s..)terminfo[acsc]}
+PR_SET_CHARSET="%{$terminfo[enacs]%}"
+PR_SHIFT_IN="%{$terminfo[smacs]%}"
+PR_SHIFT_OUT="%{$terminfo[rmacs]%}"
+PR_HBAR=${altchar[q]:--}
+PR_ULCORNER=${altchar[l]:--}
+PR_LLCORNER=${altchar[m]:--}
+PR_LRCORNER=${altchar[j]:--}
+PR_URCORNER=${altchar[k]:--}
+
+
+
+PROMPT="%{$fg_bold[blue]%}%1~%{$reset_color%}$ " # default prompt
+RPROMPT="[%n@%m:%{$fg_bold[blue]%}%~%{$reset_color%}(%{$fg_bold[yellow]%}%*%{$reset_color%})]" # prompt for right side of screen
 # }}} --------------------------------------------------------------------------
 
 

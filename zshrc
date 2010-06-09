@@ -79,9 +79,18 @@ PR_LRCORNER=${altchar[j]:--}
 PR_URCORNER=${altchar[k]:--}
 
 
+d_col='blue'
+b_col='yellow'
+n_tru='green'
+n_fal='red'
 
-PROMPT="%{$fg_bold[blue]%}%1~%{$reset_color%}$ " # default prompt
-RPROMPT="[%n@%m:%{$fg_bold[blue]%}%~%{$reset_color%}(%{$fg_bold[yellow]%}%*%{$reset_color%})]" # prompt for right side of screen
+setopt prompt_subst
+
+exit_value_prompt='<%(?.%{$fg_bold[$n_tru]%}.%{$fg_bold[$n_fal]%})%?%{$reset_color%}>'
+PS2='%_ %{$fg_bold[$d_col]%}→ %{$reset_color%}'
+
+PROMPT=$exit_value_prompt'%{$fg_bold[blue]%}%1~%{$reset_color%}$ ' # default prompt
+RPROMPT='[%n@%m:%{$fg_bold[blue]%}%~%{$reset_color%}(%{$fg_bold[yellow]%}%*%{$reset_color%})]' # prompt for right side of screen
 # }}} --------------------------------------------------------------------------
 
 

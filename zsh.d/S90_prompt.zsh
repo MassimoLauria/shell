@@ -28,7 +28,7 @@ PR_RESET='%{$reset_color%}'
 
 # {{{ COLOR THEMES -------------------------------------------------------------
 ### Theme with more than 8 colors
-PR_PROMPT_CHAR_COLOR=$PR_PROMPT_CHAR_COLOR
+PR_PROMPT_CHAR_COLOR=$PR_NO_COLOUR
 
 PR_PATH_COLOR=$PR_BLUE
 PR_REPO_PATH_COLOR=$PR_BLUE
@@ -65,10 +65,11 @@ PR_SET_CHARSET="%{$terminfo[enacs]%}"
 PR_SHIFT_IN="%{$terminfo[smacs]%}"
 PR_SHIFT_OUT="%{$terminfo[rmacs]%}"
 PR_HBAR=${altchar[q]:--}
-PR_ULCORNER=${altchar[l]:--}
-PR_LLCORNER=${altchar[m]:--}
-PR_LRCORNER=${altchar[j]:--}
-PR_URCORNER=${altchar[k]:--}
+PR_VBAR=${altchar[x]:-|}
+PR_ULCORNER=${altchar[l]:-'/'}
+PR_LLCORNER=${altchar[m]:-'\'}
+PR_LRCORNER=${altchar[j]:-'/'}
+PR_URCORNER=${altchar[k]:-'\'}
 # }}} -------------------------------------------------------------------------- 
 
 
@@ -111,7 +112,8 @@ time_prompt=$PR_YELLOW'%*'$PR_RESET
 #pwd_prompt=$PR_PATH_COLOR'%~'$PR_RESET
 dir_prompt=$PR_PATH_COLOR'%1~'$PR_RESET
 
-prompt_char_prompt=$PR_PROMPT_CHAR_COLOR'$'$PR_RESET
+prompt_char='$'
+prompt_char_prompt=$PR_PROMPT_CHAR_COLOR'${prompt_char}'$PR_RESET
 
 
 # VCS
@@ -121,10 +123,38 @@ pwd_prompt_truncated="%B%40<..<${pwd_prompt}%<<%b"
 # }}} --------------------------------------------------------------------------
 
 
-# {{{ FINALLY, THE PROMPTS -----------------------------------------------------
-PS2=$PR_PARSER_DATA_COLOR'    %_ '$PR_RESET$PR_PARSER_PROMPT_COLOR'→ '$PR_RESET
+function zsh_vcs_promptchar_precmd {
+    case $vcs_info_msg_0_ in
+	    *git*)
+            prompt_char='±'
+            ;;
+        *svn*)
+            prompt_char='S'
+            ;;
+        *hg*)
+            prompt_char='☿'
+            ;;
+        *p4*)
+            prompt_char='4'
+            ;;
+        *)
+            prompt_char='$'
+            ;;
+    esac 
+}
+precmd_functions+='zsh_vcs_promptchar_precmd'
 
-PROMPT='
+
+
+# {{{ FINALLY, THE PROMPTS -----------------------------------------------------
+
+case $TERM in 
+    xterm*|rxvt*)
+
+        # The big one
+        PS2=$PR_PARSER_DATA_COLOR'    %_ '$PR_RESET$PR_PARSER_PROMPT_COLOR'→ '$PR_RESET
+        
+        PROMPT='
 '\
 $PR_SHIFT_IN$PR_BARL_COLOR$PR_ULCORNER$PR_HBAR\
 $PR_BARS_COLOR$PR_HBAR$PR_SHIFT_OUT'<'$PR_RESET\
@@ -135,29 +165,22 @@ $branch_prompt\
 $PR_BARL_COLOR$PR_SHIFT_IN$PR_HBAR$PR_HBAR$PR_SHIFT_OUT\
 $PR_BARS_COLOR$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT'('$PR_RESET\
 $pwd_prompt_truncated\
-$PR_BARS_COLOR')'$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT$PR_RESET\
-$PR_BARL_COLOR$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_IN$PR_RESET'
+$PR_BARS_COLOR')'$PR_RESET'
+'$PR_BARL_COLOR$PR_SHIFT_IN$PR_VBAR$PR_SHIFT_OUT$PR_RESET'
 '\
 $PR_SHIFT_IN$PR_BARL_COLOR$PR_LLCORNER$PR_HBAR$PR_SHIFT_OUT$PR_RESET\
 $prompt_char_prompt' '
-
-RPROMPT='['$userhost_prompt'('$time_prompt')]' # prompt for right side of screen
-
-function precmd {
-
-    local TERMWIDTH
-    (( TERMWIDTH = ${COLUMNS} - 1 ))
-
-    ###
-    # Truncate the path if it's too long.
+        
+        RPROMPT='['$userhost_prompt'('$time_prompt')]' # prompt for right side of screen
+        ;;
     
-    # TODO: compute the length of 
-    # (1) branch/action text
-    # (2) pwd text
-    # (3) exit value
-    # (4) user/host/terminal info
-
-    # TODO: truncate the path
-    
-    # Build the filler string
-}
+    eterm*)
+        PROMPT=$PR_PATH_COLOR'%~'$PR_RESET'$ '
+        RPROMPT='['$userhost_prompt'('$time_prompt')]' # prompt for right side of screen
+        PS2='> ' 
+        ;;
+    *)
+        PROMPT='%n@%m:%~$ '
+        PS2='> ' 
+        ;;
+esac

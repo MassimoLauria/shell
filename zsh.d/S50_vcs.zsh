@@ -4,8 +4,42 @@
 # information in prompt.
 
 
+# This variable dictates weather we are going to do the git prompt update
+# before printing the next prompt.  On some setups this saves 10s of work.
+PR_GIT_UPDATE=1
+
+# called before command excution
+# here we decide if we should update the prompt next time
+function zsh_git_prompt_preexec {
+        case "$(history $HISTCMD)" in 
+            *git*)
+                PR_GIT_UPDATE=1
+                ;;
+        esac
+}
+preexec_functions+='zsh_git_prompt_preexec'
+
+# called after directory change
+# we just assume that we have to update git prompt
+function zsh_git_prompt_chpwd {
+        PR_GIT_UPDATE=1
+}
+chpwd_functions+='zsh_git_prompt_chpwd'
+
+# called before prompt generation
+# if needed, we will update the prompt info
+function zsh_git_prompt_precmd {
+       if [[ -n "$PR_GIT_UPDATE" ]] ; then
+               vcs_info 'prompt'
+               PR_GIT_UPDATE=
+       fi
+}
+precmd_functions+='zsh_git_prompt_precmd'
+
+
+
 # Global variables
-vcs_prompt=''
+vcs_prompt_char=''
 vcs_branchname=''
 vcs_status=''
 vcs_color_1=''
@@ -19,9 +53,9 @@ function vcs_decide_repo {
     local INSIDE_MERCURIAL=0     # ☿
     local INSIDE_SVN=0           # S
 
-    local STRING_GIT="git(±)"
-    local STRING_MERCURIAL="mercurial(☿)"
-    local STRING_SVN="svn(S)"           
+    local STRING_GIT="±"
+    local STRING_MERCURIAL="☿"
+    local STRING_SVN="S"           
 
     
     local REPOS=0

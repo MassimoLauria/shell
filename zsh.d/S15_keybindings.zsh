@@ -2,6 +2,8 @@
 
 # Some keybindings I fancy in ZSH
 
+# Start with Emacs setting
+bindkey -e
 
 
 # Left-Right arrows with modifiers

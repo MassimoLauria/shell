@@ -6,7 +6,7 @@
 #
 
 # Where everything starts
-CONFIGDIR=$HOME/config/
+CONFIGDIR=$HOME/config
 
 
 # {{{ Aliases ------------------------------------------------------------------

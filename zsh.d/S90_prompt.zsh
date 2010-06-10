@@ -9,8 +9,6 @@
 
 # Load modules
 setopt prompt_subst
-autoload colors
-colors
 autoload -Uz vcs_info
 
 
@@ -33,13 +31,14 @@ PR_RESET='%{$reset_color%}'
 PR_PROMPT_CHAR_COLOR=$PR_PROMPT_CHAR_COLOR
 
 PR_PATH_COLOR=$PR_BLUE
-PR_REPO_PATH_COLOR=$PR_LIGHT_BLUE
-PR_REPO_SUBDIR_COLOR=$PR_BLUE
+PR_REPO_PATH_COLOR=$PR_BLUE
+PR_REPO_SUBDIR_COLOR=$PR_MAGENTA
 
 PR_TIME_COLOR=$PR_YELLOW
 
 PR_USERNAME_COLOR=$PR_NO_COLOUR
 PR_HOSTNAME_COLOR=$PR_NO_COLOUR
+PR_TTY_COLOR=$PR_NO_COLOUR
 
 PR_EXITVALUE_T_COLOR=$PR_GREEN
 PR_EXITVALUE_F_COLOR=$PR_RED
@@ -47,9 +46,14 @@ PR_EXITVALUE_F_COLOR=$PR_RED
 PR_PARSER_DATA_COLOR=$PR_WHITE
 PR_PARSER_PROMPT_COLOR=$PR_BLUE
 
+PR_VCS_TYPE_COLOR=$PR_WHITE
 PR_VCS_ACTION_COLOR=$PR_CYAN
 PR_VCS_BRANCH_COLOR=$PR_GREEN
 PR_VCS_DIRTY_COLOR=$PR_RED
+
+PR_BARL_COLOR=$PR_BLUE
+PR_BARS_COLOR=$PR_WHITE
+
 
 # }}} --------------------------------------------------------------------------
 
@@ -77,37 +81,38 @@ PR_URCORNER=${altchar[k]:--}
 # %R - repository path
 # %S - path in the repository
 PR_RST="%{${reset_color}%}"
-FMT_BRANCH="${PR_VCS_BRANCH_COLOR}%b%u%c${PR_RST}" # e.g. master¹²
+FMT_BRANCH="${PR_VCS_TYPE_COLOR}%s${PR_RST}:${PR_VCS_BRANCH_COLOR}%b%u%c${PR_RST}" # e.g. master¹²
 FMT_ACTION="(${PR_VCS_ACTION_COLOR}%a${PR_RST}%)"   # e.g. (rebase-i)
 FMT_PATH_VCS="${PR_RST}${PR_REPO_PATH_COLOR}%R${PR_REPO_SUBDIR_COLOR}/%S"   # e.g. ~/repo/subdir
 FMT_PATH_NVCS="${PR_RST}${PR_PATH_COLOR}%~${PR_RST}"   # e.g. ~/repo/subdir
 FMT_UNSTAGE_DIRTY="${PR_VCS_DIRTY_COLOR}¹${PR_RST}"
 FMT_STAGE_DIRTY="${PR_VCS_DIRTY_COLOR}²${PR_RST}"
 
+FMT_BL=$PR_BARS_COLOR$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT'['$PR_RST
+FMT_BR=$PR_BARS_COLOR']'$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT$PR_RST
+
 # check-for-changes can be really slow.
 # you should disable it, if you work with large repositories
+zstyle ':vcs_info:*' enable svn hg git bzr 
 zstyle ':vcs_info:*:prompt:*' check-for-changes true
 zstyle ':vcs_info:*:prompt:*' unstagedstr   "${FMT_UNSTAGE_DIRTY}"  # display ¹ if there are unstaged changes
 zstyle ':vcs_info:*:prompt:*' stagedstr     "${FMT_STAGE_DIRTY}"  # display ² if there are staged changes
-zstyle ':vcs_info:*:prompt:*' actionformats "-[${FMT_BRANCH}${FMT_ACTION}]" "${FMT_PATH_VCS}"
-zstyle ':vcs_info:*:prompt:*' formats       "-[${FMT_BRANCH}]"              "${FMT_PATH_VCS}"
-zstyle ':vcs_info:*:prompt:*' nvcsformats   ""                             "${FMT_PATH_NVCS}"
+zstyle ':vcs_info:*:prompt:*' actionformats $FMT_BL"${FMT_BRANCH}${FMT_ACTION}"$FMT_BR "${FMT_PATH_VCS}"
+zstyle ':vcs_info:*:prompt:*' formats       $FMT_BL"${FMT_BRANCH}"$FMT_BR              "${FMT_PATH_VCS}"
+zstyle ':vcs_info:*:prompt:*' nvcsformats   ""                                         "${FMT_PATH_NVCS}"
 # }}} ---------------------------------------------------------------------------
 
 
 # {{{ PROMPT THEMED COMPONENTS -------------------------------------------------
 # Common
 exit_value_prompt='%(?.'$PR_EXITVALUE_T_COLOR'.'$PR_EXITVALUE_F_COLOR')%?'$PR_RESET
-userhost_prompt=$PR_USERNAME_COLOR'%n'$PR_RESET'@'$PR_HOSTNAME_COLOR'%m'$PR_RESET
+userhost_prompt=$PR_USERNAME_COLOR'%n'$PR_RESET'@'$PR_HOSTNAME_COLOR'%m'$PR_RESET':'$PR_TTY_COLOR'%l'$PR_RESET
 time_prompt=$PR_YELLOW'%*'$PR_RESET
 #pwd_prompt=$PR_PATH_COLOR'%~'$PR_RESET
 dir_prompt=$PR_PATH_COLOR'%1~'$PR_RESET
 
-if [ -z $vcs_info_msg_0_ ]; then
-    prompt_char_prompt=$PR_PROMPT_CHAR_COLOR'$'$PR_RESET
-else
-    prompt_char_prompt=$PR_PROMPT_CHAR_COLOR'±'$PR_RESET
-fi
+prompt_char_prompt=$PR_PROMPT_CHAR_COLOR'$'$PR_RESET
+
 
 # VCS
 branch_prompt='$vcs_info_msg_0_'
@@ -116,10 +121,43 @@ pwd_prompt_truncated="%B%40<..<${pwd_prompt}%<<%b"
 # }}} --------------------------------------------------------------------------
 
 
-
 # {{{ FINALLY, THE PROMPTS -----------------------------------------------------
-PS2=$PR_PARSER_DATA_COLOR'%_ '$PR_RESET$PR_PARSER_PROMPT_COLOR'→ '$PR_RESET
-PROMPT='<'$exit_value_prompt'>'$branch_prompt' '$dir_prompt$prompt_char_prompt' ' # default prompt
-RPROMPT='['$userhost_prompt':'$pwd_prompt_truncated'('$time_prompt')]' # prompt for right side of screen
+PS2=$PR_PARSER_DATA_COLOR'    %_ '$PR_RESET$PR_PARSER_PROMPT_COLOR'→ '$PR_RESET
 
+PROMPT='
+'\
+$PR_SHIFT_IN$PR_BARL_COLOR$PR_ULCORNER$PR_HBAR\
+$PR_BARS_COLOR$PR_HBAR$PR_SHIFT_OUT'<'$PR_RESET\
+$exit_value_prompt\
+$PR_BARS_COLOR'>'$PR_SHIFT_IN$PR_HBAR$PR_RESET\
+$PR_BARL_COLOR$PR_HBAR$PR_SHIFT_OUT$PR_RESET\
+$branch_prompt\
+$PR_BARL_COLOR$PR_SHIFT_IN$PR_HBAR$PR_HBAR$PR_SHIFT_OUT\
+$PR_BARS_COLOR$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT'('$PR_RESET\
+$pwd_prompt_truncated\
+$PR_BARS_COLOR')'$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT$PR_RESET\
+$PR_BARL_COLOR$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_IN$PR_RESET'
+'\
+$PR_SHIFT_IN$PR_BARL_COLOR$PR_LLCORNER$PR_HBAR$PR_SHIFT_OUT$PR_RESET\
+$prompt_char_prompt' '
 
+RPROMPT='['$userhost_prompt'('$time_prompt')]' # prompt for right side of screen
+
+function precmd {
+
+    local TERMWIDTH
+    (( TERMWIDTH = ${COLUMNS} - 1 ))
+
+    ###
+    # Truncate the path if it's too long.
+    
+    # TODO: compute the length of 
+    # (1) branch/action text
+    # (2) pwd text
+    # (3) exit value
+    # (4) user/host/terminal info
+
+    # TODO: truncate the path
+    
+    # Build the filler string
+}

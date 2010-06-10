@@ -4,37 +4,37 @@
 # information in prompt.
 
 
-# This variable dictates weather we are going to do the git prompt update
+# This variable dictates weather we are going to do the vcs prompt update
 # before printing the next prompt.  On some setups this saves 10s of work.
-PR_GIT_UPDATE=1
+__VCS_REPO_UPDATE=1
 
 # called before command excution
 # here we decide if we should update the prompt next time
-function zsh_git_prompt_preexec {
+function zsh_vcs_prompt_preexec {
         case "$(history $HISTCMD)" in 
-            *git*)
-                PR_GIT_UPDATE=1
+            *git*|*hg*|*svn*)
+                __VCS_REPO_UPDATE=1
                 ;;
         esac
 }
-preexec_functions+='zsh_git_prompt_preexec'
+preexec_functions+='zsh_vcs_prompt_preexec'
 
 # called after directory change
-# we just assume that we have to update git prompt
-function zsh_git_prompt_chpwd {
-        PR_GIT_UPDATE=1
+# we just assume that we have to update vcs prompt
+function zsh_vcs_prompt_chpwd {
+     __VCS_REPO_UPDATE=1
 }
-chpwd_functions+='zsh_git_prompt_chpwd'
+chpwd_functions+='zsh_vcs_prompt_chpwd'
 
 # called before prompt generation
 # if needed, we will update the prompt info
-function zsh_git_prompt_precmd {
-       if [[ -n "$PR_GIT_UPDATE" ]] ; then
+function zsh_vcs_prompt_precmd {
+       if [[ -n "$__VCS_REPO_UPDATE" ]] ; then
                vcs_info 'prompt'
-               PR_GIT_UPDATE=
+               __VCS_REPO_UPDATE=
        fi
 }
-precmd_functions+='zsh_git_prompt_precmd'
+precmd_functions+='zsh_vcs_prompt_precmd'
 
 
 
@@ -42,10 +42,12 @@ precmd_functions+='zsh_git_prompt_precmd'
 vcs_prompt_char=''
 vcs_branchname=''
 vcs_status=''
-vcs_color_1=''
-vcs_color_2=''
+vcs_action=''
+vcs_repo_path=''
+vcs_repo_subdir=''
+vcs_inside_repo=''
 
-function vcs_decide_repo {
+function vcs_find_repository {
     
     local START=$PWD
     

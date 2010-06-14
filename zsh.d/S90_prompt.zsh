@@ -34,7 +34,7 @@ PR_PATH_COLOR=$PR_BLUE
 PR_REPO_PATH_COLOR=$PR_BLUE
 PR_REPO_SUBDIR_COLOR=$PR_MAGENTA
 
-PR_TIME_COLOR=$PR_YELLOW
+PR_TIME_COLOR=$PR_GREEN
 
 PR_USERNAME_COLOR=$PR_NO_COLOUR
 PR_HOSTNAME_COLOR=$PR_NO_COLOUR
@@ -108,7 +108,8 @@ zstyle ':vcs_info:*:prompt:*' nvcsformats   ""                                  
 # Common
 exit_value_prompt='%(?.'$PR_EXITVALUE_T_COLOR'.'$PR_EXITVALUE_F_COLOR')%?'$PR_RESET
 userhost_prompt=$PR_USERNAME_COLOR'%n'$PR_RESET'@'$PR_HOSTNAME_COLOR'%m'$PR_RESET':'$PR_TTY_COLOR'%l'$PR_RESET
-time_prompt=$PR_YELLOW'%*'$PR_RESET
+date_text=""
+time_prompt=$PR_TIME_COLOR'${date_text}'$PR_RESET
 #pwd_prompt=$PR_PATH_COLOR'%~'$PR_RESET
 dir_prompt=$PR_PATH_COLOR'%1~'$PR_RESET
 
@@ -145,6 +146,12 @@ function zsh_vcs_promptchar_precmd {
 precmd_functions+='zsh_vcs_promptchar_precmd'
 
 
+function zsh_update-date_precmd {
+    date_text=`date +%H:%M`
+}
+precmd_functions+='zsh_update-date_precmd'
+
+
 
 # {{{ FINALLY, THE PROMPTS -----------------------------------------------------
 
@@ -156,7 +163,11 @@ case $TERM in
         
         PROMPT='
 '\
-$PR_SHIFT_IN$PR_BARL_COLOR$PR_ULCORNER$PR_HBAR\
+$PR_SHIFT_IN$PR_BARL_COLOR$PR_ULCORNER$PR_HBAR$PR_HBAR\
+$PR_BARS_COLOR$PR_HBAR$PR_SHIFT_OUT'('$PR_RESET\
+$time_prompt\
+$PR_BARS_COLOR')'$PR_SHIFT_IN$PR_HBAR$PR_RESET\
+$PR_BARL_COLOR$PR_HBAR$PR_HBAR\
 $PR_BARS_COLOR$PR_HBAR$PR_SHIFT_OUT'<'$PR_RESET\
 $exit_value_prompt\
 $PR_BARS_COLOR'>'$PR_SHIFT_IN$PR_HBAR$PR_RESET\
@@ -171,7 +182,10 @@ $PR_BARS_COLOR')'$PR_RESET'
 $PR_SHIFT_IN$PR_BARL_COLOR$PR_LLCORNER$PR_HBAR$PR_SHIFT_OUT$PR_RESET\
 $prompt_char_prompt' '
         
-        RPROMPT='['$userhost_prompt'('$time_prompt')]' # prompt for right side of screen
+        RPROMPT=$PR_BARS_COLOR'<'$PR_RESET\
+$userhost_prompt\
+$PR_BARS_COLOR'>'$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT$PR_RESET\
+$PR_BARL_COLOR$PR_SHIFT_IN$PR_HBAR$PR_LRCORNER$PR_SHIFT_OUT$PR_RESET # prompt for right side of screen
         ;;
     
     eterm*)

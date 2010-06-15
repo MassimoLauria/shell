@@ -54,6 +54,13 @@ PR_VCS_DIRTY_COLOR=$PR_RED
 PR_BARL_COLOR=$PR_BLUE
 PR_BARS_COLOR=$PR_WHITE
 
+# Themes modification for root
+if [ $UID -eq 0 ]; then
+    PR_BARL_COLOR=$PR_RED
+    PR_BARS_COLOR=$PR_MAGENTA
+fi
+
+
 
 # }}} --------------------------------------------------------------------------
 

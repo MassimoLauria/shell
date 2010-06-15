@@ -35,7 +35,26 @@ fi
 # Common
 source ${config_path}/shenv-common
 
-# Z-Shell
+
+
+# Dumb terminal loads no other configurations
+# than the basics. This will work good with Emacs Tramp.
+if [[ "$TERM" = "dumb" ]]
+then
+    unsetopt zle
+    unsetopt prompt_cr
+    unsetopt prompt_subst
+    unfunction precmd   2> /dev/null
+    unfunction preexec  2> /dev/null
+    PS1='$ '
+    PROMPT='$ '
+    PS2='> '
+    return
+fi
+
+
+
+# Z-Shell modules
 setopt extended_glob
 for zsh_snipplet in $zsh_sources/S[0-9][0-9]*[^~] ; do
         source $zsh_snipplet
@@ -43,7 +62,3 @@ done
 
 
 # }}} ---------------------------------------------------------------------------------
-
-
-
-

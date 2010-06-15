@@ -1,0 +1,27 @@
+#!/bin/zsh
+
+#
+# This Massimo Lauria Z-Shell rc init file for root user.
+# If you don't install it, then TRAMP mode in emacs would not work.
+
+# --- Files and paths -----------------------------------------------------------------
+
+zshrc_path=${HOME}/.zshrc
+
+# Dumb terminal loads no other configurations
+# than the basics. This will work good with Emacs Tramp.
+if [[ "$TERM" = "dumb" ]]
+then
+    unsetopt zle
+    unsetopt prompt_cr
+    unsetopt prompt_subst
+    unfunction precmd   2> /dev/null
+    unfunction preexec  2> /dev/null
+    PS1='$ '
+    PROMPT='$ '
+    PS2='> '
+    return
+else
+    setopt zle
+fi
+# }}} ---------------------------------------------------------------------------------

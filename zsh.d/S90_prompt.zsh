@@ -66,17 +66,36 @@ fi
 
 # {{{ CHECK FOR ANSI ART -------------------------------------------------------
 # See if we can use extended characters to look nicer.
-typeset -A altchar
-set -A altchar ${(s..)terminfo[acsc]}
-PR_SET_CHARSET="%{$terminfo[enacs]%}"
-PR_SHIFT_IN="%{$terminfo[smacs]%}"
-PR_SHIFT_OUT="%{$terminfo[rmacs]%}"
-PR_HBAR=${altchar[q]:--}
-PR_VBAR=${altchar[x]:-|}
-PR_ULCORNER=${altchar[l]:-'/'}
-PR_LLCORNER=${altchar[m]:-'\'}
-PR_LRCORNER=${altchar[j]:-'/'}
-PR_URCORNER=${altchar[k]:-'\'}
+
+case $TERM in 
+    xterm*|rxvt*)
+
+        typeset -A altchar
+        set -A altchar ${(s..)terminfo[acsc]}
+        PR_SET_CHARSET="%{$terminfo[enacs]%}"
+        PR_SHIFT_IN="%{$terminfo[smacs]%}"
+        PR_SHIFT_OUT="%{$terminfo[rmacs]%}"
+        PR_HBAR=${altchar[q]:-'-'}
+        PR_VBAR=${altchar[x]:-'|'}
+        PR_ULCORNER=${altchar[l]:-'/'}
+        PR_LLCORNER=${altchar[m]:-'\'}
+        PR_LRCORNER=${altchar[j]:-'/'}
+        PR_URCORNER=${altchar[k]:-'\'}
+        ;;
+    *)
+        PR_SET_CHARSET=""
+        PR_SHIFT_IN=""
+        PR_SHIFT_OUT=""
+        PR_HBAR='-'
+        PR_VBAR='|'
+        PR_ULCORNER='/'
+        PR_LLCORNER='\'
+        PR_LRCORNER='/'
+        PR_URCORNER='\'
+        ;;
+esac
+       
+
 # }}} -------------------------------------------------------------------------- 
 
 
@@ -163,7 +182,7 @@ precmd_functions+='zsh_update-date_precmd'
 # {{{ FINALLY, THE PROMPTS -----------------------------------------------------
 
 case $TERM in 
-    xterm*|rxvt*)
+    xterm*|rxvt*|eterm*)
 
         # The big one
         PS2=$PR_PARSER_DATA_COLOR'    %_ '$PR_RESET$PR_PARSER_PROMPT_COLOR'→ '$PR_RESET

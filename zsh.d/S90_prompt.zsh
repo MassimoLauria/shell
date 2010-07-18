@@ -182,7 +182,7 @@ precmd_functions+='zsh_update-date_precmd'
 # {{{ FINALLY, THE PROMPTS -----------------------------------------------------
 
 case $TERM in 
-    xterm*|rxvt*
+    xterm*|rxvt*)
 
         # The big one
         PS2=$PR_PARSER_DATA_COLOR'    %_ '$PR_RESET$PR_PARSER_PROMPT_COLOR'→ '$PR_RESET

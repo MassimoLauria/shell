@@ -64,6 +64,7 @@ if [ -f $PYTHONSTARTUP ]; then
 fi
 
 # LaTeX enviroment variables
+export TEXEDIT='emacsclient -t +%d %s'
 export TEXMFHOME=$CONFIGDIR/texmf
 
 # Customised gtkrc file is loaded.

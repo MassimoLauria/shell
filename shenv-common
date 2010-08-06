@@ -8,10 +8,26 @@
 # Where everything starts
 CONFIGDIR=$HOME/config
 
+# {{{ Paths --------------------------------------------------------------------
+
+# Those are useful for MacPorts 
+if [ -d /opt/local/bin ]; then
+    PATH=/opt/local/bin:$PATH
+fi
+
+if [ -d /opt/local/sbin ]; then
+    PATH=/opt/local/sbin:$PATH
+fi
+
+
+# }}} --------------------------------------------------------------------------
+
+
+
 
 # {{{ Aliases ------------------------------------------------------------------
 
-if [ "$TERM" != "dumb" ]; then
+if [ "$TERM" != "dumb" -a -f `which dircolors` ]; then
     eval "`dircolors -b`"
     alias ls='ls --color=auto'
 fi

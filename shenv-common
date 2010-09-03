@@ -19,6 +19,9 @@ if [ -d /opt/local/sbin ]; then
     PATH=/opt/local/sbin:$PATH
 fi
 
+if [ -d /Applications/Aquamacs.app/Contents/MacOS/bin ]; then
+    PATH=/Applications/Aquamacs.app/Contents/MacOS/bin:$PATH
+fi
 
 # }}} --------------------------------------------------------------------------
 
@@ -49,7 +52,7 @@ export PAGER
 
 # {{{ Editor -------------------------------------------------------------------
 
-EDITOR="ec"
+EDITOR="emacsclient"
 
 if [[ -f `which qemacs` ]]; then
     ALTERNATE_EDITOR="qemacs"
@@ -65,7 +68,7 @@ else
     ALTERNATE_EDITOR="vi"
 fi
 
-alias ec="emacsclient -t"
+alias ec="emacsclient -n"
 alias ecx="emacsclient -n -c"
 
 export EDITOR

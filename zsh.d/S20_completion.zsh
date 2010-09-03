@@ -55,6 +55,14 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)[ 0-9:]#([
 #zstyle ':completion:*' users $users
 
 
+#[ OSX Application awareness ]##################################################
+if [ "`uname`" = "Darwin" ]; then
+   compctl -f -x 'p[2]' -s "`/bin/ls -d1 /Applications/*/*.app
+/Applications/*.app | sed 's|^.*/\([^/]*\)\.app.*|\\1|;s/ /\\\\ /g'`" -- open
+#   alias run='open -a'
+fi 2> /dev/null
+
+
 #[ Applications and viewer ]####################################################
 
 zstyle ':completion:*:*:[akx]dvi:*' file-patterns \

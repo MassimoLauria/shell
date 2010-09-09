@@ -68,7 +68,7 @@ else
     ALTERNATE_EDITOR="vi"
 fi
 
-alias ec="emacsclient -n"
+alias ec="emacsclient -t"
 alias ecx="emacsclient -n -c"
 
 export EDITOR

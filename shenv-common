@@ -68,8 +68,14 @@ else
     ALTERNATE_EDITOR="vi"
 fi
 
-alias ec="emacsclient -t"
+# Never use terminal emacs on Mac...
+if [ `uname` = "Darwin" ]; then
+    alias ec="emacsclient -n"
+else
+    alias ec="emacsclient -t"
+fi
 alias ecx="emacsclient -n -c"
+    
 
 export EDITOR
 export ALTERNATE_EDITOR

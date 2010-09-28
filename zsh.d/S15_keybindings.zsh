@@ -63,9 +63,14 @@ bindkey "^[l" forward-char         # M-l
 bindkey "^[i" up-line-or-history   # M-i
 bindkey "^[k" down-line-or-history # M-k
 
+# Word jumps above home row
+bindkey "^[u" backward-word        # M-u
+bindkey "^[o" forward-word         # M-o
+
 # Home/End on home row
-bindkey "^[u" beginning-of-line # M-u
-bindkey "^[o" end-of-line       # M-o
+bindkey "^[g" beginning-of-line # M-g
+bindkey "^[h" end-of-line       # M-h
+
 
 # C-Arrows
 #"\e[1;5D": backward-word           # C-Left

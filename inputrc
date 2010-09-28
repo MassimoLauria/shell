@@ -91,10 +91,13 @@ M-j: backward-char
 M-l: forward-char
 M-i: previous-history
 M-k: next-history
+# Word jumps above row 
+M-u: backward-word      
+M-o: forward-word
 
 # Home/End on home row
-M-u: beginning-of-line
-M-o: end-of-line      
+M-g: beginning-of-line
+M-h: end-of-line      
 
 # C-Arrows
 "\e[1;5D": backward-word           # C-Left
@@ -115,8 +118,8 @@ M-o: end-of-line
 #C-k: history-search-forward
 
 # C-Home/End
-C-u: beginning-of-history    
-C-o: end-of-history 
+#C-u: beginning-of-history    
+#C-o: end-of-history 
 
 
 ##################

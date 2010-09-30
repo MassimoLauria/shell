@@ -56,11 +56,11 @@ set history-size 10000
 # Scroll
 set horizontal-scroll-mode on
 
-########################
-#                      #
-#    Key settings      #
-#                      #
-########################
+######################################
+#                                    #
+#   Basic Keyboard Key settings      #
+#                                    #
+######################################
 
 # Rationale
 # 
@@ -72,19 +72,8 @@ set horizontal-scroll-mode on
 # u = Home
 # o = End
 #
-# Special keys are implemented with Alt modifier.
-# Control-special keys are implemented with Control modifier. 
-
-
-# Arrows
-"\e[D": backward-char     # Left
-"\e[C": forward-char      # Right
-"\e[A": previous-history  # Up
-"\e[B": next-history      # Down
-
-# Home/End
-"\e[H": beginning-of-line # Home
-"\e[F": end-of-line       # End
+# b = Prev
+# n = Next
 
 # Arrows on home row
 M-j: backward-char
@@ -99,6 +88,45 @@ M-o: forward-word
 M-g: beginning-of-line
 M-h: end-of-line      
 
+# Prev/Next close to home row
+M-b: previous-history
+M-n: next-history 
+
+
+
+##################
+# Deletion keys  #
+##################
+M-w: backward-kill-word
+M-d: backward-delete-char
+M-f: delete-char
+C-w: kill-whole-line
+#C-d: backward-kill-word
+#C-f: kill-word
+
+##################
+# Cut/Paste/Undo #
+##################
+# Here we use meta because C- is unavailable
+M-x: kill-region         
+M-c: copy-region-as-kill 
+M-v: yank
+M-z: undo
+M-y: yank-pop
+M-SPC: set-mark
+
+
+
+# Arrows
+"\e[D": backward-char     # Left
+"\e[C": forward-char      # Right
+"\e[A": previous-history  # Up
+"\e[B": next-history      # Down
+
+# Home/End
+"\e[H": beginning-of-line # Home
+"\e[F": end-of-line       # End
+
 # C-Arrows
 "\e[1;5D": backward-word           # C-Left
 "\e[1;5C": forward-word            # C-Right
@@ -109,41 +137,5 @@ M-h: end-of-line
 # C-Home/End
 "\e[1;5H": beginning-of-history    # C-Home
 "\e[1;5F": end-of-history          # C-End
-
-
-# C-Arrows on home row
-#C-j: backward-word
-#C-l: forward-word
-#C-i: history-search-backward
-#C-k: history-search-forward
-
-# C-Home/End
-#C-u: beginning-of-history    
-#C-o: end-of-history 
-
-
-##################
-# Deletion keys  #
-##################
-M-w: backward-kill-word
-M-d: backward-delete-char
-M-f: delete-char
-C-d: backward-kill-word
-C-f: kill-word
-
-
-# Backspace, Delete, C-Backspace, C-Delete
-
-
-##################
-# Cut/Paste/Undo #
-##################
-M-x: kill-region
-M-c: copy-region-as-kill
-M-v: yank
-M-y: yank-pop
-M-z: undo
-M-RET: set-mark
-
 
 $include /etc/inputrc

@@ -22,27 +22,6 @@ bindkey ";3B" end-of-line
 bindkey ";2A" beginning-of-line
 bindkey ";2B" end-of-line
 
-
-
-########################
-#                      #
-#    Key settings      #
-#                      #
-########################
-
-# Rationale
-# 
-# j = Left
-# l = Right
-# i = Up
-# k = Down
-#
-# u = Home
-# o = End
-#
-# Special keys are implemented with Alt modifier.
-# Control-special keys are implemented with Control modifier. 
-
 # "page up" and "page down" to search the history
 bindkey "\e[5~" history-search-backward
 bindkey "\e[6~" history-search-forward
@@ -56,6 +35,26 @@ bindkey "\e[B" down-line-or-history  # Down
 # Home/End
 bindkey "\e[H" beginning-of-line # Home
 bindkey "\e[F" end-of-line       # End
+
+######################################
+#                                    #
+#   Basic Keyboard Key settings      #
+#                                    #
+######################################
+
+# Rationale
+# 
+# j = Left
+# l = Right
+# i = Up
+# k = Down
+#
+# u = Home
+# o = End
+#
+# b = Prev
+# n = Next
+
 
 # Arrows on home row
 bindkey "^[j" backward-char        # M-j
@@ -71,63 +70,29 @@ bindkey "^[o" forward-word         # M-o
 bindkey "^[g" beginning-of-line # M-g
 bindkey "^[h" end-of-line       # M-h
 
+# Search backward/forward in history 
+bindkey "^[b" history-search-backward # M-b
+bindkey "^[n" history-search-forward  # M-n
 
-# C-Arrows
-#"\e[1;5D": backward-word           # C-Left
-#"\e[1;5C": forward-word            # C-Right
-#"\e[1;5A": history-search-backward # C-Up
-#"\e[1;5B": history-search-forward  # C-Down
-# 
-# 
-## C-Home/End
-#"\e[1;5H": beginning-of-history    # C-Home
-#"\e[1;5F": end-of-history          # C-End
-# 
-# 
-## C-Arrows on home row
-##C-j: backward-word
-##C-l: forward-word
-##C-i: history-search-backward
-##C-k: history-search-forward
-# 
-## C-Home/End
-#C-u: beginning-of-history    
-#C-o: end-of-history 
-# 
-# 
+
 ###################
-## Deletion keys  #
+#  Deletion keys  #
 ###################
 bindkey "^[w" backward-kill-word   #M-w 
 bindkey "^[d" backward-delete-char #M-d 
 bindkey "^[f" delete-char          #M-f 
-bindkey "^d"  backward-kill-word   #C-d 
-bindkey "^f"  kill-word            #C-f 
+bindkey "^w"  kill-whole-line      #C-w 
+#bindkey "^d"  backward-kill-word   #C-d 
+#bindkey "^f"  kill-word            #C-f 
 
-# 
-# 
-## Backspace, Delete, C-Backspace, C-Delete
-# 
-# 
 ###################
-## Cut/Paste/Undo #
+#  Cut/Paste/Undo #
 ###################
-bindkey "^[x" kill-region  #M-x
-bindkey "^x"  kill-region  #C-x
-
-bindkey "^[c" copy-region-as-kill #M-c: 
-bindkey "^c"  copy-region-as-kill #C-c: 
-
-bindkey "^[v" yank                #M-v: 
-bindkey "^v"  yank                #C-v: 
-
-bindkey "^[z"  undo               #M-z: 
-bindkey "^z"   undo               #C-z: 
-
-bindkey "^[\ " set-mark-command   #M-Space
-bindkey "^\ "  set-mark-command   #C-Space
-
-bindkey "^[y"  yank-pop           #M-y:
- 
-
+bindkey "^x"   kill-region         #C-x
+bindkey "^c"   copy-region-as-kill #C-c 
+bindkey "^v"   yank                #C-v 
+bindkey "^z"   undo                #C-z 
+bindkey "^[\ " set-mark-command    #M-Space (differ from my Emacs bindings)
+bindkey "^\ "  set-mark-command    #C-Space
+bindkey "^[y"  yank-pop            #M-y
 

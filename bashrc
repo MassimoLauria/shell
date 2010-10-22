@@ -32,3 +32,5 @@ esac
 ## Shell independent enviroment
 source ~/config/shell/shenv-common
 
+## Bash dependent configurations
+unset command_not_found_handle

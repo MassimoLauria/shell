@@ -10,7 +10,7 @@ CONFIGDIR=$HOME/config
 
 # {{{ Paths --------------------------------------------------------------------
 
-# Those are useful for MacPorts 
+# Those are useful for MacPorts
 if [ -d /opt/local/bin ]; then
     PATH=/opt/local/bin:$PATH
 fi
@@ -75,7 +75,7 @@ else
     alias ec="emacsclient -t"
 fi
 alias ecx="emacsclient -n -c"
-    
+
 
 export EDITOR
 export ALTERNATE_EDITOR
@@ -94,6 +94,10 @@ export TEXMFHOME=$CONFIGDIR/texmf
 
 # Customised gtkrc file is loaded.
 export GTK2_RC_FILES=$HOME/.gtkrc-2.0
+
+
+# Do not apply gtk-theme to openoffice
+export SAL_USE_VCLPLUGIN=gen
 
 
 ### Include other files

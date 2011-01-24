@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# Massimo Lauria, 2010
+#
+# Shell commands for MacOSX. This is because MacOSX has no Xsession.
+#
+
+## SSH identity load
+if [ -n "$SSHIDENTITY" -a -f $SSHIDENTITY ]; then
+    ssh-add $SSHIDENTITY 2> /dev/null
+fi

@@ -107,7 +107,9 @@ if [ -f "$HOME/personal/conf/shenv-personal" ]; then
 	source $HOME/personal/conf/shenv-personal
 fi
 
-
+if [ x`uname -o` = "xDarwin" ]; then
+    source $CONFIGDIR/shell/shenv-macosx
+fi
 
 ## Umask
 umask 0077

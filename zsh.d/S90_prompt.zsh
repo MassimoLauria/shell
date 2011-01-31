@@ -221,6 +221,11 @@ $PR_BARL_COLOR$PR_SHIFT_IN$PR_HBAR$PR_LRCORNER$PR_SHIFT_OUT$PR_RESET # prompt fo
         RPROMPT='['$userhost_prompt'('$time_prompt')]' # prompt for right side of screen
         PS2='> '
         ;;
+
+    dumb) # Simple prompt for dumb terminals
+        unsetopt zle
+        PROMPT='%n@%m:%~$ '
+        ;;
     *)
         PROMPT='%n@%m:%~$ '
         PS2='> '

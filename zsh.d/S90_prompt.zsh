@@ -1,4 +1,4 @@
-#!/bin/zsh 
+#!/bin/zsh
 
 # references
 #   http://www.jukie.net/~bart/blog/tag/zsh
@@ -67,10 +67,12 @@ fi
 # {{{ CHECK FOR ANSI ART -------------------------------------------------------
 # See if we can use extended characters to look nicer.
 
-case $TERM in 
+case $TERM in
     xterm*|rxvt*)
 
-        typeset -A altchar
+        if [[ $TERM_PROGRAM != "Apple_Terminal" ]]; then
+            typeset -A altchar
+        fi
         set -A altchar ${(s..)terminfo[acsc]}
         PR_SET_CHARSET="%{$terminfo[enacs]%}"
         PR_SHIFT_IN="%{$terminfo[smacs]%}"
@@ -94,9 +96,9 @@ case $TERM in
         PR_URCORNER='\'
         ;;
 esac
-       
 
-# }}} -------------------------------------------------------------------------- 
+
+# }}} --------------------------------------------------------------------------
 
 
 # {{{ VCS INFO -----------------------------------------------------------------
@@ -120,7 +122,7 @@ FMT_BR=$PR_BARS_COLOR']'$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT$PR_RST
 
 # check-for-changes can be really slow.
 # you should disable it, if you work with large repositories
-zstyle ':vcs_info:*' enable svn hg git bzr 
+zstyle ':vcs_info:*' enable svn hg git bzr
 zstyle ':vcs_info:*:prompt:*' check-for-changes true
 zstyle ':vcs_info:*:prompt:*' unstagedstr   "${FMT_UNSTAGE_DIRTY}"  # display ¹ if there are unstaged changes
 zstyle ':vcs_info:*:prompt:*' stagedstr     "${FMT_STAGE_DIRTY}"  # display ² if there are staged changes
@@ -167,7 +169,7 @@ function zsh_vcs_promptchar_precmd {
         *)
             prompt_char='$'
             ;;
-    esac 
+    esac
 }
 precmd_functions+='zsh_vcs_promptchar_precmd'
 
@@ -181,12 +183,12 @@ precmd_functions+='zsh_update-date_precmd'
 
 # {{{ FINALLY, THE PROMPTS -----------------------------------------------------
 
-case $TERM in 
+case $TERM in
     xterm*|rxvt*)
 
         # The big one
         PS2=$PR_PARSER_DATA_COLOR'    %_ '$PR_RESET$PR_PARSER_PROMPT_COLOR'→ '$PR_RESET
-        
+
         PROMPT='
 '\
 $PR_SHIFT_IN$PR_BARL_COLOR$PR_ULCORNER$PR_HBAR$PR_HBAR\
@@ -207,20 +209,20 @@ $PR_BARS_COLOR')'$PR_RESET'
 '\
 $PR_SHIFT_IN$PR_BARL_COLOR$PR_LLCORNER$PR_HBAR$PR_SHIFT_OUT$PR_RESET\
 $prompt_char_prompt' '
-        
+
         RPROMPT=$PR_BARS_COLOR'<'$PR_RESET\
 $userhost_prompt\
 $PR_BARS_COLOR'>'$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT$PR_RESET\
 $PR_BARL_COLOR$PR_SHIFT_IN$PR_HBAR$PR_LRCORNER$PR_SHIFT_OUT$PR_RESET # prompt for right side of screen
         ;;
-    
+
     eterm*)
         PROMPT=$PR_PATH_COLOR'%~'$PR_RESET'$ '
         RPROMPT='['$userhost_prompt'('$time_prompt')]' # prompt for right side of screen
-        PS2='> ' 
+        PS2='> '
         ;;
     *)
         PROMPT='%n@%m:%~$ '
-        PS2='> ' 
+        PS2='> '
         ;;
 esac

@@ -1,82 +1,96 @@
 #!/bin/sh
 
-# Save shell files from deletion
+# Copyright (C) 2010, 2011 by Massimo Lauria <lauria.massimo@gmail.com>
+#
+# Created   : "2011-03-05, sabato 01:03 (CET) Massimo Lauria"
+# Time-stamp: "2011-03-05, sabato 14:46 (CET) Massimo Lauria"
 
+# Description::
+#
+# Install file to setup the shell.
 
-SUFFIX=config-shell
-
+# -------------------- Env Variables ------------------------
 RCFILES="bashrc zshrc inputrc"
-ENVFILES="shenv-common shenv-gnupg"
-OTHERFILES="install.sh"
-ALLFILES="$RCFILES $ENVFILES $OTHERFILES"
-BACKUPLIST=$RCFILES
+DESTDIR="$HOME"
+CP=cp
+LN=ln
+RM=rm
+FILE_NOT_FOUND=127
 
-DESTDIR="~"
 
-# Check if it is running in the appropriate directory
-# by checking files are present.
-CHECK=pass
+# ------------------- Utilities -----------------------------
+require_program()
+{
+    if [ $# -ne 1 ]; then echo "Wrong argument number."; exit 1; fi
 
-for FILENAME in $ALLFILES; do
-    if [ ! -f $PWD/$FILENAME ]; then 
-        CHECK="fail"
+    echo -n "Checking for '$1'... "
+    which $1 2> /dev/null > /dev/null
+    if [ $? -ne 0 ]; then
+        echo "FAIL."
+        exit_on_missing_program $1
+    else
+        echo "OK."
     fi
-done
+}
 
-if  [ $CHECK = "fail" ]; then
+exit_on_missing_program() {
     echo ""
-    echo "INSTALLATION ERROR:" 
-    echo "Not running in the appropriate directory or some files are missing."
+    echo "Unfortunately program \"$1\" is not present, or it is not executable."
+    echo "Without this software, I can't finish the installation."
     echo ""
-    exit 1
-fi
+    echo "Bye bye."
+    exit $FILE_NOT_FOUND
+}
 
-
+backup_maybe() {
 # Check backup possibility.
-CHECK="pass"
-for FILENAME in $BACKUPLIST; do
-
-    SRC=$DESTDIR/.$FILENAME
-    DST=$DESTDIR/.$FILENAME.$SUFFIX
-    CHECKITEM="pass"
-
-    if [ -f $SRC ] && [ -f $DST ]; then 
-        CHECKITEM="fail"
+    if [ $# -ne 1 ]; then echo "Wrong argument number."; exit 1; fi
+    if [ -e $1 ]; then
+        $CP -arb $1 $1.bak.`date +%Y-%m-%d.%H.%M.%S`
     fi
+}
 
-    echo "BACKUP: $SRC ---> $DST ($CHECKITEM)"
-    
-    if [ $CHECKITEM = "fail" ]; then 
-        CHECK="fail" 
+
+issue_warning_on_pwd() {
+    if [ $# -ne 1 ]; then echo "Wrong argument number."; exit 1; fi
+    if [ "$PWD" != "$HOME/$1" ]; then
+        echo ""
+        echo "WARNING: you are installing in a wrong path."
+        echo "WARNING: the right path should be ~/$1."
+        echo "WARNING: installation would go on, but something may not work properly."
+        echo "WARNING: remember that moving folder requires running this script again."
+        echo ""
     fi
-done
+}
 
-if  [ $CHECK = "fail" ]; then
-    echo ""
-    echo "INSTALLATION ERROR:" 
-    echo "Can't make backup files where necessary."
-    echo "You may want to remove old backup files manually."
-    echo ""
-    exit 1
-fi
+# ------------------- Installation -------------------------
 
-# Do backup (by copying and not moving)
-for FILENAME in $BACKUPLIST; do
+# Goto config folder.
+cd $(dirname $0)
 
-    SRC=$DESTDIR/.$FILENAME
-    DST=$DESTDIR/.$FILENAME.$SUFFIX
-    
-    if [ -f $SRC ]; then 
-        cp $SRC $DST
-        rm -f $SRC
+issue_warning_on_pwd "config/shell"
+
+echo "Check for the present of basic programs"
+require_program $CP
+require_program $LN
+echo ""
+
+# Do backups
+for FILENAME in $RCFILES; do
+
+    DST=$DESTDIR/.$FILENAME
+    echo "backup of file: $DST"
+    backup_maybe $DST
+
+    if [ -f $DST ]; then
+        $RM -f $DST
     fi
-    
 done
 
 # Do install
 for FILENAME in $RCFILES; do
     echo "Installing '$FILENAME' in HOME directory."
-    ln -s $PWD/$FILENAME $DESTDIR/.$FILENAME
+    $LN -s $PWD/$FILENAME $DESTDIR/.$FILENAME
 done
 echo "Bye, bye!"
 

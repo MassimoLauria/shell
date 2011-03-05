@@ -3,7 +3,7 @@
 # Copyright (C) 2010, 2011 by Massimo Lauria <lauria.massimo@gmail.com>
 #
 # Created   : "2011-03-05, sabato 01:03 (CET) Massimo Lauria"
-# Time-stamp: "2011-03-05, sabato 14:46 (CET) Massimo Lauria"
+# Time-stamp: "2011-03-05, sabato 14:55 (CET) Massimo Lauria"
 
 # Description::
 #
@@ -73,6 +73,7 @@ issue_warning_on_pwd "config/shell"
 echo "Check for the present of basic programs"
 require_program $CP
 require_program $LN
+require_program $RM
 echo ""
 
 # Do backups

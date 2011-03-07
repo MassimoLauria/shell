@@ -3,14 +3,14 @@
 # Copyright (C) 2010, 2011 by Massimo Lauria <lauria.massimo@gmail.com>
 #
 # Created   : "2011-03-05, sabato 01:03 (CET) Massimo Lauria"
-# Time-stamp: "2011-03-05, sabato 14:55 (CET) Massimo Lauria"
+# Time-stamp: "2011-03-07, lunedì 17:50 (CET) Massimo Lauria"
 
 # Description::
 #
 # Install file to setup the shell.
 
 # -------------------- Env Variables ------------------------
-RCFILES="bashrc zshrc inputrc"
+RCFILES="bashrc zshrc inputrc screenrc"
 DESTDIR="$HOME"
 CP=cp
 LN=ln

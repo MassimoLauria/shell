@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# disable the startup splash message that screen displays on startup
+startup_message off
+# create a status line at the bottom of the screen.  this will show the titles and locations of
+# all screen windows you have open at any given time
+hardstatus alwayslastline "%{= dR} %-Lw%50>%{= dG}%n%f* %{= dW}%t%{= dR}%+Lw%<"
+
+# allow bold colors - necessary for some reason
+attrcolor b ".I"
+# tell screen how to set colors. AB = background, AF=foreground
+termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+term "screen-256color"
+# erase background with current bg color
+defbce "on"
+
+# Clients
+screen -t zsh
+screen -t editor emacsclient -t
+screen -t mail   mutt -y

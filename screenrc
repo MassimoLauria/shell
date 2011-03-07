@@ -14,7 +14,14 @@ term "screen-256color"
 # erase background with current bg color
 defbce "on"
 
+# Scroll back lines
+defscrollback 10000
+
+
 # Clients
-screen -t zsh
-screen -t editor emacsclient -t
-screen -t mail   mutt -y
+screen -t term 0
+screen -t edit 1 emacsclient -t
+screen -t mail 2 mutt -y
+
+# Start
+select 0

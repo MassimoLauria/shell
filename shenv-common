@@ -40,9 +40,9 @@ alias rm="rm -iv"
 
 
 # {{{ Pager --------------------------------------------------------------------
-if [ -f `which most 2>&1 /dev/null` ]; then
+if [[ -f `which most 2>&1 /dev/null` ]]; then
     PAGER=most
-elif [ -f `which less 2>&1 /dev/null` ]; then
+elif [[ -f `which less 2>&1 /dev/null` ]]; then
     PAGER=less
 else
     PAGER=more

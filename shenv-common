@@ -102,6 +102,8 @@ export SAL_USE_VCLPLUGIN=gen
 
 ### Include other files
 source $CONFIGDIR/shell/shenv-gnupg
+source $CONFIGDIR/shell/shenv-ssh
+
 
 if [ -f "$HOME/personal/conf/shenv-personal" ]; then
 	source $HOME/personal/conf/shenv-personal

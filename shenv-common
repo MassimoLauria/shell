@@ -30,11 +30,11 @@ fi
 
 # {{{ Aliases ------------------------------------------------------------------
 
-if [ "$TERM" != "dumb" -a -f `which dircolors` ]; then
-    eval "`dircolors -b`"
-    alias ls='ls --color=auto'
-fi
-alias rm="rm -iv"
+# if [ "$TERM" != "dumb" -a -f `which dircolors 2>/dev/null` ]; then
+#     eval "`dircolors -b`"
+#     alias ls='ls --color=auto'
+# fi
+# alias rm="rm -iv"
 
 # }}} --------------------------------------------------------------------------
 
@@ -109,7 +109,7 @@ if [ -f "$HOME/personal/conf/shenv-personal" ]; then
 	source $HOME/personal/conf/shenv-personal
 fi
 
-if [ x`uname -o` = "xDarwin" ]; then
+if [ x`uname` = "xDarwin" ]; then
     source $CONFIGDIR/shell/shenv-macosx
 fi
 

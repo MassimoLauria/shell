@@ -87,6 +87,8 @@ PYTHONSTARTUP=$CONFIGDIR/pythonrc/pythonrc.py
 if [ -f $PYTHONSTARTUP ]; then
     export PYTHONSTARTUP
 fi
+IPYTHON_DIR=$HOME/.ipython/
+export IPYTHON_DIR
 
 # LaTeX enviroment variables
 export TEXEDIT='emacsclient -t +%d %s'

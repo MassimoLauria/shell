@@ -81,15 +81,6 @@ export EDITOR
 export ALTERNATE_EDITOR
 
 
-
-# Python enviroment variables
-PYTHONSTARTUP=$CONFIGDIR/pythonrc/pythonrc.py
-if [ -f $PYTHONSTARTUP ]; then
-    export PYTHONSTARTUP
-fi
-IPYTHON_DIR=$HOME/.ipython/
-export IPYTHON_DIR
-
 # LaTeX enviroment variables
 export TEXEDIT='emacsclient -t +%d %s'
 export TEXMFHOME=$CONFIGDIR/texmf
@@ -105,6 +96,7 @@ export SAL_USE_VCLPLUGIN=gen
 ### Include other files
 source $CONFIGDIR/shell/shenv-gnupg
 source $CONFIGDIR/shell/shenv-ssh
+source $CONFIGDIR/shell/shenv-python
 
 
 if [ -f "$HOME/personal/conf/shenv-personal" ]; then

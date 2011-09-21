@@ -1,0 +1,33 @@
+#!/bin/sh
+#
+# Copyright (C) 2011 by Massimo Lauria
+#
+# Created   : "2011-09-22, Thursday 01:06 (CEST) Massimo Lauria"
+# Time-stamp: "2011-09-22, Thursday 01:09 (CEST) Massimo Lauria"
+#
+# Description::
+#
+# Shell environmnet variables for python, ipython, sagemath
+#
+
+# Code::
+
+
+# Python enviroment variables
+PYTHONSTARTUP=$CONFIGDIR/pythonrc/pythonrc.py
+if [ -f $PYTHONSTARTUP ]; then
+    export PYTHONSTARTUP
+fi
+
+# IPython configuration folder
+IPYTHON_DIR=$HOME/.ipython/
+export IPYTHON_DIR
+
+# Sagemath configuration folder
+DOT_SAGE=$HOME/.sage/
+export DOT_SAGE
+
+
+# Local Variables:
+# fill-column: 80
+# End:

@@ -54,9 +54,7 @@ export PAGER
 
 EDITOR="emacsclient"
 
-if [[ -f `which qemacs 2>/dev/null` ]]; then
-    ALTERNATE_EDITOR="qemacs"
-elif [[ -f `which jed 2>/dev/null` ]]; then
+if [[ -f `which jed 2>/dev/null` ]]; then
     ALTERNATE_EDITOR="jed"
 elif [[ -f `which zile 2>/dev/null` ]]; then
     ALTERNATE_EDITOR="zile"

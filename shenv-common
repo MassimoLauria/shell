@@ -81,7 +81,15 @@ export ALTERNATE_EDITOR
 
 # LaTeX enviroment variables
 export TEXEDIT='emacsclient -t +%d %s'
-export TEXMFHOME=$CONFIGDIR/texmf
+
+TEXMFHOME="$CONFIGDIR/texmf"  # Local packages
+if [[ -f `which sage 2>/dev/null` ]]; then
+    # Sage TeX packages
+    TEXMFHOME="$TEXMFHOME:`sage -root`/local/share/texmf"
+fi
+
+
+
 
 # Customised gtkrc file is loaded.
 export GTK2_RC_FILES=$HOME/.gtkrc-2.0

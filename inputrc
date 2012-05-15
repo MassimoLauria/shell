@@ -15,7 +15,7 @@ set bell-style none
 # allow the use of the Home/End keys
 #"\e[1~": beginning-of-line
 #"\e[4~": end-of-line
-# 
+#
 ## allow the use of the Delete/Insert keys
 "\e[2~": quoted-insert
 
@@ -40,7 +40,7 @@ set bell-style none
 
 # Other personal customization
 
-set blink-matching-parent on
+set blink-matching-paren on
 
 # Completion
 set show-all-if-ambiguous  on
@@ -63,7 +63,7 @@ set horizontal-scroll-mode on
 ######################################
 
 # Rationale
-# 
+#
 # j = Left
 # l = Right
 # i = Up
@@ -80,17 +80,17 @@ M-j: backward-char
 M-l: forward-char
 M-i: previous-history
 M-k: next-history
-# Word jumps above row 
-M-u: backward-word      
+# Word jumps above row
+M-u: backward-word
 M-o: forward-word
 
 # Home/End on home row
 M-g: beginning-of-line
-M-h: end-of-line      
+M-h: end-of-line
 
 # Prev/Next close to home row
 M-b: previous-history
-M-n: next-history 
+M-n: next-history
 
 
 
@@ -108,8 +108,8 @@ C-w: kill-whole-line
 # Cut/Paste/Undo #
 ##################
 # Here we use meta because C- is unavailable
-M-x: kill-region         
-M-c: copy-region-as-kill 
+M-x: kill-region
+M-c: copy-region-as-kill
 M-v: yank
 M-z: undo
 M-y: yank-pop

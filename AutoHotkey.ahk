@@ -1,4 +1,4 @@
-ï»¿; IMPORTANT INFO ABOUT GETTING STARTED: Lines that start with a
+; IMPORTANT INFO ABOUT GETTING STARTED: Lines that start with a
 ; semicolon, such as this one, are comments.  They are not executed.
 
 ; This script has a special filename and path because it is automatically
@@ -56,13 +56,11 @@ return
 ;
 ; Various keys I got used to on Linux
 ;
-
-<^>!8::[   	; AltGr+8 = [
-<^>!9::]	; AltGr+9 = ]
-<^>!7::{	; AltGr+7 = {
-<^>!0::}	; AltGr+0 = }
-<^>!'::`        ; AltGr+' = `
-<^>!Ã¬::~	; AltGr+Ã¬ = ~
+<^>!a::à
+<^>!e::è
+<^>!i::ì
+<^>!o::ò
+<^>!u::ù
 
 
 ;

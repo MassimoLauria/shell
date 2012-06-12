@@ -2,9 +2,8 @@
 
 # Some keybindings I fancy in ZSH
 
-# Start with Emacs setting
+# Use Emacs style bindings
 bindkey -e
-
 
 # Left-Right arrows with modifiers
 bindkey ";5C" forward-word
@@ -36,6 +35,7 @@ bindkey "\e[B" down-line-or-history  # Down
 bindkey "\e[H" beginning-of-line # Home
 bindkey "\e[F" end-of-line       # End
 
+
 ######################################
 #                                    #
 #   Basic Keyboard Key settings      #
@@ -43,7 +43,7 @@ bindkey "\e[F" end-of-line       # End
 ######################################
 
 # Rationale
-# 
+#
 # j = Left
 # l = Right
 # i = Up
@@ -70,7 +70,7 @@ bindkey "^[o" forward-word         # M-o
 bindkey "^[g" beginning-of-line # M-g
 bindkey "^[h" end-of-line       # M-h
 
-# Search backward/forward in history 
+# Search backward/forward in history
 bindkey "^[b" history-search-backward # M-b
 bindkey "^[n" history-search-forward  # M-n
 
@@ -78,21 +78,32 @@ bindkey "^[n" history-search-forward  # M-n
 ###################
 #  Deletion keys  #
 ###################
-bindkey "^[w" backward-kill-word   #M-w 
-bindkey "^[d" backward-delete-char #M-d 
-bindkey "^[f" delete-char          #M-f 
-bindkey "^w"  kill-whole-line      #C-w 
-#bindkey "^d"  backward-kill-word   #C-d 
-#bindkey "^f"  kill-word            #C-f 
+bindkey "^[w" backward-kill-word   #M-w
+bindkey "^[d" backward-delete-char #M-d
+bindkey "^[f" delete-char          #M-f
+bindkey "^w"  kill-whole-line      #C-w
+#bindkey "^d"  backward-kill-word   #C-d
+#bindkey "^f"  kill-word            #C-f
 
 ###################
 #  Cut/Paste/Undo #
 ###################
 bindkey "^x"   kill-region         #C-x
-bindkey "^c"   copy-region-as-kill #C-c 
-bindkey "^v"   yank                #C-v 
-bindkey "^z"   undo                #C-z 
+bindkey "^c"   copy-region-as-kill #C-c
+bindkey "^v"   yank                #C-v
+bindkey "^z"   undo                #C-z
 bindkey "^[\ " set-mark-command    #M-Space (differ from my Emacs bindings)
 bindkey "^\ "  set-mark-command    #C-Space
 bindkey "^[y"  yank-pop            #M-y
+
+
+
+######################################
+#                                    #
+#      Command Line editing          #
+#                                    #
+######################################
+autoload edit-command-line
+zle -N edit-command-line
+bindkey "^[e" edit-command-line  # M-e
 

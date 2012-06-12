@@ -1,3 +1,4 @@
+# -*- mode:sh -*-
 # See readline(3readline) and `info rluserman' for more information.
 
 # Main editing mode
@@ -19,16 +20,6 @@ set bell-style none
 ## allow the use of the Delete/Insert keys
 "\e[2~": quoted-insert
 
-
-# mappings for "page up" and "page down" to step to the beginning/end
-# of the history
-#"\e[5~": beginning-of-history
-#"\e[6~": end-of-history
-
-# alternate mappings for "page up" and "page down" to search the history
-"\e[5~": history-search-backward
-"\e[6~": history-search-forward
-
 # mappings for Ctrl-left-arrow and Ctrl-right-arrow for word moving
 #"\e[1;5C": forward-word
 #"\e[1;5D": backward-word
@@ -48,7 +39,14 @@ set completion-ignore-case on
 set completion-query-items 50
 set mark-symlinked-directories on
 set visible-stats on
-TAB: complete
+TAB: menu-complete
+
+# Command line editing in an editor
+$if Bash
+M-e: edit-and-execute-command
+$else
+M-e: rlwrap-call-editor
+$endif
 
 # History
 set history-preserve-point on
@@ -89,8 +87,8 @@ M-g: beginning-of-line
 M-h: end-of-line
 
 # Prev/Next close to home row
-M-b: previous-history
-M-n: next-history
+M-b: history-search-backward
+M-n: history-search-forward
 
 
 
@@ -126,6 +124,11 @@ M-SPC: set-mark
 # Home/End
 "\e[H": beginning-of-line # Home
 "\e[F": end-of-line       # End
+
+# Page up/page down
+"\e[5~": history-search-backward
+"\e[6~": history-search-forward
+
 
 # C-Arrows
 "\e[1;5D": backward-word           # C-Left

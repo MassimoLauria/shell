@@ -1,4 +1,4 @@
-#!/bin/sh
+# -*- mode:sh -*-
 
 # disable the startup splash message that screen displays on startup
 startup_message off

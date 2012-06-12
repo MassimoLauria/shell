@@ -218,7 +218,7 @@ $PR_BARL_COLOR$PR_SHIFT_IN$PR_HBAR$PR_LRCORNER$PR_SHIFT_OUT$PR_RESET # prompt fo
 
     eterm*)
         PROMPT=$PR_PATH_COLOR'%~'$PR_RESET'$ '
-        RPROMPT='['$userhost_prompt'('$time_prompt')]' # prompt for right side of screen
+        RPROMPT='['$exit_value_prompt']'$branch_prompt'('$time_prompt')' # prompt for right side of screen
         PS2='> '
         ;;
 

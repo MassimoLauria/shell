@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Massimo Lauria, 2010
+# Massimo Lauria, 2010, 2011, 2012
 #
 # Common enviroment variables to be loaded in bash, zsh, X11, ...
 #
@@ -22,6 +22,12 @@ fi
 if [ -d /Applications/Aquamacs.app/Contents/MacOS/bin ]; then
     PATH=/Applications/Aquamacs.app/Contents/MacOS/bin:$PATH
 fi
+
+# A user local fs hierarchy is common in ~/.local/
+if [ -d $HOME/.local/bin ]; then
+    PATH=$HOME/.local/bin:$PATH
+fi
+
 
 # }}} --------------------------------------------------------------------------
 

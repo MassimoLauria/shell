@@ -6,7 +6,7 @@
 #
 
 ## SSH identity load
-if [ -n "$SSHIDENTITY" -a -f $SSHIDENTITY ]; then
+if [ -n "$SSHIDENTITY" -a -f "$SSHIDENTITY" ]; then
     ssh-add $SSHIDENTITY 2> /dev/null
 fi
 

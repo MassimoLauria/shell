@@ -93,7 +93,7 @@ if [[ -f `which sage 2>/dev/null` ]]; then
     # Sage TeX packages
     TEXMFHOME="$TEXMFHOME:`sage -root`/local/share/texmf"
 fi
-
+export TEXMFHOME
 
 
 

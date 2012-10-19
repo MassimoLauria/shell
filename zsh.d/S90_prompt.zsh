@@ -134,6 +134,7 @@ zstyle ':vcs_info:*:prompt:*' nvcsformats   ""                                  
 
 # {{{ PROMPT THEMED COMPONENTS -------------------------------------------------
 # Common
+exit_value=""
 exit_value_prompt='%(?.'$PR_EXITVALUE_T_COLOR'.'$PR_EXITVALUE_F_COLOR')%?'$PR_RESET
 userhost_prompt=$PR_USERNAME_COLOR'%n'$PR_RESET'@'$PR_HOSTNAME_COLOR'%m'$PR_RESET':'$PR_TTY_COLOR'%l'$PR_RESET
 date_text=""
@@ -144,6 +145,8 @@ dir_prompt=$PR_PATH_COLOR'%1~'$PR_RESET
 prompt_char='$'
 prompt_char_prompt=$PR_PROMPT_CHAR_COLOR'${prompt_char}'$PR_RESET
 
+prompt_mid_filler=""
+prompt_top_filler=""
 
 # VCS
 branch_prompt='$vcs_info_msg_0_'
@@ -179,6 +182,49 @@ function zsh_update-date_precmd {
 }
 precmd_functions+='zsh_update-date_precmd'
 
+# BROKEN
+function zsh_update_top_filler {
+
+    exit_value="$?"
+    branch_prompt=""
+
+    local tl=${#${date_text}}
+    local el=${#${exit_value}}
+    local bl=${#${branch_prompt}} # broken
+    local pl=${#${----()----<>-----() }}
+
+    local data_size=0
+    ((data_size=$pl+$tl+$bl+$el))
+    echo $data_size
+    echo $bl
+    echo $el
+    echo $tl
+    echo $pl
+
+    local pwd_size=${#${pwd_prompt}}
+    echo $pwd_size
+
+    if [[ "$data_size + $pwd_size" -gt $COLUMNS ]]; then
+	    ((pwd_size=$COLUMNS - $data_size))
+        prompt_top_filler=""
+        # pwd_prompt_truncated="%B%40<..<${pwd_prompt}%<<%b"
+    else
+        prompt_top_filler="${(l.(($COLUMNS- $data_size - $pwd_size))..X.)}"
+        # pwd_prompt_truncated='${pwd_prompt}'
+    fi
+
+    pwd_prompt_truncated="%B${pwd_size}<..<${pwd_prompt}%<<%b"
+    echo $pwd_size
+
+}
+#precmd_functions+='zsh_update_top_filler'
+
+
+function zsh_update_mid_filler {
+    prompt_mid_filler="${(l.(($COLUMNS-3)).. .)}"
+}
+precmd_functions+='zsh_update_mid_filler'
+
 
 
 # {{{ FINALLY, THE PROMPTS -----------------------------------------------------
@@ -204,8 +250,13 @@ $branch_prompt\
 $PR_BARL_COLOR$PR_SHIFT_IN$PR_HBAR$PR_HBAR$PR_SHIFT_OUT\
 $PR_BARS_COLOR$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT'('$PR_RESET\
 $pwd_prompt_truncated\
-$PR_BARS_COLOR')'$PR_RESET'
-'$PR_BARL_COLOR$PR_SHIFT_IN$PR_VBAR$PR_SHIFT_OUT$PR_RESET'
+$PR_BARS_COLOR')'$PR_RESET$PR_BARS_COLOR$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT$PR_RESET\
+'${prompt_top_filler}'\
+$PR_SHIFT_IN$PR_BARL_COLOR$PR_HBAR$PR_HBAR$PR_URCORNER$PR_SHIFT_OUT$PR_RESET\
+'
+'$PR_BARL_COLOR$PR_SHIFT_IN$PR_VBAR$PR_SHIFT_OUT$PR_RESET\
+'${prompt_mid_filler}'\
+$PR_BARL_COLOR$PR_SHIFT_IN$PR_VBAR$PR_SHIFT_OUT$PR_RESET'
 '\
 $PR_SHIFT_IN$PR_BARL_COLOR$PR_LLCORNER$PR_HBAR$PR_SHIFT_OUT$PR_RESET\
 $prompt_char_prompt' '

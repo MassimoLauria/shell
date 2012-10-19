@@ -190,8 +190,7 @@ function zsh_update_top_filler {
 
     local tl=${#${date_text}}
     local el=${#${exit_value}}
-    local bl=${#${branch_prompt}} # broken
-    local pl=${#${----()----<>-----() }}
+    local pl=${#${----()----<>-----()--- }}
 
     local data_size=0
     ((data_size=$pl+$tl+$bl+$el))
@@ -201,7 +200,7 @@ function zsh_update_top_filler {
     echo $tl
     echo $pl
 
-    local pwd_size=${#${pwd_prompt}}
+    local pwd_size=${#${(%):-%~}}
     echo $pwd_size
 
     if [[ "$data_size + $pwd_size" -gt $COLUMNS ]]; then

@@ -3,7 +3,7 @@
 #
 # This Massimo Lauria Z-Shell rc init file.
 #
-# Much of this file is based on code stolen here and there, 
+# Much of this file is based on code stolen here and there,
 # most from Bart Trojanowski and Phil!
 #
 
@@ -13,7 +13,7 @@ config_path=${HOME}/config/shell/
 
 zshrc_path=${HOME}/.zshrc
 
-zsh_sources=${config_path}/zsh.d 
+zsh_sources=${config_path}/zsh.d
 zsh_cache=${HOME}/.zsh/cache
 zsh_histfile=$zsh_cache/history
 
@@ -56,8 +56,8 @@ fi
 
 # Z-Shell modules
 setopt extended_glob
-for zsh_snipplet in $zsh_sources/S[0-9][0-9]*[^~] ; do
-        source $zsh_snipplet
+for zsh_snippet in $zsh_sources/S[0-9][0-9]*; do
+    source $zsh_snippet
 done
 
 

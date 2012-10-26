@@ -2,6 +2,8 @@
 
 # Utility functions for VCS (e.g. GIT, mercurial, SVN, ...)
 # information in prompt.
+# Load modules
+autoload -Uz vcs_info
 
 
 # This variable dictates weather we are going to do the vcs prompt update
@@ -11,7 +13,7 @@ __VCS_REPO_UPDATE=1
 # called before command excution
 # here we decide if we should update the prompt next time
 function zsh_vcs_prompt_preexec {
-        case "$(history $HISTCMD)" in 
+        case "$(history $HISTCMD)" in
             *git*|*hg*|*svn*)
                 __VCS_REPO_UPDATE=1
                 ;;

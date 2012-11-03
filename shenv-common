@@ -19,8 +19,13 @@ if [ -d /opt/local/sbin ]; then
     PATH=/opt/local/sbin:$PATH
 fi
 
+# Emacs paths on MacOSX
 if [ -d /Applications/Aquamacs.app/Contents/MacOS/bin ]; then
     PATH=/Applications/Aquamacs.app/Contents/MacOS/bin:$PATH
+fi
+
+if [ -d /Applications/Emacs.app/Contents/MacOS/bin ]; then
+    PATH=/Applications/Emacs.app/Contents/MacOS/bin:$PATH
 fi
 
 # A user local fs hierarchy is common in ~/.local/

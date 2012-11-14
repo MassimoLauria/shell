@@ -83,6 +83,7 @@ case $TERM in
         PR_LLCORNER=${altchar[m]:-'\'}
         PR_LRCORNER=${altchar[j]:-'/'}
         PR_URCORNER=${altchar[k]:-'\'}
+        PR_CROSS=${altchar[n]:-'+'}
         ;;
     *)
         PR_SET_CHARSET=""
@@ -94,6 +95,7 @@ case $TERM in
         PR_LLCORNER='\'
         PR_LRCORNER='/'
         PR_URCORNER='\'
+        PR_CROSS='+'
         ;;
 esac
 
@@ -249,13 +251,9 @@ $branch_prompt\
 $PR_BARL_COLOR$PR_SHIFT_IN$PR_HBAR$PR_HBAR$PR_SHIFT_OUT\
 $PR_BARS_COLOR$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT'('$PR_RESET\
 $pwd_prompt_truncated\
-$PR_BARS_COLOR')'$PR_RESET$PR_BARS_COLOR$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT$PR_RESET\
-'${prompt_top_filler}'\
-$PR_SHIFT_IN$PR_BARL_COLOR$PR_HBAR$PR_HBAR$PR_URCORNER$PR_SHIFT_OUT$PR_RESET\
+$PR_BARS_COLOR')'$PR_RESET\
 '
-'$PR_BARL_COLOR$PR_SHIFT_IN$PR_VBAR$PR_SHIFT_OUT$PR_RESET\
-'${prompt_mid_filler}'\
-$PR_BARL_COLOR$PR_SHIFT_IN$PR_VBAR$PR_SHIFT_OUT$PR_RESET'
+'$PR_BARL_COLOR$PR_SHIFT_IN$PR_VBAR$PR_SHIFT_OUT$PR_RESET'
 '\
 $PR_SHIFT_IN$PR_BARL_COLOR$PR_LLCORNER$PR_HBAR$PR_SHIFT_OUT$PR_RESET\
 $prompt_char_prompt' '
@@ -263,7 +261,7 @@ $prompt_char_prompt' '
         RPROMPT=$PR_BARS_COLOR'<'$PR_RESET\
 $userhost_prompt\
 $PR_BARS_COLOR'>'$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT$PR_RESET\
-$PR_BARL_COLOR$PR_SHIFT_IN$PR_HBAR$PR_LRCORNER$PR_SHIFT_OUT$PR_RESET # prompt for right side of screen
+$PR_BARL_COLOR$PR_SHIFT_IN$PR_HBAR$PR_HBAR$PR_SHIFT_OUT$PR_RESET # prompt for right side of screen
         ;;
 
     eterm*)

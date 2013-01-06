@@ -20,12 +20,10 @@ if [ -d /opt/local/sbin ]; then
 fi
 
 # Emacs paths on MacOSX
-if [ -d /Applications/Aquamacs.app/Contents/MacOS/bin ]; then
-    PATH=/Applications/Aquamacs.app/Contents/MacOS/bin:$PATH
-fi
-
-if [ -d /Applications/Emacs.app/Contents/MacOS/bin ]; then
-    PATH=/Applications/Emacs.app/Contents/MacOS/bin:$PATH
+EMACSAPP=/Applications/Emacs.app
+if [ -d "$EMACSAPP/Contents/MacOS/" ]; then
+    PATH=$EMACSAPP/Contents/MacOS/bin:$PATH
+    alias emacs="$EMACSAPP/Contents/MacOS/Emacs"
 fi
 
 # A user local fs hierarchy is common in ~/.local/

@@ -20,10 +20,14 @@ if [ -d /opt/local/sbin ]; then
 fi
 
 # Emacs paths on MacOSX
-EMACSAPP=/Applications/Emacs.app
-if [ -d "$EMACSAPP/Contents/MacOS/" ]; then
-    PATH=$EMACSAPP/Contents/MacOS/bin:$PATH
-    alias emacs="$EMACSAPP/Contents/MacOS/Emacs"
+if [ `uname` = "Darwin" ]; then
+    for emacsapp in Emacs.app Aquamacs.app; do
+        if [ -d "/Applications/$emacsapp" ]; then
+            PATH="/Applications/$emacsapp/Contents/MacOS/bin:$PATH"
+            alias emacs="open -a $emacsapp"
+            break
+        fi
+    done
 fi
 
 # A user local fs hierarchy is common in ~/.local/
@@ -61,7 +65,12 @@ export PAGER
 
 # {{{ Editor -------------------------------------------------------------------
 
-EDITOR="emacsclient"
+if [ `uname` = "Darwin" ]; then
+    alias EDITOR="open -t"
+else
+    alias EDITOR="emacsclient -t"
+fi
+
 
 if [[ -f `which jed 2>/dev/null` ]]; then
     ALTERNATE_EDITOR="jed"
@@ -77,7 +86,7 @@ fi
 
 # Never use terminal emacs on Mac...
 if [ `uname` = "Darwin" ]; then
-    alias ec="emacsclient -n"
+    alias ec="emacsclient"
 else
     alias ec="emacsclient -t"
 fi

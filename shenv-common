@@ -67,9 +67,9 @@ export PAGER
 # {{{ Editor -------------------------------------------------------------------
 
 if [ `uname` = "Darwin" ]; then
-    alias EDITOR="open -t"
+    EDITOR="open -t"
 else
-    alias EDITOR="emacsclient -t"
+    EDITOR="emacsclient -t"
 fi
 
 

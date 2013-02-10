@@ -24,8 +24,8 @@ if [ `uname` = "Darwin" ]; then
     for emacsapp in Emacs.app Aquamacs.app; do
         if [ -d "/Applications/$emacsapp" ]; then
             PATH="/Applications/$emacsapp/Contents/MacOS/bin:$PATH"
-            #alias emacs="/Applications/$emacsapp/Contents/MacOS/Emacs"
-            alias emacs="open -a $emacsapp"
+            alias emacs="/Applications/$emacsapp/Contents/MacOS/Emacs"
+            #alias emacs="open -a $emacsapp"
             break
         fi
     done
@@ -67,7 +67,7 @@ export PAGER
 # {{{ Editor -------------------------------------------------------------------
 
 if [ `uname` = "Darwin" ]; then
-    EDITOR="open -t"
+    EDITOR="emacsclient"
 else
     EDITOR="emacsclient -t"
 fi

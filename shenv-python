@@ -20,9 +20,6 @@ if [ -f $PYTHONSTARTUP ]; then
 fi
 
 # IPython configuration folder
-# <  0.12
-# IPYTHON_DIR=$HOME/.ipython/
-# export IPYTHON_DIR
 # >= 0.12
 IPYTHONDIR=$HOME/.ipython/
 export IPYTHONDIR

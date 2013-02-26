@@ -78,10 +78,12 @@ bindkey "^[n" history-search-forward  # M-n
 ###################
 #  Deletion keys  #
 ###################
-bindkey "^[w" backward-kill-word   #M-w
-bindkey "^[d" backward-delete-char #M-d
-bindkey "^[f" delete-char          #M-f
-bindkey "^w"  kill-whole-line      #C-w
+
+bindkey "^[e" backward-kill-word    #M-e
+bindkey "^[r" kill-word             #M-r
+bindkey "^[d" backward-delete-char  #M-d
+bindkey "^[f" delete-char           #M-f
+bindkey "^[w" kill-whole-line       #M-w
 #bindkey "^d"  backward-kill-word   #C-d
 #bindkey "^f"  kill-word            #C-f
 
@@ -105,5 +107,5 @@ bindkey "^[y"  yank-pop            #M-y
 ######################################
 autoload edit-command-line
 zle -N edit-command-line
-bindkey "^[e" edit-command-line  # M-e
+bindkey "^e" edit-command-line  # C-e
 

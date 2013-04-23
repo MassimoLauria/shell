@@ -122,6 +122,7 @@ export SAL_USE_VCLPLUGIN=gen
 source $CONFIGDIR/shell/shenv-gnupg
 # source $CONFIGDIR/shell/shenv-ssh
 source $CONFIGDIR/shell/shenv-python
+source $CONFIGDIR/shell/shenv-repository
 
 
 if [ -f "$HOME/personal/conf/shenv-personal" ]; then

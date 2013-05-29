@@ -101,7 +101,10 @@ export ALTERNATE_EDITOR
 # LaTeX enviroment variables
 export TEXEDIT='emacsclient -t +%d %s'
 
-TEXMFHOME="$CONFIGDIR/texmf"  # Local packages
+
+TEXMFHOME="$CONFIGDIR/texmf"                     # Public texmf tree
+TEXMFHOME="$TEXMFHOME:$HOME/lavori/latex/texmf"  # Private texmf tree
+
 if [[ -f `which sage 2>/dev/null` ]]; then
     # Sage TeX packages
     TEXMFHOME="$TEXMFHOME:`sage -root`/local/share/texmf"

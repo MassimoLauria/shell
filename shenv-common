@@ -31,18 +31,8 @@ if [ `uname` = "Darwin" ]; then
     done
 fi
 
-# A user local fs hierarchy is common in ~/.local/
-if [ -d $HOME/.local/bin ]; then
-    PATH=$HOME/.local/bin:$PATH
-fi
-
-if [ -d $HOME/.local/ ]; then
-    LD_LIBRARY_PATH=$HOME/.local/lib:$HOME/.local/lib64:$HOME/.local/lib32:$LD_LIBRARY_PATH
-fi
-
 
 export PATH
-export LD_LIBRARY_PATH
 # }}} --------------------------------------------------------------------------
 
 

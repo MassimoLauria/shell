@@ -10,6 +10,7 @@ CONFIGDIR=$HOME/config
 
 # {{{ Paths --------------------------------------------------------------------
 
+
 # Those are useful for MacPorts
 if [ -d /opt/local/bin ]; then
     PATH=/opt/local/bin:$PATH
@@ -18,35 +19,9 @@ fi
 if [ -d /opt/local/sbin ]; then
     PATH=/opt/local/sbin:$PATH
 fi
-
-# Emacs paths on MacOSX
-if [ `uname` = "Darwin" ]; then
-    for emacsapp in Emacs.app Aquamacs.app; do
-        if [ -d "/Applications/$emacsapp" ]; then
-            PATH="/Applications/$emacsapp/Contents/MacOS/bin:$PATH"
-            alias emacs="/Applications/$emacsapp/Contents/MacOS/Emacs"
-            #alias emacs="open -a $emacsapp"
-            break
-        fi
-    done
-fi
-
-
 export PATH
 # }}} --------------------------------------------------------------------------
 
-
-
-
-# {{{ Aliases ------------------------------------------------------------------
-
-# if [ "$TERM" != "dumb" -a -f `which dircolors 2>/dev/null` ]; then
-#     eval "`dircolors -b`"
-#     alias ls='ls --color=auto'
-# fi
-# alias rm="rm -iv"
-
-# }}} --------------------------------------------------------------------------
 
 
 # {{{ Pager --------------------------------------------------------------------
@@ -60,13 +35,31 @@ fi
 export PAGER
 # }}} --------------------------------------------------------------------------
 
+
+
 # {{{ Editor -------------------------------------------------------------------
 
+# Emacs / Emacsclient 
 if [ `uname` = "Darwin" ]; then
-    EDITOR="emacsclient"
+    for emacsapp in Emacs.app Aquamacs.app; do
+        if [ -d "/Applications/$emacsapp" ]; then
+            alias emacs="/Applications/$emacsapp/Contents/MacOS/Emacs"
+            #alias emacs="open -a $emacsapp"
+            emacsclient="/Applications/$emacsapp/Contents/MacOS/bin/emacsclient"
+            break
+        fi
+    done
+    emacsclient_opts=""
 else
-    EDITOR="emacsclient -t"
+    emacsclient="emacsclient"
+    emacsclient_opts="-t"
 fi
+
+
+EDITOR="$emacsclient $emacsclient_opts"
+GIT_EDITOR="$emacsclient $emacsclient_opts"
+alias ec="$emacsclient $emacsclient_opts"
+alias ecx="$emacsclient -n -c"
 
 
 if [[ -f `which jed 2>/dev/null` ]]; then
@@ -81,22 +74,15 @@ else
     ALTERNATE_EDITOR="vi"
 fi
 
-# Never use terminal emacs on Mac...
-if [ `uname` = "Darwin" ]; then
-    alias ec="emacsclient"
-else
-    alias ec="emacsclient -t"
-fi
-alias ecx="emacsclient -n -c"
-
 
 export EDITOR
 export ALTERNATE_EDITOR
+export GIT_EDITOR
 
 
 # LaTeX enviroment variables
-export TEXEDIT='emacsclient -t +%d %s'
 
+TEXEDIT="$emacsclient $emacsclient_opts" '+%d %s'
 
 TEXMFHOME="$CONFIGDIR/texmf-public"                      # Public  texmf tree
 TEXMFHOME="$TEXMFHOME:$HOME/lavori/latex/texmf-private"  # Private texmf tree
@@ -105,6 +91,8 @@ if [[ -f `which sage 2>/dev/null` ]]; then
     # Sage TeX packages
     TEXMFHOME="$TEXMFHOME:`sage -root`/local/share/texmf"
 fi
+
+export TEXEDIT
 export TEXMFHOME
 
 

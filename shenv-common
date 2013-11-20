@@ -82,7 +82,7 @@ export GIT_EDITOR
 
 # LaTeX enviroment variables
 
-TEXEDIT="$emacsclient $emacsclient_opts" '+%d %s'
+TEXEDIT="$emacsclient $emacsclient_opts +%d %s"
 
 TEXMFHOME="$CONFIGDIR/texmf-public"                      # Public  texmf tree
 TEXMFHOME="$TEXMFHOME:$HOME/lavori/latex/texmf-private"  # Private texmf tree

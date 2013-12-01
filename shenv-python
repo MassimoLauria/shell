@@ -3,7 +3,7 @@
 # Copyright (C) 2011, 2012, 2013 by Massimo Lauria
 #
 # Created   : "2011-09-22, Thursday 01:06 (CEST) Massimo Lauria"
-# Time-stamp: "2013-02-24, 20:26 (CET) Massimo Lauria"
+# Time-stamp: "2013-12-01, 03:35 (CET) Massimo Lauria"
 #
 # Description::
 #
@@ -11,6 +11,11 @@
 #
 
 # Code::
+
+# Additional Path from local installation
+if [ `uname` = "Darwin" ]; then
+    PATH=$PATH:$HOME/Library/Python/2.7/bin/
+fi
 
 
 # Python enviroment variables

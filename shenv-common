@@ -10,16 +10,24 @@ CONFIGDIR=$HOME/config
 
 # {{{ Paths --------------------------------------------------------------------
 
-
 # Those are useful for MacPorts
 if [ -d /opt/local/bin ]; then
     PATH=/opt/local/bin:$PATH
 fi
-
 if [ -d /opt/local/sbin ]; then
     PATH=/opt/local/sbin:$PATH
 fi
 export PATH
+
+# ~/.local/ paths
+if [ -d $HOME/.local/bin ]; then
+    PATH=$HOME/.local/bin:$PATH
+fi
+if [ -d $HOME/.local/sbin ]; then
+    PATH=$HOME/.local/sbin:$PATH
+fi
+export PATH
+
 # }}} --------------------------------------------------------------------------
 
 

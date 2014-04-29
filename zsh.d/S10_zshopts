@@ -128,7 +128,7 @@ setopt no_prompt_cr         # don'tprint <cr> before prompt ---> see precmd !
 setopt prompt_percent       # expand % escapes in prompt
 setopt prompt_subst         # subts in prompt
 setopt pushd_ignore_dups    # ignore dups in pushd
-#setopt pushd_minus          # exchange +/-
+setopt pushd_minus          # exchange +/-
 setopt pushd_silent         # don't print stack after push/pop
 setopt pushd_to_home        # pushd == pushd $HOME
 setopt rc_expand_param      # some expansion trick for arrays in params
@@ -175,6 +175,7 @@ LISTMAX=1000                # never ask
 NULLCMD='cat'               # use cat for > null commands
 REPORTTIME=2                # report time if execution exceeds amount of seconds
 SAVEHIST=10000              # maximum of history events to be save
+DIRSTACKSIZE=10             # maximum number of paths to put on the stack
 LOGCHECK=60
 watch=(notme)               # watch login/logout
 WORDCHARS="*?_-.[]~/&;!#$%^(){}<>"

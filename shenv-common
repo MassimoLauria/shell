@@ -28,6 +28,12 @@ if [ -d $HOME/.local/sbin ]; then
 fi
 export PATH
 
+# MacOSX substitute for `~/.local/bin` could be `~/Library/bin'? 
+if [ -d $HOME/Library/bin ]; then
+    PATH=$HOME/Library/bin:$PATH
+fi
+
+
 # }}} --------------------------------------------------------------------------
 
 

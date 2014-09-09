@@ -121,6 +121,7 @@ export SAL_USE_VCLPLUGIN=gen
 
 ### Include other files
 source $CONFIGDIR/shell/shenv-gnupg
+source $CONFIGDIR/shell/shenv-mitscheme
 # source $CONFIGDIR/shell/shenv-ssh
 source $CONFIGDIR/shell/shenv-python
 source $CONFIGDIR/shell/shenv-haskell

@@ -49,16 +49,12 @@ then
     PS1='$ '
     PROMPT='$ '
     PS2='> '
-    return
+else
+    # Z-Shell modules
+    setopt extended_glob
+    for zsh_snippet in $zsh_sources/S[0-9][0-9]*; do
+        source $zsh_snippet
+    done
 fi
-
-
-
-# Z-Shell modules
-setopt extended_glob
-for zsh_snippet in $zsh_sources/S[0-9][0-9]*; do
-    source $zsh_snippet
-done
-
 
 # }}} ---------------------------------------------------------------------------------

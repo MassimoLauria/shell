@@ -94,14 +94,6 @@ export ALTERNATE_EDITOR
 export GIT_EDITOR
 
 
-# Customised gtkrc file is loaded.
-export GTK2_RC_FILES=$HOME/.gtkrc-2.0
-
-
-# Do not apply gtk-theme to openoffice
-export SAL_USE_VCLPLUGIN=gen
-
-
 ### Include other files
 source $CONFIGDIR/shell/shenv-gnupg
 source $CONFIGDIR/shell/shenv-mitscheme

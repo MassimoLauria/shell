@@ -51,50 +51,9 @@ export PAGER
 
 
 
-# {{{ Editor -------------------------------------------------------------------
-
-# Emacs / Emacsclient 
-if [ `uname` = "Darwin" ]; then
-    for emacsapp in Emacs.app Aquamacs.app; do
-        if [ -d "/Applications/$emacsapp" ]; then
-            alias emacs="/Applications/$emacsapp/Contents/MacOS/Emacs"
-            #alias emacs="open -a $emacsapp"
-            emacsclient="/Applications/$emacsapp/Contents/MacOS/bin/emacsclient"
-            break
-        fi
-    done
-    emacsclient_opts=""
-else
-    emacsclient="emacsclient"
-    emacsclient_opts="-t"
-fi
-
-
-EDITOR="$emacsclient $emacsclient_opts"
-GIT_EDITOR="$emacsclient $emacsclient_opts"
-alias ec="$emacsclient $emacsclient_opts"
-alias ecx="$emacsclient -n -c"
-
-
-if [[ -f `which jed 2>/dev/null` ]]; then
-    ALTERNATE_EDITOR="jed"
-elif [[ -f `which zile 2>/dev/null` ]]; then
-    ALTERNATE_EDITOR="zile"
-elif [[ -f `which mg 2>/dev/null` ]]; then
-    ALTERNATE_EDITOR="mg"
-elif [[ -f `which vim 2>/dev/null` ]]; then
-    ALTERNATE_EDITOR="vim"
-else
-    ALTERNATE_EDITOR="vi"
-fi
-
-
-export EDITOR
-export ALTERNATE_EDITOR
-export GIT_EDITOR
-
 
 ### Include other files
+source $CONFIGDIR/shell/shenv-emacs
 source $CONFIGDIR/shell/shenv-gnupg
 source $CONFIGDIR/shell/shenv-mitscheme
 source $CONFIGDIR/shell/shenv-latex

@@ -19,15 +19,17 @@ if [ `uname` = "Darwin" ]; then
     done
     emacsclient_opts=""
 else
+    emacsbin="emacs"
     emacsclient="emacsclient"
     emacsclient_opts="-t"
 fi
 
 
 # Make it accessible from the shell
-if [ $emacsbin != "emacs" ]; then
+if [ "$emacsbin" != "emacs" ]; then
    EMACS="$emacsbin"
    alias emacs="$emacsbin"
+   alias emacsclient="$emacsclient"
 fi
 
 

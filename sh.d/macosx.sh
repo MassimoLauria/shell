@@ -5,15 +5,16 @@
 # Shell commands for MacOSX. This is because MacOSX has no Xsession.
 #
 
+if [ x`uname` != "xDarwin" ]; then return 0; fi # only for macosx
 
 
-## SSH identity load
+
+# SSH identity load
 if [ -n "$SSHIDENTITY" -a -f "$SSHIDENTITY" ]; then
     ssh-add $SSHIDENTITY 2> /dev/null
 fi
 
-## Dircolors in not installed by defauls in Mac,
-## and ls utility is not the GNU one by default.
+# color setup for BSD version of ls
 CLICOLOR=1
 LSCOLORS=ExFxCxDxBxegedabagacad
 export CLICOLOR LSCOLORS

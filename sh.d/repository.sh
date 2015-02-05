@@ -1,9 +1,12 @@
-#!/bin/bash
+#!/bin/sh
 
-# Massimo Lauria, 2013
+# Massimo Lauria, 2013, 2015
 #
 # Commands for controlling all my repositories
 # simultaneously.
+
+# It requires `function` capabilities from the shell.
+[ -n "$BASH" ] || [ -n "$ZSH_NAME" ] || return 0
 
 
 function myrepos() {

@@ -1,4 +1,8 @@
-#!/bin/bash
+#!/bin/sh
+
+# It requires `function` capabilities from the shell.
+[ -n "$BASH" ] || [ -n "$ZSH_NAME" ] || return 0
+
 
 SSH_ENV="$HOME/.ssh/environment"
 

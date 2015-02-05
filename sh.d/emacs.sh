@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 #
 # Massimo Lauria, 2015
 #
@@ -41,7 +41,7 @@ alias ecx="$emacsclient -n -c"
 
 
 # Fallback Editor
-if [[ -f `which vim 2>/dev/null` ]]; then
+if type vim >/dev/null; then
     ALTERNATE_EDITOR="vim"
 else
     ALTERNATE_EDITOR="vi"

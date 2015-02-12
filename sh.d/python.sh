@@ -3,7 +3,7 @@
 # Copyright (C) 2011, 2012, 2013, 2015 by Massimo Lauria
 #
 # Created   : "2011-09-22, Thursday 01:06 (CEST) Massimo Lauria"
-# Time-stamp: "2015-02-10, 01:36 (CET) Massimo Lauria"
+# Time-stamp: "2015-02-13, 00:06 (CET) Massimo Lauria"
 #
 # Description::
 #
@@ -11,12 +11,6 @@
 #
 
 # Code::
-
-# Additional Path from local installation
-if [ `uname` = "Darwin" ]; then
-    PATH=$PATH:$HOME/Library/Python/2.7/bin/
-fi
-
 
 # Python enviroment variables
 PYTHONSTARTUP=$CONFIGDIR/pythonrc/pythonrc.py

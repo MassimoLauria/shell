@@ -10,14 +10,21 @@ CONFIGDIR=$HOME/config
 
 # {{{ Paths --------------------------------------------------------------------
 
-# Those are useful for MacPorts
+# MacPorts binary path
 if [ -d /opt/local/bin ]; then
     PATH=/opt/local/bin:$PATH
 fi
 if [ -d /opt/local/sbin ]; then
     PATH=/opt/local/sbin:$PATH
 fi
-export PATH
+
+# Brew binary path
+if [ -d /usr/local/bin ]; then
+    PATH=/usr/local/bin:$PATH
+fi
+if [ -d /usr/local/sbin ]; then
+    PATH=/usr/local/sbin:$PATH
+fi
 
 # ~/.local/ paths
 if [ -d $HOME/.local/bin ]; then

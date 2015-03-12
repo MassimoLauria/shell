@@ -3,7 +3,7 @@
 # Copyright (C) 2014, 2015 by Massimo Lauria
 #
 # Created   : "2014-10-22, Wednesday 13:06 (CEST) Massimo Lauria"
-# Time-stamp: "2015-02-05, 11:48 (CET) Massimo Lauria"
+# Time-stamp: "2015-03-12, 11:40 (CET) Massimo Lauria"
 #
 # Description::
 #
@@ -14,12 +14,12 @@
 
 TEXEDIT="$EDITOR +%d %s"
 
-TEXMFHOME="$CONFIGDIR/texmf-public"                      # Public  texmf tree
-TEXMFHOME="$TEXMFHOME:$HOME/lavori/latex/texmf-private"  # Private texmf tree
+TEXMFHOME="$CONFIGDIR/texmf-public:"                      # Public  texmf tree
+TEXMFHOME="$HOME/lavori/latex/texmf-private:$TEXMFHOME"  # Private texmf tree
 
 if type sage >/dev/null; then
     # Sage TeX packages
-    TEXMFHOME="$TEXMFHOME:`sage -root`/local/share/texmf"
+    TEXMFHOME="`sage -root`/local/share/texmf:$TEXMFHOME"
 fi
 
 export TEXEDIT
@@ -32,9 +32,9 @@ export TEXMFHOME
 [ -n "$BASH" ] || [ -n "$ZSH_NAME" ] || return 0
 
 function jakobtex-enable {
-    TEXINPUTS=`kpsewhich --var-value TEXINPUTS`:~/lavori/svnrepos/jakobtex
-    BIBINPUTS=`kpsewhich --var-value BIBINPUTS`:~/lavori/svnrepos/jakobtex
-    BSTINPUTS=`kpsewhich --var-value BSTINPUTS`:~/lavori/svnrepos/jakobtex
+    TEXINPUTS=~/lavori/svnrepos/jakobtex:`kpsewhich --var-value TEXINPUTS`
+    BIBINPUTS=~/lavori/svnrepos/jakobtex:`kpsewhich --var-value BIBINPUTS`
+    BSTINPUTS=~/lavori/svnrepos/jakobtex:`kpsewhich --var-value BSTINPUTS`
     export TEXINPUTS
     export BIBINPUTS
     export BSTINPUTS

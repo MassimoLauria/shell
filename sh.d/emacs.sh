@@ -21,7 +21,7 @@ if [ `uname` = "Darwin" ]; then
 else
     emacsbin="emacs"
     emacsclient="emacsclient"
-    emacsclient_opts="-t"
+    emacsclient_opts=" -t"
 fi
 
 
@@ -33,10 +33,10 @@ if [ "$emacsbin" != "emacs" ]; then
 fi
 
 
-EDITOR="$emacsclient $emacsclient_opts"
-GIT_EDITOR="$emacsclient $emacsclient_opts"
+EDITOR="$emacsclient$emacsclient_opts"
+GIT_EDITOR="$emacsclient$emacsclient_opts"
 
-alias ec="$emacsclient $emacsclient_opts"
+alias ec="$emacsclient$emacsclient_opts"
 alias ecx="$emacsclient -n -c"
 
 

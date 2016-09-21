@@ -36,20 +36,20 @@ zstyle ':completion:*:warnings' format "%B$fg[red]%}---- no match for: $fg[white
 zstyle ':completion:*' group-name ''
 
 #[ Kill ]#######################################################################
-zstyle ':completion:*:processes' command 'ps -au$USER -o pid,time,cmd|grep -v "ps -au$USER -o pid,time,cmd"'
+# BROKEN zstyle ':completion:*:processes' command 'ps -au$USER -o pid,time,cmd|grep -v "ps -au$USER -o pid,time,cmd"'
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)[ 0-9:]#([^ ]#)*=01;30=01;31=01;38'
 
 #[ hosts and users ]############################################################
-#hosts=()
-#[ -r ~/.ssh/config ] && hosts=(${${${$(grep '^Host' ~/.ssh/config)}##Host }##[*0-9]*})
-#[ -r ~/.ssh/known_hosts ] && hosts=(${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[0-9]*}%\*}%,*})
-#hosts=($( ( \
+# hosts=()
+# [ -r ~/.ssh/config ] && hosts=(${${${$(grep '^Host' ~/.ssh/config)}##Host }##[*0-9]*})
+# [ -r ~/.ssh/known_hosts ] && hosts=(${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[0-9]*}%\*}%,*})
+# hosts=($( ( \
 #        ( [ -r ~/.ssh/config ] && awk '/^host +[a-z]/ { print $2 }' ~/.ssh/config) ; \
 #        ( [ -r ~/.ssh/known_hosts ] && awk '{print $1}' ~/.ssh/known_hosts | tr , '\n') \
-#) | sort -u))
+# ) | sort -u))
 # 
-#zstyle ':completion:*' hosts $hosts
-#zstyle ':completion:*:hosts' list-colors '=(#b)(*)(.jukie.net)=01;30=01;31' '=[^.]#=01;31'
+zstyle ':completion:*' hosts $hosts
+zstyle ':completion:*:hosts' list-colors '=(#b)(*)(.jukie.net)=01;30=01;31' '=[^.]#=01;31'
 # 
 #users=(root bart bartman)
 #zstyle ':completion:*' users $users

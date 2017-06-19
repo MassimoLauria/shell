@@ -130,7 +130,7 @@ zstyle ':vcs_info:*:prompt:*' unstagedstr   "${FMT_UNSTAGE_DIRTY}"  # display ¹
 zstyle ':vcs_info:*:prompt:*' stagedstr     "${FMT_STAGE_DIRTY}"  # display ² if there are staged changes
 zstyle ':vcs_info:*:prompt:*' actionformats $FMT_BL"${FMT_BRANCH}${FMT_ACTION}"$FMT_BR "${FMT_PATH_VCS}"
 zstyle ':vcs_info:*:prompt:*' formats       $FMT_BL"${FMT_BRANCH}"$FMT_BR              "${FMT_PATH_VCS}"
-zstyle ':vcs_info:*:prompt:*' nvcsformats   ""                                         "${FMT_PATH_NVCS}"
+zstyle ':vcs_info:*:prompt:*' nvcsformats    $FMT_BL"${FMT_BRANCH}"$FMT_BR             "${FMT_PATH_NVCS}"
 # }}} ---------------------------------------------------------------------------
 
 
@@ -152,7 +152,17 @@ prompt_top_filler=""
 
 # VCS
 branch_prompt='$vcs_info_msg_0_'
-pwd_prompt='${${vcs_info_msg_1_%%.}/$HOME/~}'
+#
+# Next line has a bug and it is commented out. In case we are outside
+# of a repository the variable $vcs_info_msg_1_ does not fallback to
+# the current working directory, which is a mistake. This hack will
+# fix the issue. The correct solution has not been ported to Zsh.
+#
+# See: https://github.com/zsh-users/zsh/commit/4105f79a3a9b5a85c4ce167865e5ac661be160dc
+#
+#pwd_prompt='${${vcs_info_msg_1_%%.}/${HOME}/~}'  - Original - M.L.
+#
+pwd_prompt='${${${vcs_info_msg_1_%%.}:-${PR_RST}${PR_PATH_COLOR}$PWD${PR_RST}}/${HOME}/~}'     # my fix - M.L.
 pwd_prompt_truncated="%B%40<..<${pwd_prompt}%<<%b"
 # }}} --------------------------------------------------------------------------
 

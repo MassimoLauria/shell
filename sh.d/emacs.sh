@@ -41,7 +41,7 @@ alias ecx="$emacsclient -n -c"
 
 
 # Fallback Editor
-if type vim >/dev/null; then
+if type vim >/dev/null 2>&1; then
     ALTERNATE_EDITOR="vim"
 else
     ALTERNATE_EDITOR="vi"

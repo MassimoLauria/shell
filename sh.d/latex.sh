@@ -1,9 +1,9 @@
 #!/bin/sh
 #
-# Copyright (C) 2014, 2015 by Massimo Lauria
+# Copyright (C) 2014, 2015, 2017 by Massimo Lauria
 #
 # Created   : "2014-10-22, Wednesday 13:06 (CEST) Massimo Lauria"
-# Time-stamp: "2015-03-12, 11:40 (CET) Massimo Lauria"
+# Time-stamp: "2017-09-29, 17:02 (CEST) Massimo Lauria"
 #
 # Description::
 #
@@ -17,7 +17,7 @@ TEXEDIT="$EDITOR +%d %s"
 TEXMFHOME="$CONFIGDIR/texmf-public:"                      # Public  texmf tree
 TEXMFHOME="$HOME/lavori/latex/texmf-private:$TEXMFHOME"  # Private texmf tree
 
-if type sage >/dev/null; then
+if type sage >/dev/null 2>&1; then
     # Sage TeX packages
     TEXMFHOME="`sage -root`/local/share/texmf:$TEXMFHOME"
 fi

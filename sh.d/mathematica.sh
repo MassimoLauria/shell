@@ -10,7 +10,7 @@ else
     mathpath=math
 fi
 
-if type rlwrap >/dev/null; then
+if type rlwrap >/dev/null 2>&1; then
     alias math="rlwrap $mathpath"
 else
     alias math=$mathpath

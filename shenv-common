@@ -62,7 +62,6 @@ export PAGER
 ### Include other files
 sh_sources=${CONFIGDIR}/shell/sh.d/
 
-shopt -s extglob
 for sh_snippet in $sh_sources/*.sh; do
     source $sh_snippet
 done

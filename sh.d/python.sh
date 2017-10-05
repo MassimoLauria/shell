@@ -3,7 +3,7 @@
 # Copyright (C) 2011, 2012, 2013, 2015, 2017 by Massimo Lauria
 #
 # Created   : "2011-09-22, Thursday 01:06 (CEST) Massimo Lauria"
-# Time-stamp: "2017-09-29, 17:03 (CEST) Massimo Lauria"
+# Time-stamp: "2017-10-05, 14:31 (CEST) Massimo Lauria"
 #
 # Description::
 #
@@ -29,16 +29,40 @@ export DOT_SAGE
 
 
 # Setup virtual envs
+if [ -f /usr/local/bin/python3 ]; then 
+    export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
+elif [ -f /usr/local/bin/python2 ]; then 
+    export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python2
+elif [ -f /usr/local/bin/python ]; then 
+    export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
+else
+    export VIRTUALENVWRAPPER_PYTHON=python
+fi
+
 export WORKON_HOME=$HOME/.virtualenvs
 if type virtualenvwrapper_lazy.sh >/dev/null 2>&1; then
     source `which virtualenvwrapper_lazy.sh`
 fi
 
 # Setup anaconda path if Anaconda is installed
-# if [ -d $HOME/anaconda3/ ]; then
-#     export PATH="$HOME/anaconda3/bin:$PATH"
-# fi
+#
+ACTIVATE_ANACONDA=no  # set to 'yes' to have anaconda in the path
 
+if [ -d $HOME/anaconda3/ ]; then
+    ANACONDA_PATH=$HOME/anaconda3/
+elif [ -d $HOME/anaconda/ ]; then
+    ANACONDA_PATH=$HOME/anaconda/
+elif [ -d $HOME/Library/anaconda3/ ]; then
+    ANACONDA_PATH=$HOME/Library/anaconda3
+elif [ -d $HOME/Library/anaconda/ ]; then
+    ANACONDA_PATH=$HOME/Library/anaconda
+else
+    ANACONDA_PATH=''
+fi
+    
+if [ -n $ANACONDA_PATH -a "$ACTIVATE_ANACONDA"=="yes" ]; then
+    export PATH=$ANACONDA_PATH/bin:$PATH
+fi
 
 # Local Variables:
 # fill-column: 80

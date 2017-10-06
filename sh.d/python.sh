@@ -3,7 +3,7 @@
 # Copyright (C) 2011, 2012, 2013, 2015, 2017 by Massimo Lauria
 #
 # Created   : "2011-09-22, Thursday 01:06 (CEST) Massimo Lauria"
-# Time-stamp: "2017-10-05, 14:31 (CEST) Massimo Lauria"
+# Time-stamp: "2017-10-06, 19:12 (CEST) Massimo Lauria"
 #
 # Description::
 #
@@ -18,12 +18,9 @@ if [ -f $PYTHONSTARTUP ]; then
     export PYTHONSTARTUP
 fi
 
-# IPython configuration folder
-# >= 0.12
 IPYTHONDIR=$HOME/.ipython/
 export IPYTHONDIR
 
-# Sagemath configuration folder
 DOT_SAGE=$HOME/.sage/
 export DOT_SAGE
 
@@ -56,11 +53,11 @@ elif [ -d $HOME/Library/anaconda3/ ]; then
     ANACONDA_PATH=$HOME/Library/anaconda3
 elif [ -d $HOME/Library/anaconda/ ]; then
     ANACONDA_PATH=$HOME/Library/anaconda
-else
-    ANACONDA_PATH=''
 fi
     
-if [ -n $ANACONDA_PATH -a "$ACTIVATE_ANACONDA"=="yes" ]; then
+if [ "$ACTIVATE_ANACONDA" = yes  -a -n "$ANACONDA_PATH" ]; then
+    echo [ "$ACTIVATE_ANACONDA"==yes  -a -n "$ANACONDA_PATH" ]
+    echo "anaconda is active $ACTIVATE_ANACONDA"
     export PATH=$ANACONDA_PATH/bin:$PATH
 fi
 

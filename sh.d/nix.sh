@@ -2,4 +2,9 @@
 
 # Configuration for the nix package manager
 
-source ${HOME}/.nix-profile/etc/profile.d/nix.sh
+
+NIXCONF=${HOME}/.nix-profile/etc/profile.d/nixs.sh
+
+if [ -f $NIXCONF ]; then
+    source $NIXCONF
+fi

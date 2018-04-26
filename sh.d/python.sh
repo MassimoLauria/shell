@@ -3,7 +3,7 @@
 # Copyright (C) 2011, 2012, 2013, 2015, 2017 by Massimo Lauria
 #
 # Created   : "2011-09-22, Thursday 01:06 (CEST) Massimo Lauria"
-# Time-stamp: "2017-10-06, 19:12 (CEST) Massimo Lauria"
+# Time-stamp: "2018-04-24, 17:03 (CEST) Massimo Lauria"
 #
 # Description::
 #
@@ -37,6 +37,7 @@ else
 fi
 
 export WORKON_HOME=$HOME/.virtualenvs
+export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
 if type virtualenvwrapper_lazy.sh >/dev/null 2>&1; then
     source `which virtualenvwrapper_lazy.sh`
 fi

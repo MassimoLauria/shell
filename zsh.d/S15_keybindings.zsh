@@ -6,20 +6,20 @@
 bindkey -e
 
 # Left-Right arrows with modifiers
-bindkey ";5C" forward-word
-bindkey ";5D" backward-word
-bindkey ";3C" forward-word
-bindkey ";3D" backward-word
-bindkey ";2C" forward-word
-bindkey ";2D" backward-word
+bindkey "^[[1;5C" forward-word
+bindkey "^[[1;5D" backward-word
+bindkey "^[[1;3C" forward-word
+bindkey "^[[1;3D" backward-word
+bindkey "^[[1;2C" forward-word
+bindkey "^[[1;2D" backward-word
 
 # Up-Down arrows with modifiers
-bindkey ";5A" beginning-of-line
-bindkey ";5B" end-of-line
-bindkey ";3A" beginning-of-line
-bindkey ";3B" end-of-line
-bindkey ";2A" beginning-of-line
-bindkey ";2B" end-of-line
+bindkey "^[[1;5A" beginning-of-line
+bindkey "^[[1;5B" end-of-line
+bindkey "^[[1;3A" beginning-of-line
+bindkey "^[[1;3B" end-of-line
+bindkey "^[[1;2A" beginning-of-line
+bindkey "^[[1;2B" end-of-line
 
 # "page up" and "page down" to search the history
 bindkey "\e[5~" history-search-backward

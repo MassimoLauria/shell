@@ -1,9 +1,9 @@
 #!/bin/sh
 #
-# Copyright (C) 2011, 2012, 2013, 2015, 2017 by Massimo Lauria
+# Copyright (C) 2011, 2012, 2013, 2015, 2017, 2018 by Massimo Lauria
 #
 # Created   : "2011-09-22, Thursday 01:06 (CEST) Massimo Lauria"
-# Time-stamp: "2018-04-24, 17:03 (CEST) Massimo Lauria"
+# Time-stamp: "2018-06-19, 12:44 (CEST) Massimo Lauria"
 #
 # Description::
 #
@@ -24,7 +24,13 @@ export IPYTHONDIR
 DOT_SAGE=$HOME/.sage/
 export DOT_SAGE
 
-
+# Setup pyenv if present
+if [ -d $HOME/.pyenv/ ]; then
+    export PATH="$HOME/.pyenv/bin:$PATH"
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+fi
+    
 # Setup virtual envs
 if [ -f /usr/local/bin/python3 ]; then 
     export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3

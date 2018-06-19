@@ -3,7 +3,7 @@
 # Copyright (C) 2011, 2012, 2013, 2015, 2017, 2018 by Massimo Lauria
 #
 # Created   : "2011-09-22, Thursday 01:06 (CEST) Massimo Lauria"
-# Time-stamp: "2018-06-19, 15:12 (CEST) Massimo Lauria"
+# Time-stamp: "2018-06-19, 15:13 (CEST) Massimo Lauria"
 #
 # Description::
 #
@@ -20,9 +20,6 @@ fi
 
 IPYTHONDIR=$HOME/.ipython/
 export IPYTHONDIR
-
-DOT_SAGE=$HOME/.sage/
-export DOT_SAGE
 
 # Setup pyenv if present
 if [ -d $HOME/.pyenv/ ]; then

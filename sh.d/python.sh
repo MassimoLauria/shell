@@ -3,7 +3,7 @@
 # Copyright (C) 2011, 2012, 2013, 2015, 2017, 2018 by Massimo Lauria
 #
 # Created   : "2011-09-22, Thursday 01:06 (CEST) Massimo Lauria"
-# Time-stamp: "2018-06-19, 12:44 (CEST) Massimo Lauria"
+# Time-stamp: "2018-06-19, 15:12 (CEST) Massimo Lauria"
 #
 # Description::
 #
@@ -29,23 +29,6 @@ if [ -d $HOME/.pyenv/ ]; then
     export PATH="$HOME/.pyenv/bin:$PATH"
     eval "$(pyenv init -)"
     eval "$(pyenv virtualenv-init -)"
-fi
-    
-# Setup virtual envs
-if [ -f /usr/local/bin/python3 ]; then 
-    export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
-elif [ -f /usr/local/bin/python2 ]; then 
-    export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python2
-elif [ -f /usr/local/bin/python ]; then 
-    export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
-else
-    export VIRTUALENVWRAPPER_PYTHON=python
-fi
-
-export WORKON_HOME=$HOME/.virtualenvs
-export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
-if type virtualenvwrapper_lazy.sh >/dev/null 2>&1; then
-    source `which virtualenvwrapper_lazy.sh`
 fi
 
 # Setup anaconda path if Anaconda is installed

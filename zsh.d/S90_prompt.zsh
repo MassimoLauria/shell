@@ -54,6 +54,10 @@ PR_VCS_DIRTY_COLOR=$PR_RED
 PR_BARL_COLOR=$PR_BLUE
 PR_BARS_COLOR=$PR_WHITE
 
+PR_PYENV_COLOR=$PR_RED
+PR_PYENV_NAME_COLOR=$PR_GREEN
+
+
 # Themes modification for root
 if [ $UID -eq 0 ]; then
     PR_BARL_COLOR=$PR_RED
@@ -111,8 +115,9 @@ esac
 # %a - action (e.g. rebase-i)
 # %R - repository path
 # %S - path in the repository
+# %s - repository type
 PR_RST="%{${reset_color}%}"
-FMT_BRANCH="${PR_VCS_TYPE_COLOR}%s${PR_RST}:${PR_VCS_BRANCH_COLOR}%b%u%c${PR_RST}" # e.g. master¹²
+FMT_BRANCH="${PR_VCS_TYPE_COLOR}%s${PR_RST}:${PR_VCS_BRANCH_COLOR}%b%u%c${PR_RST}" # e.g. git:master¹²
 FMT_ACTION="(${PR_VCS_ACTION_COLOR}%a${PR_RST}%)"   # e.g. (rebase-i)
 FMT_PATH_VCS="${PR_RST}${PR_REPO_PATH_COLOR}%R${PR_REPO_SUBDIR_COLOR}/%S"   # e.g. ~/repo/subdir
 FMT_PATH_NVCS="${PR_RST}${PR_PATH_COLOR}%~${PR_RST}"   # e.g. ~/repo/subdir
@@ -130,7 +135,7 @@ zstyle ':vcs_info:*:prompt:*' unstagedstr   "${FMT_UNSTAGE_DIRTY}"  # display ¹
 zstyle ':vcs_info:*:prompt:*' stagedstr     "${FMT_STAGE_DIRTY}"  # display ² if there are staged changes
 zstyle ':vcs_info:*:prompt:*' actionformats $FMT_BL"${FMT_BRANCH}${FMT_ACTION}"$FMT_BR "${FMT_PATH_VCS}"
 zstyle ':vcs_info:*:prompt:*' formats       $FMT_BL"${FMT_BRANCH}"$FMT_BR              "${FMT_PATH_VCS}"
-zstyle ':vcs_info:*:prompt:*' nvcsformats    $FMT_BL"${FMT_BRANCH}"$FMT_BR             "${FMT_PATH_NVCS}"
+zstyle ':vcs_info:*:prompt:*' nvcsformats   ""
 # }}} ---------------------------------------------------------------------------
 
 
@@ -138,11 +143,15 @@ zstyle ':vcs_info:*:prompt:*' nvcsformats    $FMT_BL"${FMT_BRANCH}"$FMT_BR      
 # Common
 exit_value=""
 exit_value_prompt='%(?.'$PR_EXITVALUE_T_COLOR'.'$PR_EXITVALUE_F_COLOR')%?'$PR_RESET
-userhost_prompt=$PR_USERNAME_COLOR'%n'$PR_RESET'@'$PR_HOSTNAME_COLOR'%m'$PR_RESET':'$PR_TTY_COLOR'%l'$PR_RESET
 date_text=""
 time_prompt=$PR_TIME_COLOR'${date_text}'$PR_RESET
-#pwd_prompt=$PR_PATH_COLOR'%~'$PR_RESET
+
 dir_prompt=$PR_PATH_COLOR'%1~'$PR_RESET
+
+userhost_prompt=$PR_USERNAME_COLOR'%n'$PR_RESET'@'$PR_HOSTNAME_COLOR'%m'$PR_RESET
+
+pyenv_name='system'
+pyenv_prompt=$FMT_BL$PR_PYENV_COLOR'Py'$PR_RESET':'$PR_PYENV_NAME_COLOR'${pyenv_name}'$PR_RESET$FMT_BR
 
 prompt_char='$'
 prompt_char_prompt=$PR_PROMPT_CHAR_COLOR'${prompt_char}'$PR_RESET
@@ -152,6 +161,7 @@ prompt_top_filler=""
 
 # VCS
 branch_prompt='$vcs_info_msg_0_'
+#
 #
 # Next line has a bug and it is commented out. In case we are outside
 # of a repository the variable $vcs_info_msg_1_ does not fallback to
@@ -189,46 +199,24 @@ function zsh_vcs_promptchar_precmd {
 precmd_functions+='zsh_vcs_promptchar_precmd'
 
 
+
+# pyenv
+function zsh_pyenv_precmd {
+    pyenv_name=$(pyenv version-name)
+}
+
+if $(command -v pyenv > /dev/null); then
+    precmd_functions+='zsh_pyenv_precmd'
+else
+    pyenv_prompt=""
+fi
+
+
+
 function zsh_update-date_precmd {
     date_text=`date +%H:%M`
 }
 precmd_functions+='zsh_update-date_precmd'
-
-# BROKEN
-function zsh_update_top_filler {
-
-    exit_value="$?"
-    branch_prompt=""
-
-    local tl=${#${date_text}}
-    local el=${#${exit_value}}
-    local pl=${#${----()----<>-----()--- }}
-
-    local data_size=0
-    ((data_size=$pl+$tl+$bl+$el))
-    echo $data_size
-    echo $bl
-    echo $el
-    echo $tl
-    echo $pl
-
-    local pwd_size=${#${(%):-%~}}
-    echo $pwd_size
-
-    if [[ "$data_size + $pwd_size" -gt $COLUMNS ]]; then
-	    ((pwd_size=$COLUMNS - $data_size))
-        prompt_top_filler=""
-        # pwd_prompt_truncated="%B%40<..<${pwd_prompt}%<<%b"
-    else
-        prompt_top_filler="${(l.(($COLUMNS- $data_size - $pwd_size))..X.)}"
-        # pwd_prompt_truncated='${pwd_prompt}'
-    fi
-
-    pwd_prompt_truncated="%B${pwd_size}<..<${pwd_prompt}%<<%b"
-    echo $pwd_size
-
-}
-#precmd_functions+='zsh_update_top_filler'
 
 
 function zsh_update_mid_filler {
@@ -270,7 +258,8 @@ $prompt_char_prompt' '
 
         RPROMPT=$PR_BARS_COLOR'<'$PR_RESET\
 $userhost_prompt\
-$PR_BARS_COLOR'>'$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT$PR_RESET\
+$PR_BARS_COLOR'>'$PR_RESET\
+$pyenv_prompt\
 $PR_BARL_COLOR$PR_SHIFT_IN$PR_HBAR$PR_HBAR$PR_SHIFT_OUT$PR_RESET # prompt for right side of screen
         ;;
 

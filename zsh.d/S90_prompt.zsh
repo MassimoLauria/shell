@@ -219,24 +219,9 @@ function zsh_update-date_precmd {
 precmd_functions+='zsh_update-date_precmd'
 
 
-function zsh_update_mid_filler {
-    prompt_mid_filler="${(l.(($COLUMNS-3)).. .)}"
-}
-precmd_functions+='zsh_update_mid_filler'
+# THE PROMPT MAIN COMPONENTS -------------------------------------------------
 
-
-
-# {{{ FINALLY, THE PROMPTS -----------------------------------------------------
-
-case $TERM in
-    xterm*|rxvt*|screen*)
-
-        # The big one
-        PS2=$PR_PARSER_DATA_COLOR'    %_ '$PR_RESET$PR_PARSER_PROMPT_COLOR'→ '$PR_RESET
-
-        PROMPT='
-'\
-$PR_SHIFT_IN$PR_BARL_COLOR$PR_ULCORNER$PR_HBAR$PR_HBAR\
+ps1_first_line_unfilled=$PR_SHIFT_IN$PR_BARL_COLOR$PR_ULCORNER$PR_HBAR$PR_HBAR\
 $PR_BARS_COLOR$PR_HBAR$PR_SHIFT_OUT'('$PR_RESET\
 $time_prompt\
 $PR_BARS_COLOR')'$PR_SHIFT_IN$PR_HBAR$PR_RESET\
@@ -249,18 +234,46 @@ $branch_prompt\
 $PR_BARL_COLOR$PR_SHIFT_IN$PR_HBAR$PR_HBAR$PR_SHIFT_OUT\
 $PR_BARS_COLOR$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT'('$PR_RESET\
 $pwd_prompt_truncated\
-$PR_BARS_COLOR')'$PR_RESET\
-'
-'$PR_BARL_COLOR$PR_SHIFT_IN$PR_VBAR$PR_SHIFT_OUT$PR_RESET'
-'\
-$PR_SHIFT_IN$PR_BARL_COLOR$PR_LLCORNER$PR_HBAR$PR_SHIFT_OUT$PR_RESET\
-$prompt_char_prompt' '
+$PR_BARS_COLOR')'
+
+#$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT$PR_RESET
+
+ps1_first_line=$ps1_first_line_unfilled
+
+#ps1_second_line=$PR_BARL_COLOR$PR_SHIFT_IN$PR_VBAR$PR_SHIFT_OUT$PR_RESET'${prompt_mid_filler}'$PR_BARL_COLOR$PR_SHIFT_IN$PR_VBAR$PR_SHIFT_OUT$PR_RESET
+ps1_second_line=$PR_BARL_COLOR$PR_SHIFT_IN$PR_VBAR$PR_SHIFT_OUT$PR_RESET
+
+ps1_third_line=$PR_SHIFT_IN$PR_BARL_COLOR$PR_LLCORNER$PR_HBAR$PR_SHIFT_OUT$PR_RESET$prompt_char_prompt' '
+
+
+# UPDATE THE PADDING -------------------------------------------------
+
+
+function zsh_update_mid_filler {
+    prompt_mid_filler="${(r.(($COLUMNS - 3)).. .)}"
+}
+precmd_functions+='zsh_update_mid_filler'
+
+function zsh_update_top_filler {
+}
+precmd_functions+='zsh_update_top_filler'
+
+case $TERM in
+    xterm*|rxvt*|screen*)
+
+        # The big one
+        PS2=$PR_PARSER_DATA_COLOR'    %_ '$PR_RESET$PR_PARSER_PROMPT_COLOR'→ '$PR_RESET
+
+        PROMPT='
+'$ps1_first_line'
+'$ps1_second_line'
+'$ps1_third_line
 
         RPROMPT=$PR_BARS_COLOR'<'$PR_RESET\
 $userhost_prompt\
 $PR_BARS_COLOR'>'$PR_RESET\
 $pyenv_prompt\
-$PR_BARL_COLOR$PR_SHIFT_IN$PR_HBAR$PR_HBAR$PR_SHIFT_OUT$PR_RESET # prompt for right side of screen
+$PR_BARL_COLOR$PR_SHIFT_IN$PR_HBAR$PR_LRCORNER$PR_SHIFT_OUT$PR_RESET # prompt for right side of screen
         ;;
 
     eterm*)

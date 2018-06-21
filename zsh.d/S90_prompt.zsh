@@ -218,6 +218,44 @@ function zsh_update-date_precmd {
 }
 precmd_functions+='zsh_update-date_precmd'
 
+# COMPUTE THE PADDING ----------------------------------------------
+
+
+function zsh_update_2nd_row_padding {
+    prompt_mid_filler="${(r.(($COLUMNS - 3)).. .)}"
+}
+precmd_functions+='zsh_update_2nd_row_padding'
+
+# FIXME: the occurrence of '─' in the last line should really be
+# $PR_HBAR instead.
+#
+function zsh_update_3rd_row_padding {
+    local zero='%([BSUbfksu]|([FK]|){*})'
+    local vcs_info_size=${#${(S%%)vcs_info_msg_0_//$~zero/}}
+    local ps1_first_line_size=${#${(S%%)ps1_first_line_unfilled//$~zero/}}
+    local date_size=${#${(S%%)time_prompt//$~zero/}}
+    if [ "$vcs_info_size" -gt 0 ];then
+        vcs_info_size=$((vcs_info_size-3))
+    fi
+    total_size=$((ps1_first_line_size + date_size + vcs_info_size))
+    prompt_top_filler="${(r.(($COLUMNS +16 - $total_size))..─.)}"
+}
+precmd_functions+='zsh_update_3rd_row_padding'
+
+# HACK: I compute the additional bars to pad the exit code at the very
+# last moment in prompt evaluation, using this function. I cannot get
+# zsh to compute it in the `zsh_update_1st_row_padding' function
+#
+function compensate_exit_length {
+    if [ $1 -lt 10 ]; then
+        echo $PR_HBAR$PR_HBAR
+    elif [ $1 -lt 100 ]; then
+        echo $PR_HBAR
+    else
+        echo ""
+    fi
+}
+
 
 # THE PROMPT MAIN COMPONENTS -------------------------------------------------
 
@@ -234,29 +272,17 @@ $branch_prompt\
 $PR_BARL_COLOR$PR_SHIFT_IN$PR_HBAR$PR_HBAR$PR_SHIFT_OUT\
 $PR_BARS_COLOR$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT'('$PR_RESET\
 $pwd_prompt_truncated\
-$PR_BARS_COLOR')'
+$PR_BARS_COLOR')'\
+$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT$PR_RESET
 
-#$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT$PR_RESET
+ps1_first_line=$ps1_first_line_unfilled$PR_BARL_COLOR$PR_SHIFT_IN'${prompt_top_filler}$(compensate_exit_length $?)'$PR_URCORNER$PR_SHIFT_OUT$PR_RESET
 
-ps1_first_line=$ps1_first_line_unfilled
-
-#ps1_second_line=$PR_BARL_COLOR$PR_SHIFT_IN$PR_VBAR$PR_SHIFT_OUT$PR_RESET'${prompt_mid_filler}'$PR_BARL_COLOR$PR_SHIFT_IN$PR_VBAR$PR_SHIFT_OUT$PR_RESET
-ps1_second_line=$PR_BARL_COLOR$PR_SHIFT_IN$PR_VBAR$PR_SHIFT_OUT$PR_RESET
+ps1_second_line=$PR_BARL_COLOR$PR_SHIFT_IN$PR_VBAR$PR_SHIFT_OUT$PR_RESET'${prompt_mid_filler}'$PR_BARL_COLOR$PR_SHIFT_IN$PR_VBAR$PR_SHIFT_OUT$PR_RESET
+#ps1_second_line=$PR_BARL_COLOR$PR_SHIFT_IN$PR_VBAR$PR_SHIFT_OUT$PR_RESET
 
 ps1_third_line=$PR_SHIFT_IN$PR_BARL_COLOR$PR_LLCORNER$PR_HBAR$PR_SHIFT_OUT$PR_RESET$prompt_char_prompt' '
 
 
-# UPDATE THE PADDING -------------------------------------------------
-
-
-function zsh_update_mid_filler {
-    prompt_mid_filler="${(r.(($COLUMNS - 3)).. .)}"
-}
-precmd_functions+='zsh_update_mid_filler'
-
-function zsh_update_top_filler {
-}
-precmd_functions+='zsh_update_top_filler'
 
 case $TERM in
     xterm*|rxvt*|screen*)

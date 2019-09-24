@@ -21,6 +21,7 @@ function myrepos() {
         echo "Executing '$COMMANDS' on repository $p"
         pushd $p
         git  $COMMANDS
+        git  submodule foreach git $COMMANDS
         popd 
     done
     }

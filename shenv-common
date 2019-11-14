@@ -45,20 +45,6 @@ fi
 
 
 
-# {{{ Pager --------------------------------------------------------------------
-if [[ -f `which most 2>/dev/null` ]]; then
-    PAGER=most
-elif [[ -f `which less 2>/dev/null` ]]; then
-    PAGER=less
-else
-    PAGER=more
-fi
-export PAGER
-# }}} --------------------------------------------------------------------------
-
-
-
-
 ### Include other files
 sh_sources=${CONFIGDIR}/shell/sh.d/
 

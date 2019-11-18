@@ -17,5 +17,7 @@ export PAGER
 # }}} --------------------------------------------------------------------------
 
 # bat is better than cat, but defaults are funny
-export BAT_PAGER=less
-alias cat=bat
+if type bat >/dev/null 2>&1; then
+    export BAT_PAGER=less
+    alias cat=bat
+fi

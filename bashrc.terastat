@@ -35,4 +35,11 @@ export PS1
 
 # Aliases
 alias ls='ls --color=auto'
-alias ec=emacs
+
+# Emacs
+alias ec=emacsclient
+alias killemacs="emacsclient -e '(kill-emacs)'"
+alias startemacs="emacs --daemon"
+
+# Start deamon if not running already
+emacsclient -a false -e 't' >/dev/null || emacs --daemon 2>&1 > /dev/null

@@ -1,3 +1,4 @@
+# -*- mode: sh -*-
 # Bash configuration for Terastat cluster.
 
 . /afs/sta.uniroma1.it/system/uenv7/bashrc.common
@@ -40,6 +41,3 @@ alias ls='ls --color=auto'
 alias ec=emacsclient
 alias killemacs="emacsclient -e '(kill-emacs)'"
 alias startemacs="emacs --daemon"
-
-# Start deamon if not running already
-emacsclient -a false -e 't' >/dev/null || emacs --daemon 2>&1 > /dev/null

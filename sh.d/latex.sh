@@ -1,9 +1,9 @@
 #!/bin/sh
 #
-# Copyright (C) 2014, 2015, 2017 by Massimo Lauria
+# Copyright (C) 2014, 2015, 2017, 2020 by Massimo Lauria
 #
 # Created   : "2014-10-22, Wednesday 13:06 (CEST) Massimo Lauria"
-# Time-stamp: "2017-09-29, 17:02 (CEST) Massimo Lauria"
+# Time-stamp: "2020-03-24, 02:06 (CET) Massimo Lauria"
 #
 # Description::
 #
@@ -31,10 +31,13 @@ export TEXMFHOME
 # it requires `function` capabilities from the shell.
 [ -n "$BASH" ] || [ -n "$ZSH_NAME" ] || return 0
 
+
+
 function jakobtex-enable {
-    TEXINPUTS=~/lavori/svnrepos/jakobtex:`kpsewhich --var-value TEXINPUTS`
-    BIBINPUTS=~/lavori/svnrepos/jakobtex:`kpsewhich --var-value BIBINPUTS`
-    BSTINPUTS=~/lavori/svnrepos/jakobtex:`kpsewhich --var-value BSTINPUTS`
+    local aPath=$HOME/lavori/latex/jakobtex
+    TEXINPUTS=$aPath:`kpsewhich --var-value TEXINPUTS`
+    BIBINPUTS=$aPath:`kpsewhich --var-value BIBINPUTS`
+    BSTINPUTS=$aPath:`kpsewhich --var-value BSTINPUTS`
     export TEXINPUTS
     export BIBINPUTS
     export BSTINPUTS

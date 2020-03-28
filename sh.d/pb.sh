@@ -42,7 +42,7 @@ function pb() {
         fzf -e -i --ansi --reverse -m \
             --tabstop=4  -d '\t' \
             --prompt='Pin> ' \
-            --preview-window down:6:wrap --bind '?:toggle-preview' \
+            --preview-window down:6:wrap --bind '?:toggle-preview,ctrl-s:toggle-sort' \
             --preview 'echo {1} "--- "{2}"\n\n"{3}"\n\nURL: "{5}'  |
         awk 'BEGIN { FS = "\t" } { print $5 }'  |
         xargs open

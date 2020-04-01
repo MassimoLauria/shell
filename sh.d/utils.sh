@@ -31,7 +31,7 @@ fi
 # 'exa' is a more sophisticated replacement for 'ls'
 # https://the.exa.website/
 if type exa >/dev/null 2>&1; then
-    alias ls="exa -hg --git --git-ignore"
+    alias ls="exa -hg --git"
 fi
 
 

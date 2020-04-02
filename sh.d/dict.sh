@@ -14,7 +14,7 @@
 # - fzf         fuzzy finder   (https://github.com/junegunn/fzf)
 # - sdcv        StarDict Console Version
 
-WORDFILE=$HOME/personal/dictionaries/wordlists/english_and_italian2.txt
+WORDFILE=$HOME/personal/dictionaries/wordlists/english_and_italian.txt
 
     
 function d() {
@@ -27,7 +27,7 @@ function d() {
     fi
 
     cat $WORDFILE |
-    fzf -i --print0 \
+    fzf -i --print0 --reverse \
         $query $args \
         --prompt "Cerca: " \
         --preview "sdcv -enc0 {}" \

@@ -25,14 +25,24 @@ PINBOARDRC=$HOME/.pinboardrc
 PINDOWNLOAD=${CONFIGDIR}/shell/sh.d/pincache.py
 
 
+function _pb_check_install() {
+    local fail=0
+    type fzf >/dev/null 2>&1 ||
+        { echo >&2 "Required 'fzf' command is missing."; fail=1; }
+    python -c 'import pinboard' >/dev/null 2>&1 ||
+        { echo >&2 "Required python module 'pinboard' is missing."; fail=1; }
+    return fail
+}
 
 
-function pbcache() { 
+function pbcache() {
+    _pb_check_install || return 1 
     echo "Fetching pinboard.in bookmarks"
     python "$PINDOWNLOAD" --forcecolors > "$PIN_CACHE_FILE"
 }
 
 function pb() {
+    _pb_check_install || return 1
     local fzf_opts=
     local open_cmd='xdg-open'
     if [ $(uname) = "Darwin" ]; then

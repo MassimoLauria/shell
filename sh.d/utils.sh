@@ -35,3 +35,14 @@ if type exa >/dev/null 2>&1; then
 fi
 
 
+function covid() {
+    local args
+    if [ $# -eq 0 ]; then
+        args=it
+    elif [ $# -eq 1 ]; then
+        args=$1
+    else
+        echo "Usage: covid <countrycode>"; return 1
+    fi
+    curl -L covid19.trackercli.com/history/$args
+}

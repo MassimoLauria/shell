@@ -16,8 +16,20 @@
 
 WORDFILE=$HOME/personal/dictionaries/wordlists/english_and_italian.txt
 
-    
+
+function _d_check_runtime() {
+    local fail=0
+
+    type fzf >/dev/null 2>&1 ||
+        { echo >&2 "Required 'fzf' command is missing."; fail=1; }
+    type sdcv >/dev/null 2>&1 ||
+        { echo >&2 "Required 'sdcv' command is missing."; fail=1; }
+    return fail
+}
+
+
 function d() {
+    _d_check_runtime || return 1
     local args=""
     local query=""
 

@@ -30,11 +30,6 @@ function _bib_check_runtime() {
 }
 
 
-function bibpreview () {
-    local key='$key'
-    bibtool -- "select{$key \"$1\"}" -q -i $BIBFILE  2>|/dev/null | grep -v "@STRING"
-    }
-
 function bib () {
     _bib_check_runtime || return 1
     
@@ -46,7 +41,7 @@ function bib () {
     fi
 
     # Choose file and build command line
-    $LS $BIBFILE | fzf -d'@' -e --reverse --ansi $query |
+    $LS $BIBFILE | fzf -d'@' --preview "bibtool -- select\{\\\$key\\ \\\"^{2}\\\$\\\"\} -q -i $BIBFILE 2>/dev/null" -e --reverse --ansi $query |
         awk -F '@' 'BEGIN { printf "(bibtex-completion-open-pdf (list " } {printf " \""$2"\"" } END { printf("))")}' > $TMPLS
 
     emacsclient -e "(load-file \"$TMPLS\")" >/dev/null

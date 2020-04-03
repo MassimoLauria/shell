@@ -41,7 +41,11 @@ function bib () {
     fi
 
     # Choose file and build command line
-    $LS $BIBFILE | fzf -d'@' --preview "bibtool -- select\{\\\$key\\ \\\"^{2}\\\$\\\"\} -q -i $BIBFILE 2>/dev/null" -e --reverse --ansi $query |
+    $LS $BIBFILE | fzf -d'@' \
+                       --preview "bibtool -- select\{\\\$key\\ \\\"^{2}\\\$\\\"\} -q -i $BIBFILE 2>/dev/null" \
+                       --preview-window down:wrap \
+                       --bind '?:toggle-preview' \
+                       -e --reverse --ansi $query |
         awk -F '@' 'BEGIN { printf "(bibtex-completion-open-pdf (list " } {printf " \""$2"\"" } END { printf("))")}' > $TMPLS
 
     emacsclient -e "(load-file \"$TMPLS\")" >/dev/null

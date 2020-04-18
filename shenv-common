@@ -58,6 +58,11 @@ if [ -f "$HOME/personal/conf/shenv-personal" ]; then
 fi
 
 
+if [ -f "$HOME/games/shenv" ]; then
+	source $HOME/games/shenv
+fi
+
+
 ## Umask
 umask 0077
 

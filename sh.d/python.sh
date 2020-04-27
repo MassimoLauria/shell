@@ -1,9 +1,9 @@
 #!/bin/sh
 #
-# Copyright (C) 2011, 2012, 2013, 2015, 2017, 2018 by Massimo Lauria
+# Copyright (C) 2011, 2012, 2013, 2015, 2017, 2018, 2020 by Massimo Lauria
 #
 # Created   : "2011-09-22, Thursday 01:06 (CEST) Massimo Lauria"
-# Time-stamp: "2018-06-20, 11:48 (CEST) Massimo Lauria"
+# Time-stamp: "2020-04-27, 13:43 (CEST) Massimo Lauria"
 #
 # Description::
 #
@@ -13,7 +13,7 @@
 # Code::
 
 # Python enviroment variables
-PYTHONSTARTUP=$CONFIGDIR/pythonrc/pythonrc.py
+PYTHONSTARTUP=$CONFIGDIR/python/pythonrc.py
 if [ -f $PYTHONSTARTUP ]; then
     export PYTHONSTARTUP
 fi
@@ -21,32 +21,16 @@ fi
 IPYTHONDIR=$HOME/.ipython/
 export IPYTHONDIR
 
+MPLCONFIGDIR=$HOME/.matplotlib/
+export MPLCONFIGDIR
+
+
 # Setup pyenv if present
 if [ -d $HOME/.pyenv/ ]; then
     export PATH="$HOME/.pyenv/bin:$PATH"
     eval "$(pyenv init -)"
     eval "$(pyenv virtualenv-init -)"
     export PYENV_VIRTUALENV_DISABLE_PROMPT=1
-fi
-
-# Setup anaconda path if Anaconda is installed
-#
-ACTIVATE_ANACONDA=no  # set to 'yes' to have anaconda in the path
-
-if [ -d $HOME/anaconda3/ ]; then
-    ANACONDA_PATH=$HOME/anaconda3/
-elif [ -d $HOME/anaconda/ ]; then
-    ANACONDA_PATH=$HOME/anaconda/
-elif [ -d $HOME/Library/anaconda3/ ]; then
-    ANACONDA_PATH=$HOME/Library/anaconda3
-elif [ -d $HOME/Library/anaconda/ ]; then
-    ANACONDA_PATH=$HOME/Library/anaconda
-fi
-    
-if [ "$ACTIVATE_ANACONDA" = yes  -a -n "$ANACONDA_PATH" ]; then
-    echo [ "$ACTIVATE_ANACONDA"==yes  -a -n "$ANACONDA_PATH" ]
-    echo "anaconda is active $ACTIVATE_ANACONDA"
-    export PATH=$ANACONDA_PATH/bin:$PATH
 fi
 
 # Local Variables:

@@ -24,6 +24,12 @@ PIN_CACHE_FILE=$HOME/.pinboard.cache
 PINBOARDRC=$HOME/.pinboardrc
 PINDOWNLOAD=${CONFIGDIR}/shell/sh.d/pincache.py
 
+unameOut="$(uname -s)"
+case "${unameOut}" in
+    Linux*)     opencmd=xdg-open;;
+    Darwin*)    opencmd=open;;
+    *)          opencmd=xdg-open
+esac 
 
 function _pb_check_install() {
     local fail=0
@@ -55,5 +61,5 @@ function pb() {
             --preview-window down:6:wrap --bind '?:toggle-preview,ctrl-s:toggle-sort' \
             --preview 'echo {1} "--- "{2}"\n\n"{3}"\n\nURL: "{5}'  |
         awk 'BEGIN { FS = "\t" } { print $5 }'  |
-        xargs open
+        xargs ${opencmd}
 }

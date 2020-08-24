@@ -23,9 +23,14 @@ export PAGER
 # 'bat' is good for showing files
 # so I use it instead of 'cat'
 # https://github.com/sharkdp/bat
+#
+# In ubuntu it is installed as batcat
 if type bat >/dev/null 2>&1; then
     export BAT_PAGER=less
     alias cat=bat
+elif type batcat >/dev/null 2>&1; then
+    export BAT_PAGER=less
+    alias cat=batcat
 fi
 
 # 'exa' is a more sophisticated replacement for 'ls'

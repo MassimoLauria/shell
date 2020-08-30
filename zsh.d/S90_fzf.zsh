@@ -31,6 +31,12 @@ export FZF_ALT_C_OPTS="--prompt 'Dir> ' -m --header='Select a folder' --preview 
 # Full command on the preview windows
 export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
 
+function fzf_create() {
+    # This is for Debian, which does not create .fzf.zsh
+    echo "source /usr/share/doc/fzf/examples/key-bindings.zsh" > ~/.fzf.zsh
+    echo "source /usr/share/doc/fzf/examples/completion.zsh"   >> ~/.fzf.zsh
+}
+
 function fzf_activate() {
     source ~/.fzf.zsh
 }
@@ -55,4 +61,4 @@ function fzf_setup() {
     fzf_zsh_special_keys
 }
 
-[ -f ~/.fzf.zsh ] && fzf_setup
+[ -f ~/.fzf.zsh ] || fzf_create && fzf_setup

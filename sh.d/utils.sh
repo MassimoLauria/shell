@@ -40,7 +40,7 @@ if type exa >/dev/null 2>&1; then
 fi
 
 
-function covid() {
+function covid {
     local args
     if [ $# -eq 0 ]; then
         args=it

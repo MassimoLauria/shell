@@ -3,7 +3,7 @@
 # Copyright (C) 2011, 2014, 2015, 2020 by Massimo Lauria
 #
 # Created   : "2011-11-17, Thursday 20:43 (CET) Massimo Lauria"
-# Time-stamp: "2020-09-01, 11:25 (CEST) Massimo Lauria"
+# Time-stamp: "2020-10-23, 10:34 (CEST) Massimo Lauria"
 #
 # Description::
 #
@@ -32,7 +32,7 @@ function o {
         else
             nohup xdg-open $1 </dev/null &>/dev/null
         fi
-    elif [ `uname` = "Darwin"]; then
+    elif [ `uname` = "Darwin" ]; then
 
         if [ $# -lt 1 ]; then
             open .

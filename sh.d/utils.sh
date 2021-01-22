@@ -51,3 +51,7 @@ function covid {
     fi
     curl -L covid19.trackercli.com/history/$args
 }
+
+function uskey {
+    setxkbmap -config ~/config/xsession/setxkbmap.pcus 
+}

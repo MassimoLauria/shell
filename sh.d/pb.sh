@@ -36,7 +36,8 @@ function _pb_check_install() {
     type fzf >/dev/null 2>&1 ||
         { echo >&2 "Required 'fzf' command is missing."; fail=1; }
     python -c 'import pinboard' >/dev/null 2>&1 ||
-        { echo >&2 "Required python module 'pinboard' is missing."; fail=1; }
+        { python -m pip install pinboard } ||
+        { echo >&2 "Required python module 'pinboard' is missing and can't be installed."; fail=1; }
     return ${fail}
 }
 

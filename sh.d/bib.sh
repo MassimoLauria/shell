@@ -1,4 +1,4 @@
-#/bin/sh
+#!/bin/sh
 
 #
 # Shell command to open a PDF looking among by bibtex entries
@@ -9,7 +9,7 @@ BIBFILE=$HOME/lavori/latex/texmf-private/bibtex/bib/theoryofcomputing.bib
 TMPLS=`mktemp`
 
 
-function _bib_check_runtime() {
+_bib_check_runtime() {
     local fail=0
 
     type $LS >/dev/null 2>&1 ||
@@ -30,7 +30,7 @@ function _bib_check_runtime() {
 }
 
 
-function bib () {
+bib () {
     _bib_check_runtime || return 1
     
     # Initial query
@@ -51,8 +51,3 @@ function bib () {
     emacsclient -e "(load-file \"$TMPLS\")" >/dev/null
     rm -f $TMPLS
 }
-
-
-
-
-

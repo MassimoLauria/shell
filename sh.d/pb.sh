@@ -31,7 +31,7 @@ case "${unameOut}" in
     *)          opencmd=xdg-open
 esac 
 
-function _pb_check_install() {
+function _pb_check_install {
     local fail=0
     type fzf >/dev/null 2>&1 ||
         { echo >&2 "Required 'fzf' command is missing."; fail=1; }
@@ -42,13 +42,13 @@ function _pb_check_install() {
 }
 
 
-function pbcache() {
+pbcache() {
     _pb_check_install || return 1 
     echo "Fetching pinboard.in bookmarks"
     python "$PINDOWNLOAD" --forcecolors > "$PIN_CACHE_FILE"
 }
 
-function pb() {
+pb() {
     _pb_check_install || return 1
     local fzf_opts=
     local open_cmd='xdg-open'

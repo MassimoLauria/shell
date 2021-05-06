@@ -10,8 +10,8 @@
 #
 
 #
-# Requirements: 
-# 
+# Requirements:
+#
 # - pinboard.py python package (https://github.com/lionheart/pinboard.py)
 # - fzf         fuzzy finder   (https://github.com/junegunn/fzf)
 
@@ -29,23 +29,23 @@ case "${unameOut}" in
     Linux*)     opencmd=xdg-open;;
     Darwin*)    opencmd=open;;
     *)          opencmd=xdg-open
-esac 
+esac
 
 function _pb_check_install {
     local fail=0
     type fzf >/dev/null 2>&1 ||
         { echo >&2 "Required 'fzf' command is missing."; fail=1; }
-    python -c 'import pinboard' >/dev/null 2>&1 ||
-        { python -m pip install pinboard } ||
+    python3 -c 'import pinboard' >/dev/null 2>&1 ||
+        { python3 -m pip install pinboard } ||
         { echo >&2 "Required python module 'pinboard' is missing and can't be installed."; fail=1; }
     return ${fail}
 }
 
 
 pbcache() {
-    _pb_check_install || return 1 
+    _pb_check_install || return 1
     echo "Fetching pinboard.in bookmarks"
-    python "$PINDOWNLOAD" --forcecolors > "$PIN_CACHE_FILE"
+    python3 "$PINDOWNLOAD" --forcecolors > "$PIN_CACHE_FILE"
 }
 
 pb() {

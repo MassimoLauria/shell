@@ -19,7 +19,6 @@
 # --color fg:242,bg:236,hl:65,fg+:15,bg+:239,hl+:108 \
 # --color info:108,prompt:109,spinner:108,pointer:168,marker:168 \
 
-
 PIN_CACHE_FILE=$HOME/.pinboard.cache
 PINBOARDRC=$HOME/.pinboardrc
 PINDOWNLOAD=${CONFIGDIR}/shell/sh.d/pincache.py
@@ -31,13 +30,13 @@ case "${unameOut}" in
     *)          opencmd=xdg-open
 esac
 
-function _pb_check_install {
+_pb_check_install() {
     local fail=0
     type fzf >/dev/null 2>&1 ||
         { echo >&2 "Required 'fzf' command is missing."; fail=1; }
-    python3 -c 'import pinboard' >/dev/null 2>&1 ||
-        { python3 -m pip install pinboard } ||
-        { echo >&2 "Required python module 'pinboard' is missing and can't be installed."; fail=1; }
+    python3 -c 'import pinboard' ||
+    python3 -m pip install pinboard ||
+    { echo >&2 "Required python module 'pinboard' is missing and can't be installed."; fail=1; }
     return ${fail}
 }
 

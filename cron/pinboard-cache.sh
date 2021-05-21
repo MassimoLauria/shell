@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 #
 # This simple script complements my shell macro to cache the pinboard
@@ -7,4 +7,4 @@
 #
 
 CONFIGDIR=$HOME/config
-source $CONFIGDIR/shell/sh.d/pb.sh && pbcache
+. $CONFIGDIR/shell/sh.d/pb.sh && pbcache

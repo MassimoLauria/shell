@@ -1,9 +1,9 @@
 #!/bin/sh
 #
-# Copyright (C) 2011, 2012, 2013, 2015, 2017, 2018, 2020 by Massimo Lauria
+# Copyright (C) 2011, 2012, 2013, 2015, 2017, 2018, 2020, 2021 by Massimo Lauria
 #
 # Created   : "2011-09-22, Thursday 01:06 (CEST) Massimo Lauria"
-# Time-stamp: "2020-04-27, 13:43 (CEST) Massimo Lauria"
+# Time-stamp: "2021-07-02, 12:44 (CEST) Massimo Lauria"
 #
 # Description::
 #
@@ -26,8 +26,10 @@ export MPLCONFIGDIR
 
 
 # Setup pyenv if present
-if [ -d $HOME/.pyenv/ ]; then
-    export PATH="$HOME/.pyenv/bin:$PATH"
+export PYENV_ROOT="$HOME/.pyenv"
+if [ -d $PYENV_ROOT ]; then
+    export PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init --path)"
     eval "$(pyenv init -)"
     eval "$(pyenv virtualenv-init -)"
     export PYENV_VIRTUALENV_DISABLE_PROMPT=1

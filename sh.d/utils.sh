@@ -53,5 +53,9 @@ function covid {
 }
 
 function uskey {
-    setxkbmap -config ~/config/xsession/setxkbmap.pcus 
+    setxkbmap -config ~/config/xsession/setxkbmap.pcus
+}
+
+function resetkey {
+    setxkbmap -option
 }

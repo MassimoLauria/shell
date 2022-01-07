@@ -55,12 +55,16 @@ export EDITOR
 export ALTERNATE_EDITOR
 export GIT_EDITOR
 
-# Better info reader via emacs
+# Emacs can be used as default info and man page reader.
 
 function info {
-    emacsclient -t -e "(info \"$1\")" -a nil || /usr/bin/info "$1"
+    emacsclient -c -e "(info \"$1\")" -a nil || /usr/bin/info "$1"
 }
 
+
+function man {
+    emacsclient -c -e "(woman \"$1\")" -a nil || /usr/bin/man "$1"
+}
 
 
 

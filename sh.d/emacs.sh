@@ -55,6 +55,14 @@ export EDITOR
 export ALTERNATE_EDITOR
 export GIT_EDITOR
 
+# Better info reader via emacs
+
+function info {
+    emacsclient -t -e "(info \"$1\")" -a nil || /usr/bin/info "$1"
+}
+
+
+
 
 # Cask path
 export PATH="$HOME/.cask/bin:$PATH"

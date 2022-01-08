@@ -39,6 +39,42 @@ if type exa >/dev/null 2>&1; then
     alias ls="exa -hg --git"
 fi
 
+# 'duf' is a more sophisticated replacement for 'df'
+# https://github.com/muesli/duf
+if type duf >/dev/null 2>&1; then
+    alias df="duf"
+fi
+
+# 'dust' is a more sophisticated replacement for 'du'
+# https://github.com/bootandy/dust
+if type dust >/dev/null 2>&1; then
+    alias du="dust"
+fi
+
+# 'gping' is graphical version of 'ping'
+# https://github.com/orf/gping
+if type gping >/dev/null 2>&1; then
+    alias ping="gping"
+fi
+
+# 'bashtop' is graphical version of 'top'
+# 'htop' is less intrusive but I want to get used to bashtop
+# https://github.com/aristocratos/bashtop
+if type bashtop >/dev/null 2>&1; then
+    alias top="bashtop"
+fi
+
+
+# 'fd' is a more modern and usable version of 'find'
+# https://github.com/sharkdp/fd
+#
+# ubuntu has it installed as fdfind
+if type fdfind >/dev/null 2>&1; then
+    alias fd="fdfind"
+fi
+
+
+
 
 function covid {
     local args

@@ -37,6 +37,8 @@ fi
 # https://the.exa.website/
 if type exa >/dev/null 2>&1; then
     alias ls="exa -hg --git"
+else
+    alias ls="ls --color=auto"
 fi
 
 # 'duf' is a more sophisticated replacement for 'df'

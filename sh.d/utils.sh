@@ -91,6 +91,8 @@ function covid {
 }
 
 function uskey {
+    setxkbmap -option
+    python ~/config/xsession/xkb_capsunlock.py
     setxkbmap -config ~/config/xsession/setxkbmap.pcus
 }
 

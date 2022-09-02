@@ -62,11 +62,5 @@ function info {
 }
 
 
-function man {
-    emacsclient -c -e "(woman \"$1\")" -a nil || /usr/bin/man "$1"
-}
-
-
-
 # Cask path
 export PATH="$HOME/.cask/bin:$PATH"

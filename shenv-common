@@ -35,11 +35,15 @@ if [ -d $HOME/.local/sbin ]; then
 fi
 export PATH
 
-# MacOSX substitute for `~/.local/bin` could be `~/Library/bin'? 
+# MacOSX substitute for `~/.local/bin` could be `~/Library/bin'?
 if [ -d $HOME/Library/bin ]; then
     PATH=$HOME/Library/bin:$PATH
 fi
 
+# Rust cargo binaries
+if [ -d $HOME/.cargo/bin ]; then
+    PATH=$HOME/.cargo/bin:$PATH
+fi
 
 # }}} --------------------------------------------------------------------------
 

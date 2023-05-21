@@ -1,21 +1,20 @@
 #!/bin/sh
 #
-# Copyright (C) 2014, 2015, 2017, 2020 by Massimo Lauria
+# Copyright (C) 2014, 2015, 2017, 2020, 2023 by Massimo Lauria
 #
 # Created   : "2014-10-22, Wednesday 13:06 (CEST) Massimo Lauria"
-# Time-stamp: "2020-03-24, 02:06 (CET) Massimo Lauria"
+# Time-stamp: "2023-05-21, 19:33 (CEST) Massimo Lauria"
 #
 # Description::
 #
 # Shell environmnet variables and functions for LaTeX
-# 
+#
 
 # LaTeX enviroment variables
 
 TEXEDIT="$EDITOR +%d %s"
 
-TEXMFHOME="$CONFIGDIR/texmf-public:"                      # Public  texmf tree
-TEXMFHOME="$HOME/lavori/latex/texmf-private:$TEXMFHOME"  # Private texmf tree
+TEXMFHOME="$HOME/lavori/latex:"  # Private texmf tree
 
 if type sage >/dev/null 2>&1; then
     # Sage TeX packages

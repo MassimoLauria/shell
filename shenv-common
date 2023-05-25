@@ -10,6 +10,11 @@ CONFIGDIR=$HOME/config
 
 # {{{ Paths --------------------------------------------------------------------
 
+# Flatpak
+if [ -d /var/lib/flatpak/exports/bin/ ]; then
+    PATH=/var/lib/flatpak/exports/bin/:$PATH
+fi
+
 # MacPorts binary path
 if [ -d /opt/local/bin ]; then
     PATH=/opt/local/bin:$PATH

@@ -5,7 +5,7 @@
 #
 
 LS=bibtex-ls
-BIBFILE=$HOME/lavori/latex/texmf-private/bibtex/bib/theoryofcomputing.bib
+BIBFILE=$HOME/lavori/latex/bibtex/bib/theoryofcomputing.bib
 TMPLS=`mktemp`
 
 
@@ -32,7 +32,7 @@ _bib_check_runtime() {
 
 bib () {
     _bib_check_runtime || return 1
-    
+
     # Initial query
     local query=""
 
@@ -47,7 +47,6 @@ bib () {
                        --bind '?:toggle-preview' \
                        -e --reverse --ansi $query |
         awk -F '@' 'BEGIN { printf "(bibtex-completion-open-pdf (list " } {printf " \""$2"\"" } END { printf("))")}' > $TMPLS
-
-    emacsclient -e "(load-file \"$TMPLS\")" >/dev/null
+    emacsclient -ce "(load-file \"$TMPLS\")"  >/dev/null
     rm -f $TMPLS
 }

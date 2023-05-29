@@ -99,3 +99,14 @@ function uskey {
 function resetkey {
     setxkbmap -option
 }
+
+
+# Set as one of my wallpaper
+function wallpapermk {
+    wdir=$HOME/personal/wallpaper
+    fname=$(basename "$1")
+    echo "Setting $fname as background"
+    cp -n $1 ${wdir}/ && \
+        ${wdir}/aspectcrop.sh ${wdir}/$fname ${wdir}/aspect169/169_${fname} && \
+        feh --no-fehbg --bg-center ${wdir}/aspect169/169_${fname}
+}

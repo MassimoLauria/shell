@@ -39,6 +39,11 @@ GIT_EDITOR="$emacsclient$emacsclient_opts"
 alias ec="$emacsclient$emacsclient_opts"
 alias ecx="$emacsclient -n -c"
 
+# Create a frame setup for float
+float_params="--frame-parameters='(quote (name . \"floatemacs\") (height . 40) (width . 80))'"
+
+alias floatemacs="$emacsclient -c $float_params"
+
 
 # Fallback Editor
 if type nano >/dev/null 2>&1; then

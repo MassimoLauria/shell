@@ -59,13 +59,13 @@ if type gping >/dev/null 2>&1; then
     alias ping="gping"
 fi
 
-# 'bashtop' is graphical version of 'top'
-# 'htop' is less intrusive but I want to get used to bashtop
-# https://github.com/aristocratos/bashtop
-if type bashtop >/dev/null 2>&1; then
-    alias top="bashtop"
+# 'btop' is graphical version of 'top'
+# 'htop' is less intrusive but I want to get used to btop
+if type btop >/dev/null 2>&1; then
+    alias top="btop"
+elif type htop >/dev/null 2>&1; then
+    alias top="htop"
 fi
-
 
 # 'fd' is a more modern and usable version of 'find'
 # https://github.com/sharkdp/fd
@@ -75,20 +75,6 @@ if type fdfind >/dev/null 2>&1; then
     alias fd="fdfind"
 fi
 
-
-
-
-function covid {
-    local args
-    if [ $# -eq 0 ]; then
-        args=it
-    elif [ $# -eq 1 ]; then
-        args=$1
-    else
-        echo "Usage: covid <countrycode>"; return 1
-    fi
-    curl -L covid19.trackercli.com/history/$args
-}
 
 function uskey {
     setxkbmap -option

@@ -36,7 +36,7 @@ fi
 # 'exa' is a more sophisticated replacement for 'ls'
 # https://the.exa.website/
 if type exa >/dev/null 2>&1; then
-    alias ls="exa -hg --git"
+    alias ls="exa -hg --icons --git"
 else
     alias ls="ls --color=auto"
 fi

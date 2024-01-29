@@ -46,7 +46,9 @@ alias floatemacs="$emacsclient -c $float_params"
 
 
 # Fallback Editor
-if type nano >/dev/null 2>&1; then
+if type micro >/dev/null 2>&1; then
+    ALTERNATE_EDITOR="micro"
+elif type nano >/dev/null 2>&1; then
     ALTERNATE_EDITOR="nano"
 elif type vim >/dev/null 2>&1; then
     ALTERNATE_EDITOR="vim"

@@ -38,6 +38,10 @@ fi
 if [ -d $HOME/.local/sbin ]; then
     PATH=$HOME/.local/sbin:$PATH
 fi
+
+if [ -d $HOME/.elan/bin ]; then
+    PATH=$HOME/.elan/sbin:$PATH
+fi
 export PATH
 
 # MacOSX substitute for `~/.local/bin` could be `~/Library/bin'?

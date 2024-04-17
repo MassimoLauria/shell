@@ -40,7 +40,7 @@ if [ -d $HOME/.local/sbin ]; then
 fi
 
 if [ -d $HOME/.elan/bin ]; then
-    PATH=$HOME/.elan/sbin:$PATH
+    PATH=$HOME/.elan/bin:$PATH
 fi
 export PATH
 

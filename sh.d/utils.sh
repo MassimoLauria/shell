@@ -76,17 +76,6 @@ if type fdfind >/dev/null 2>&1; then
 fi
 
 
-function uskey {
-    setxkbmap -option
-    python ~/config/xsession/xkb_capsunlock.py
-    setxkbmap -config ~/config/xsession/setxkbmap.pcus
-}
-
-function resetkey {
-    setxkbmap -option
-}
-
-
 # Set as one of my wallpaper
 function wallpapermk {
     wdir=$HOME/personal/wallpaper

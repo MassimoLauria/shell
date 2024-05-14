@@ -3,7 +3,7 @@
 # Copyright (C) 2014, 2015, 2017, 2020, 2023 by Massimo Lauria
 #
 # Created   : "2014-10-22, Wednesday 13:06 (CEST) Massimo Lauria"
-# Time-stamp: "2023-05-21, 19:33 (CEST) Massimo Lauria"
+# Time-stamp: "2024-05-14, 15:19 (CEST) Massimo Lauria"
 #
 # Description::
 #
@@ -12,17 +12,15 @@
 
 # LaTeX enviroment variables
 
-TEXEDIT="$EDITOR +%d %s"
+# TEXEDIT="$EDITOR +%d %s"
 
-TEXMFHOME="$HOME/lavori/latex:"  # Private texmf tree
-
-if type sage >/dev/null 2>&1; then
-    # Sage TeX packages
-    TEXMFHOME="`sage -root`/local/share/texmf:$TEXMFHOME"
-fi
-
-export TEXEDIT
-export TEXMFHOME
+# TEXMFHOME="$HOME/lavori/latex:"  # Private texmf tree
+# if type sage >/dev/null 2>&1; then
+#     # Sage TeX packages
+#     TEXMFHOME="`sage -root`/local/share/texmf:$TEXMFHOME"
+# fi
+# export TEXEDIT
+# export TEXMFHOME
 
 
 

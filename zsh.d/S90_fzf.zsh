@@ -56,6 +56,10 @@ function fzf_activate() {
 
 function fzf_zsh_special_keys() {
 
+    # Remove defaults
+    bindkey "^t"  undefined-key
+    bindkey "\ec" undefined-key
+
     # Search backward/forward in history
     bindkey "^[b" fzf-history-widget  # M-b
     bindkey "^[n" fzf-history-widget  # M-n
@@ -66,6 +70,11 @@ function fzf_zsh_special_keys() {
 
     # Ctrl-S search forward in history, but it is seldom useful
     bindkey "^s" fzf-history-widget
+
+    # Ctrl-F looks for filenames
+    bindkey "^f" fzf-file-widget
+    bindkey "^t" undefined-key
+
 }
 
 # All setups for fzf

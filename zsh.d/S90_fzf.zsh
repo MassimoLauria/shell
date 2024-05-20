@@ -3,7 +3,7 @@
 # fzf - Fuzzy Finder for the command line
 #
 # Install via Homebrew on MacOS
-# $ brew install fzf  
+# $ brew install fzf
 # $ $(brew --prefix)/opt/fzf/install
 #
 # Install via Git
@@ -23,7 +23,8 @@
 export FZF_DEFAULT_OPTS="--border"
 
 ### Files search
-export FZF_CTRL_T_OPTS="--prompt 'Files> ' -m --header='Select file(s)' --preview 'bat --style=numbers --color=always {} | head -500'"
+export FZF_CTRL_T_OPTS="--prompt 'Files> ' -m  --preview-window hidden --bind '?:toggle-preview' --preview 'bat --style=numbers --color=always {} | head -500'"
+
 
 ### Folder search
 export FZF_ALT_C_OPTS="--prompt 'Dir> ' -m --header='Select a folder' --preview 'ls -C {}' --preview-window hidden --bind '?:toggle-preview'"

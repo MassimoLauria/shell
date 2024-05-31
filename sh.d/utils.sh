@@ -75,6 +75,13 @@ if type fdfind >/dev/null 2>&1; then
     alias fd="fdfind"
 fi
 
+# 'b' as an alias for by fzf interface to the firefox bookmarks
+#
+# ubuntu has it installed as fdfind
+if type ${HOME}/config/scripts/search-ff-bookmarks.sh  >/dev/null 2>&1; then
+    alias b='${HOME}/config/scripts/search-ff-bookmarks.sh'
+fi
+
 
 # Set as one of my wallpaper
 function wallpapermk {

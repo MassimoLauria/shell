@@ -10,13 +10,10 @@
 # Find Emacs on MacOSX
 #
 if [ `uname` = "Darwin" ]; then
-    for emacsapp in Emacs.app Aquamacs.app; do
-        if [ -d "/Applications/$emacsapp" ]; then
-            emacsbin="/Applications/$emacsapp/Contents/MacOS/Emacs"
-            emacsclient="/Applications/$emacsapp/Contents/MacOS/bin/emacsclient"
-            break
-        fi
-    done
+    if [ -d "/Applications/Emacs.app" ]; then
+        emacsbin="/Applications/$emacsapp/Contents/MacOS/Emacs"
+        emacsclient=/usr/local/bin/emacsclient
+    fi
     emacsclient_opts=""
 else
     emacsbin="emacs"

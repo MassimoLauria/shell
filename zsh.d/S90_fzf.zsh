@@ -16,7 +16,7 @@
 # https://github.com/BurntSushi/ripgrep
 #
 if type rg >/dev/null 2>&1; then
-    export FZF_DEFAULT_COMMAND='rg --files --ignore-file $HOME/config/shell/rg-ignore'
+    export FZF_DEFAULT_COMMAND="rg --files --hidden --ignore-file $HOME/config/shell/rg-ignore"
 fi
 
 

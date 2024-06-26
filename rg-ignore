@@ -4,4 +4,8 @@
 .git
 
 ###################
+.cache
+
+###################
 games/steamlibrary/steamapps
+.steam

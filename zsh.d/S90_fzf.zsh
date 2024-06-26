@@ -15,9 +15,9 @@
 # If ripgrep is installed, use this to search files in fzf
 # https://github.com/BurntSushi/ripgrep
 #
-# if type rg >/dev/null 2>&1; then
-#     export FZF_DEFAULT_COMMAND='rg --files'
-# fi
+if type rg >/dev/null 2>&1; then
+    export FZF_DEFAULT_COMMAND='rg --files --ignore-file $HOME/config/shell/rg-ignore'
+fi
 
 
 export FZF_DEFAULT_OPTS="--border"

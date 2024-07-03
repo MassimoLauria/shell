@@ -177,28 +177,6 @@ pwd_prompt_truncated="%B%40<..<${pwd_prompt}%<<%b"
 # }}} --------------------------------------------------------------------------
 
 
-function zsh_vcs_promptchar_precmd {
-    case $vcs_info_msg_0_ in
-	    *git*)
-            prompt_char='±'
-            ;;
-        *svn*)
-            prompt_char='S'
-            ;;
-        *hg*)
-            prompt_char='☿'
-            ;;
-        *p4*)
-            prompt_char='4'
-            ;;
-        *)
-            prompt_char='$'
-            ;;
-    esac
-}
-precmd_functions+='zsh_vcs_promptchar_precmd'
-
-
 
 # pyenv
 function zsh_pyenv_precmd {

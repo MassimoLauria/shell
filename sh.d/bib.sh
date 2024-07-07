@@ -47,6 +47,6 @@ bib () {
                        --bind '?:toggle-preview' \
                        -e --reverse --ansi $query |
         awk -F '@' 'BEGIN { printf "(citar-open-files (list " } {printf " \""$2"\"" } END { printf("))")}' > $TMPLS
-    emacsclient -ce "(load-file \"$TMPLS\")"  >/dev/null
+    emacsclient -cne "(load-file \"$TMPLS\")"  >/dev/null
     rm -f $TMPLS
 }

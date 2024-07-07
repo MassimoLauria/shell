@@ -5,7 +5,7 @@
 #
 
 LS=bibtex-ls
-BIBFILE=$HOME/lavori/latex/bibtex/bib/theoryofcomputing.bib
+BIBFILE=$HOME/lavori/latex/bibliografia.bib
 TMPLS=`mktemp`
 
 
@@ -46,7 +46,7 @@ bib () {
                        --preview-window down:wrap \
                        --bind '?:toggle-preview' \
                        -e --reverse --ansi $query |
-        awk -F '@' 'BEGIN { printf "(bibtex-completion-open-pdf (list " } {printf " \""$2"\"" } END { printf("))")}' > $TMPLS
+        awk -F '@' 'BEGIN { printf "(citar-open-files (list " } {printf " \""$2"\"" } END { printf("))")}' > $TMPLS
     emacsclient -ce "(load-file \"$TMPLS\")"  >/dev/null
     rm -f $TMPLS
 }

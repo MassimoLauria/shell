@@ -30,7 +30,19 @@ fi
 export PATH="$HOME/.elan/bin:$PATH"
 export QT_STYLE_OVERRIDE=kvantum
 
+## Stuff that it is too slow to run for every terminal
+
+# Latex bibpath
 if type kpsepath >/dev/null 2>&1; then
    export TEXINPUTS=$(kpsepath tex):$HOME/lavori/latex
    export BIBINPUTS=$(kpsepath bib):$HOME/lavori/latex
+fi
+
+# Pyenv setup
+export PYENV_ROOT="$HOME/.pyenv"
+if [ -d $PYENV_ROOT ]; then
+    export PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+    export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 fi

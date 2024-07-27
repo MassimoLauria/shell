@@ -1,9 +1,9 @@
 #!/bin/sh
 #
-# Copyright (C) 2011, 2014, 2015, 2020 by Massimo Lauria
+# Copyright (C) 2011, 2014, 2015, 2020, 2024 by Massimo Lauria
 #
 # Created   : "2011-11-17, Thursday 20:43 (CET) Massimo Lauria"
-# Time-stamp: "2020-10-23, 10:34 (CEST) Massimo Lauria"
+# Time-stamp: "2024-07-27, 15:30 (CEST) Massimo Lauria"
 #
 # Description::
 #
@@ -16,9 +16,8 @@
 # Asterisks in scp commands would be globbed by zsh, which is VERY
 # annoying.
 alias scp="noglob scp"
-
 alias dirs="dirs -v"
-
+alias mc="mc -u"
 
 
 function o {
@@ -26,7 +25,7 @@ function o {
 
         # by default open current folder
         if [ $# -lt 1 ]; then
-            nohup xdg-open .  </dev/null &>/dev/null 
+            nohup xdg-open .  </dev/null &>/dev/null
         elif [ -d "$1" ]; then
             nohup xdg-open $1 </dev/null &>/dev/null
         else

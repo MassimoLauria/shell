@@ -8,6 +8,11 @@
 # Where everything starts
 CONFIGDIR=$HOME/config
 
+# Unfortunately I cannot make MacOSX to load .profile file on login
+if [ `uname` = "Darwin" -a -f ~/.profile ]; then
+    source ~/.profile
+fi
+
 # {{{ Paths --------------------------------------------------------------------
 
 # Flatpak

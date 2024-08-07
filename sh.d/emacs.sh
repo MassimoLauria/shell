@@ -11,7 +11,7 @@
 #
 if [ `uname` = "Darwin" ]; then
     if [ -d "/Applications/Emacs.app" ]; then
-        emacsbin="/Applications/$emacsapp/Contents/MacOS/Emacs"
+        emacsbin="/Applications/Emacs.app/Contents/MacOS/Emacs"
         emacsclient=/usr/local/bin/emacsclient
     fi
     emacsclient_opts=""

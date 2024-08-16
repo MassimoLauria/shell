@@ -18,3 +18,6 @@ fi
 CLICOLOR=1
 LSCOLORS=ExFxCxDxBxegedabagacad
 export CLICOLOR LSCOLORS
+
+# Stop homebrew to update in the worst possible moment
+export HOMEBREW_NO_AUTO_UPDATE=1

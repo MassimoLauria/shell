@@ -33,9 +33,10 @@ elif type batcat >/dev/null 2>&1; then
     alias cat=batcat
 fi
 
-# 'exa' is a more sophisticated replacement for 'ls'
-# https://the.exa.website/
-if type exa >/dev/null 2>&1; then
+# 'eza/exa' is a more sophisticated replacement for 'ls'
+if type eza >/dev/null 2>&1; then
+    alias ls="eza -hg --icons --git"
+elif type exa >/dev/null 2>&1; then
     alias ls="exa -hg --icons --git"
 else
     alias ls="ls --color=auto"

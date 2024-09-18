@@ -26,10 +26,10 @@ fi
 
 
 # Fallback Editor
-if type micro >/dev/null 2>&1; then
-    ALTERNATE_EDITOR="micro"
-elif type nano >/dev/null 2>&1; then
+if type nano >/dev/null 2>&1; then
     ALTERNATE_EDITOR="nano"
+elif type micro >/dev/null 2>&1; then
+    ALTERNATE_EDITOR="micro"
 elif type nvim >/dev/null 2>&1; then
     ALTERNATE_EDITOR="nvim"
 elif type vim >/dev/null 2>&1; then

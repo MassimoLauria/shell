@@ -20,7 +20,6 @@ if [ -d "$HOME/.local/bin" ] ; then
 fi
 
 export PATH="$HOME/.elan/bin:$PATH"
-export QT_STYLE_OVERRIDE=kvantum
 
 ## Stuff that it is too slow to run for every terminal
 

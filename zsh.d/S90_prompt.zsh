@@ -183,9 +183,15 @@ pwd_prompt_truncated="%B%40<..<${pwd_prompt}%<<%b"
 
 
 
-# pyenv
+# pyenv info on the right
 function zsh_pyenv_precmd {
     pyenv_name=$(pyenv version-name)
+    if [ "${pyenv_name}" = "system" ]; then
+        pyenv_prompt=""
+    else
+        pyenv_prompt=$FMT_BL$PR_PYENV_COLOR'Py'$PR_RESET':'$PR_PYENV_NAME_COLOR'${pyenv_name}'$PR_RESET$FMT_BR
+    fi
+    RPROMPT=$pyenv_prompt' '
 }
 
 if $(command -v pyenv > /dev/null); then

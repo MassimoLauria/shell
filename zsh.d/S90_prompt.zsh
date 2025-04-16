@@ -70,6 +70,11 @@ branch_prompt='$vcs_info_msg_0_'
 pwd_prompt='${${${vcs_info_msg_1_%%.}:-${PR_RESET}${PR_BLUE}$PWD${PR_RESET}}/${HOME}/~}'     # my fix - M.L.
 pwd_prompt_truncated="%B%32<..<${pwd_prompt}%<<%b"
 
+function zsh_vcs_prompt_precmd {
+    vcs_info 'prompt'
+}
+precmd_functions+='zsh_vcs_prompt_precmd'
+
 
 # PROMPT COMPONENTS -------------------------------------------------------------
 
@@ -83,7 +88,6 @@ dir_prompt=$PR_BLUE'%1~'$PR_RESET
 
 
 # UPDATER -----------------------------------------------------------------------
-
 function zsh_pyenv_precmd {
     pyenv_name=$(pyenv version-name)
     if [ "${pyenv_name}" = "system" ]; then

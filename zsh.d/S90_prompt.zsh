@@ -142,14 +142,10 @@ zstyle ':vcs_info:*:prompt:*' nvcsformats   ""
 # {{{ PROMPT THEMED COMPONENTS -------------------------------------------------
 # Common
 
-exit_value=""
+date_exit_prompt='%(?.'$PR_TIME_COLOR'.'$PR_EXITVALUE_F_COLOR')${date_text}'
 
-exit_value_prompt=$PR_SHIFT_IN$PR_BARS_COLOR'['$PR_RESET\
-'%(?.'$PR_EXITVALUE_T_COLOR'.'$PR_EXITVALUE_F_COLOR')%?'\
-$PR_BARS_COLOR']'$PR_SHIFT_OUT$PR_RESET
-
-date_text=""
-time_prompt=$PR_TIME_COLOR'${date_text}'$PR_RESET
+prompt_char='➤'
+prompt_char_prompt='%(?.'$PR_PROMPT_CHAR_COLOR'.'$PR_EXITVALUE_F_COLOR')${prompt_char}'$PR_RESET
 
 dir_prompt=$PR_PATH_COLOR'%1~'$PR_RESET
 
@@ -158,8 +154,6 @@ userhost_prompt=$PR_USERNAME_COLOR'%n'$PR_RESET'@'$PR_HOSTNAME_COLOR'%m'$PR_RESE
 pyenv_name='system'
 pyenv_prompt=$FMT_BL$PR_PYENV_COLOR'Py'$PR_RESET':'$PR_PYENV_NAME_COLOR'${pyenv_name}'$PR_RESET$FMT_BR
 
-prompt_char='$'
-prompt_char_prompt=$PR_PROMPT_CHAR_COLOR'${prompt_char}'$PR_RESET
 
 prompt_mid_filler=""
 prompt_top_filler=""
@@ -178,7 +172,7 @@ branch_prompt='$vcs_info_msg_0_'
 # pwd_prompt='${${vcs_info_msg_1_%%.}/${HOME}/~}' # - Original - M.L.
 #
 pwd_prompt='${${${vcs_info_msg_1_%%.}:-${PR_RST}${PR_PATH_COLOR}$PWD${PR_RST}}/${HOME}/~}'     # my fix - M.L.
-pwd_prompt_truncated="%B%40<..<${pwd_prompt}%<<%b"
+pwd_prompt_truncated="%B%32<..<${pwd_prompt}%<<%b"
 # }}} --------------------------------------------------------------------------
 
 
@@ -191,7 +185,6 @@ function zsh_pyenv_precmd {
     else
         pyenv_prompt=$FMT_BL$PR_PYENV_COLOR'Py'$PR_RESET':'$PR_PYENV_NAME_COLOR'${pyenv_name}'$PR_RESET$FMT_BR
     fi
-    RPROMPT=$pyenv_prompt' '
 }
 
 if $(command -v pyenv > /dev/null); then
@@ -208,15 +201,20 @@ function zsh_update-date_precmd {
 precmd_functions+='zsh_update-date_precmd'
 
 
+function zsh_rprompt_precmd {
+    RPROMPT=$pyenv_prompt$branch_prompt
+}
+precmd_functions+='zsh_rprompt_precmd'
+
+
 # THE PROMPT MAIN COMPONENTS -------------------------------------------------
 
-ps1_info_line=$PR_BARS_COLOR'('$PR_RESET$time_prompt$PR_BARS_COLOR')'$PR_RESET\
-$PR_BARL_COLOR$PR_SHIFT_IN$PR_HBAR$PR_HBAR$PR_SHIFT_OUT\
-$branch_prompt\
-$PR_BARL_COLOR$PR_SHIFT_IN$PR_HBAR$PR_HBAR$PR_SHIFT_OUT\
-$PR_BARS_COLOR'('$PR_RESET\
-$pwd_prompt_truncated\
-$PR_BARS_COLOR')'$PR_RESET
+# ps1_info_line=$PR_BARS_COLOR'('$PR_RESET$time_prompt$PR_BARS_COLOR')'$PR_RESET\
+# $PR_BARL_COLOR$PR_SHIFT_IN$PR_HBAR$PR_HBAR$PR_SHIFT_OUT\
+# $PR_BARL_COLOR$PR_SHIFT_IN$PR_HBAR$PR_HBAR$PR_SHIFT_OUT\
+# $PR_BARS_COLOR'('$PR_RESET\
+# $pwd_prompt_truncated\
+# $PR_BARS_COLOR')'$PR_RESET
 
 
 
@@ -227,11 +225,8 @@ case $TERM in
         PS2=$PR_PARSER_DATA_COLOR'    %_ '$PR_RESET$PR_PARSER_PROMPT_COLOR'→ '$PR_RESET
 
         PROMPT='
-'$ps1_info_line'
-
-'$exit_value_prompt' '$prompt_char_prompt' '
-
-        RPROMPT=$pyenv_prompt' '
+'$PR_BARS_COLOR'('$PR_RESET$pwd_prompt_truncated$PR_BARS_COLOR')'$PR_RESET'
+'$date_exit_prompt''$prompt_char_prompt' '
         ;;
 
     dumb) # Simple prompt for dumb terminals

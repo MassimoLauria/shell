@@ -93,7 +93,7 @@ function zsh_pyenv_precmd {
     if [ "${pyenv_name}" = "system" ]; then
         pyenv_prompt=""
     else
-        pyenv_prompt=$FMT_BL$PR_RED'Py'$PR_RESET':'$PR_GREEN'${pyenv_name}'$PR_RESET$FMT_BR
+        pyenv_prompt=$FMT_BL$PR_YELLOW''$PR_RESET':'$PR_GREEN'${pyenv_name}'$PR_RESET$FMT_BR
     fi
 }
 

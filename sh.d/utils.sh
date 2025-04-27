@@ -35,9 +35,7 @@ fi
 
 # 'eza/exa' is a more sophisticated replacement for 'ls'
 if type eza >/dev/null 2>&1; then
-    alias ls="eza -hg --icons --git"
-elif type exa >/dev/null 2>&1; then
-    alias ls="exa -hg --icons --git"
+    alias ls="eza --hyperlink -hg --icons --git"
 else
     alias ls="ls --color=auto"
 fi

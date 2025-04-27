@@ -86,6 +86,12 @@ if type ${HOME}/config/scripts/search-dictionary.sh  >/dev/null 2>&1; then
     alias d='${HOME}/config/scripts/search-dictionary.sh'
 fi
 
+# 'bib' as an alias for my fzf interface to bibtex search
+if type ${HOME}/config/scripts/search-bibliography.sh  >/dev/null 2>&1; then
+    alias bib='${HOME}/config/scripts/search-bibliography.sh'
+fi
+
+
 # Set as one of my wallpaper
 function wallpapermk {
     wdir=$HOME/personal/wallpaper

@@ -118,7 +118,7 @@ precmd_functions+='zsh_rprompt_precmd'
 # THE PROMPT -----------------------------------------------------------------
 
 case $TERM in
-    xterm*|rxvt*|screen*)
+    xterm*|rxvt*|screen*|eterm*)
 
         PS2=$PR_WHITE'    %_ '$PR_RESET$PR_BLUE'→ '$PR_RESET
 

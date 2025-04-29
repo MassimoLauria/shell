@@ -5,11 +5,8 @@
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
-    "dumb")
-        PS1='$ '
-        ;;
     xterm*|rxvt*|eterm*)
-        PS1='\u@\h:\w$ '
+        PS1='\w $ '
         ;;
     *)
         PS1='$ '

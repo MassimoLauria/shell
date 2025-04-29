@@ -89,6 +89,30 @@ if type ${HOME}/config/scripts/search-bibliography.sh  >/dev/null 2>&1; then
     alias bib='${HOME}/config/scripts/search-bibliography.sh'
 fi
 
+# Open files
+function o {
+    if [ `uname` = "Linux" ]; then
+
+        # by default open current folder
+        if [ $# -lt 1 ]; then
+            nohup xdg-open .  </dev/null &>/dev/null
+        elif [ -d "$1" ]; then
+            nohup xdg-open $1 </dev/null &>/dev/null
+        else
+            nohup xdg-open $1 </dev/null &>/dev/null
+        fi
+    elif [ `uname` = "Darwin" ]; then
+
+        if [ $# -lt 1 ]; then
+            open .
+        else
+            open $@
+        fi
+
+    else
+        echo "Not implemented on this platform"
+    fi
+}
 
 # Set as one of my wallpaper
 function wallpapermk {
@@ -99,3 +123,8 @@ function wallpapermk {
         ${wdir}/aspectcrop.sh ${wdir}/$fname ${wdir}/aspect169/169_${fname} && \
         feh --no-fehbg --bg-center ${wdir}/aspect169/169_${fname}
 }
+
+
+# Other aliases
+alias dirs="dirs -v"
+alias mc="mc -u"

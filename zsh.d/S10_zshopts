@@ -170,7 +170,7 @@ typeset -ga chpwd_functions
 
 [ -w $zsh_cache ] && HISTFILE=$zsh_cache/history
 
-HISTSIZE=10000              # size of history
+HISTSIZE=1000000            # size of history
 LISTMAX=1000                # never ask
 NULLCMD='cat'               # use cat for > null commands
 REPORTTIME=2                # report time if execution exceeds amount of seconds

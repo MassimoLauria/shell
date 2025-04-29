@@ -128,3 +128,7 @@ function wallpapermk {
 # Other aliases
 alias dirs="dirs -v"
 alias mc="mc -u"
+
+if [ -n $ZSH_NAME ]; then
+    alias scp="noglob scp"
+fi

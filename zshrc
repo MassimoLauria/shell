@@ -52,7 +52,6 @@ then
 else
     # Z-Shell modules
     setopt extended_glob
-    alias scp="noglob scp"   # glob hurts * in command
     for zsh_snippet in $zsh_sources/S[0-9][0-9]*; do
         source $zsh_snippet
     done

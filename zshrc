@@ -62,6 +62,10 @@ else
     for zsh_snippet in $zsh_sources/S[0-9][0-9]*; do
         source $zsh_snippet
     done
+
+    # private setup
+    [ -f "$HOME/personal/conf/shenv-personal" ] && \
+        source $HOME/personal/conf/shenv-personal
 fi
 
 # }}} ---------------------------------------------------------------------------------

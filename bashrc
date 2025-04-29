@@ -13,4 +13,8 @@ case "$TERM" in
         ;;
 esac
 
-source ~/config/shell/shenv-common
+sh_sources=~/config/shell/sh.d/
+
+for sh_snippet in $sh_sources/*.sh; do
+    source $sh_snippet
+done

@@ -13,6 +13,7 @@ config_path=${HOME}/config/shell/
 
 zshrc_path=${HOME}/.zshrc
 
+sh_sources=${config_path}/sh.d
 zsh_sources=${config_path}/zsh.d
 zsh_cache=${HOME}/.zsh/cache
 zsh_histfile=$zsh_cache/history
@@ -32,9 +33,6 @@ fi
 
 # {{{ Z-shell scripts -----------------------------------------------------------------
 
-# Common
-source ${config_path}/shenv-common
-
 
 
 # Dumb terminal loads no other configurations
@@ -52,6 +50,15 @@ then
 else
     # Z-Shell modules
     setopt extended_glob
+
+    if [ `uname` = "Darwin" -a -f ~/.profile ]; then
+        source ~/.profile
+    fi
+
+    for sh_snippet in $sh_sources/*.sh; do
+        source $sh_snippet
+    done
+
     for zsh_snippet in $zsh_sources/S[0-9][0-9]*; do
         source $zsh_snippet
     done
@@ -62,3 +69,5 @@ fi
 autoload -Uz compinit
 zstyle ':completion:*' menu select
 fpath+=~/.zfunc
+
+umask 0077

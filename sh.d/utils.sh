@@ -89,6 +89,12 @@ if type ${HOME}/config/scripts/search-bibliography.sh  >/dev/null 2>&1; then
     alias bib='${HOME}/config/scripts/search-bibliography.sh'
 fi
 
+# 'ff' as an alias to search in firefox onmi bar
+if type ${HOME}/config/scripts/search-with-firefox.sh  >/dev/null 2>&1; then
+    alias ff='${HOME}/config/scripts/search-with-firefox.sh'
+fi
+
+
 # Open files
 function o {
     if [ `uname` = "Linux" ]; then

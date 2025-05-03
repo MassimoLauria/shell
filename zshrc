@@ -50,11 +50,7 @@ then
 else
     # Z-Shell modules
     setopt extended_glob
-
-    if [ `uname` = "Darwin" -a -f ~/.profile ]; then
-        source ~/.profile
-    fi
-
+    
     for sh_snippet in $sh_sources/*.sh; do
         source $sh_snippet
     done

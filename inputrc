@@ -95,10 +95,11 @@ M-n: history-search-forward
 ##################
 # Deletion keys  #
 ##################
-M-w: backward-kill-word
+M-e: backward-kill-word
+M-r: kill-word
 M-d: backward-delete-char
 M-f: delete-char
-C-w: kill-whole-line
+M-w: kill-whole-line
 #C-d: backward-kill-word
 #C-f: kill-word
 

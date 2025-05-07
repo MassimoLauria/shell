@@ -135,6 +135,8 @@ function wallpapermk {
 alias dirs="dirs -v"
 alias mc="mc -u"
 
+alias scheme="rlwrap scheme"
+
 if [ -n $ZSH_NAME ]; then
     alias scp="noglob scp"
 fi

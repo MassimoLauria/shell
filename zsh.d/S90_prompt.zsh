@@ -88,20 +88,15 @@ dir_prompt=$PR_BLUE'%1~'$PR_RESET
 
 
 # UPDATER -----------------------------------------------------------------------
-function zsh_pyenv_precmd {
-    pyenv_name=$(pyenv version-name)
-    if [ "${pyenv_name}" = "system" ]; then
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+function zsh_venv_precmd {
+    if [ "${VIRTUAL_ENV}" = "" ]; then
         pyenv_prompt=""
     else
-        pyenv_prompt=$FMT_BL$PR_YELLOW''$PR_RESET':'$PR_GREEN'${pyenv_name}'$PR_RESET$FMT_BR
+        pyenv_prompt=$FMT_BL$PR_YELLOW''$PR_RESET':'$PR_GREEN'${$(basename $VIRTUAL_ENV)}'$PR_RESET$FMT_BR
     fi
 }
-
-if $(command -v pyenv > /dev/null); then
-    precmd_functions+='zsh_pyenv_precmd'
-else
-    pyenv_prompt=""
-fi
+precmd_functions+='zsh_venv_precmd'
 
 function zsh_update-date_precmd {
     date_text=`date +%H:%M`

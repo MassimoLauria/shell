@@ -7,6 +7,8 @@
 # command line utilities. I will set them up, when present.
 #
 
+UTILS=$HOME/config/shell/utils
+
 #
 # PAGER setup. I prefer http://www.jedsoft.org/most/
 #
@@ -74,25 +76,17 @@ if type fdfind >/dev/null 2>&1; then
     alias fd="fdfind"
 fi
 
-# 'b' as an alias for my fzf interface to the firefox bookmarks
-if type ${HOME}/config/scripts/search-ff-bookmarks.sh  >/dev/null 2>&1; then
-    alias b='${HOME}/config/scripts/search-ff-bookmarks.sh'
-fi
+# fzf interface to the firefox bookmarks
+alias b='${UTILS}/search-ff-bookmarks.sh'
 
-# 'd' as an alias for my fzf interface to dictionaries
-if type ${HOME}/config/scripts/search-dictionary.sh  >/dev/null 2>&1; then
-    alias d='${HOME}/config/scripts/search-dictionary.sh'
-fi
+# fzf interface to dictionaries
+alias d='${UTILS}/search-dictionary.sh'
 
-# 'bib' as an alias for my fzf interface to bibtex search
-if type ${HOME}/config/scripts/search-bibliography.sh  >/dev/null 2>&1; then
-    alias bib='${HOME}/config/scripts/search-bibliography.sh'
-fi
+# fzf interface to bibtex search
+alias bib='${UTILS}/search-bibliography.sh'
 
-# 'ff' as an alias to search in firefox onmi bar
-if type ${HOME}/config/scripts/search-with-firefox.sh  >/dev/null 2>&1; then
-    alias ff='${HOME}/config/scripts/search-with-firefox.sh'
-fi
+# search in firefox onmi bar
+alias ff='${UTILS}/search-with-firefox.sh'
 
 
 # Open files

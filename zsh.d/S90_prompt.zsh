@@ -119,7 +119,8 @@ case $TERM in
 
         PS2=$PR_WHITE'    %_ '$PR_RESET$PR_BLUE'→ '$PR_RESET
 
-        PROMPT=$PR_WHITE'('$PR_RESET$pwd_prompt_truncated$PR_WHITE')'$PR_RESET'
+        PROMPT='
+'$PR_WHITE'('$PR_RESET$pwd_prompt_truncated$PR_WHITE')'$PR_RESET'
 '$date_exit_prompt$prompt_char_prompt' '
         ;;
 

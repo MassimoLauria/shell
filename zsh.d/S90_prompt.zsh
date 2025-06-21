@@ -115,10 +115,11 @@ precmd_functions+='zsh_rprompt_precmd'
 case $TERM in
     xterm*|rxvt*|screen*|eterm*)
 
+        PROMPT_EOL_MARK=$PR_RED'<NOEOL>'$PR_RESET
+
         PS2=$PR_WHITE'    %_ '$PR_RESET$PR_BLUE'→ '$PR_RESET
 
-        PROMPT='
-'$PR_WHITE'('$PR_RESET$pwd_prompt_truncated$PR_WHITE')'$PR_RESET'
+        PROMPT=$PR_WHITE'('$PR_RESET$pwd_prompt_truncated$PR_WHITE')'$PR_RESET'
 '$date_exit_prompt$prompt_char_prompt' '
         ;;
 

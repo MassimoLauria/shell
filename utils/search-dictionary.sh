@@ -23,7 +23,7 @@ _d_check_runtime() {
 _d_check_runtime || exit 1
 
 args=""
-query=""q
+query=""
 
 if [ "$#" -ge 1 ]; then
     query="-q"

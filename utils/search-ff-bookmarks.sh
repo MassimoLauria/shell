@@ -11,15 +11,23 @@ sqlitesep='{::}'
 
 unameOut="$(uname -s)"
 case "${unameOut}" in
-    Linux*)     opencmd=xdg-open;;
-    Darwin*)    opencmd=open;;
-    *)          opencmd=xdg-open
+    Linux*)     opencmd=xdg-open
+                fname=`find "$HOME/.mozilla/firefox" -name bookmarks.sqlite -print -quit`
+                grepcmd=grep
+                ;;
+
+    Darwin*)    opencmd=open
+                fname=`find "$HOME/Library/Application Support/Firefox/Profiles" -name bookmarks.sqlite -print -quit`
+                grepcmd=ggrep
+                ;;
+    *)          echo "OS not supported!"
+                exit 1
+                ;;
 esac
 
 
 
-# this is rarely locked but still, safety first
-cp ~/.mozilla/firefox/*/weave/bookmarks.sqlite /tmp
+cp "$fname" /tmp
 
 
 sqlite3 -separator $sqlitesep /tmp/bookmarks.sqlite \
@@ -37,4 +45,4 @@ sqlite3 -separator $sqlitesep /tmp/bookmarks.sqlite \
         --prompt='Bookmarks> ' \
         --preview-window down:6:wrap --bind '?:toggle-preview,ctrl-s:toggle-sort' \
         --preview 'echo {1} "--- "{2}"\n\n"{3}"\n\nURL: "{5}' |
-    grep -oP 'https?://.*$' | xargs ${opencmd}
+    $grepcmd -oP 'https?://.*$' | xargs ${opencmd}

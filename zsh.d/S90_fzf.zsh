@@ -30,7 +30,7 @@ export FZF_CTRL_T_OPTS="--prompt 'Files> ' -m  --preview-window hidden --bind '?
 export FZF_ALT_C_OPTS="--prompt 'Dir> ' -m --header='Select a folder' --preview 'ls -C {}' --preview-window hidden --bind '?:toggle-preview'"
 
 # Full command on the preview windows
-export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
+export FZF_CTRL_R_OPTS="--prompt 'History> ' --preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
 
 
 
@@ -67,9 +67,6 @@ function fzf_zsh_special_keys() {
     # "page up" and "page down" to search the history
     bindkey "\e[5~" fzf-history-widget
     bindkey "\e[6~" fzf-history-widget
-
-    # Ctrl-S search forward in history, but it is seldom useful
-    bindkey "^s" fzf-history-widget
 
     # Ctrl-F looks for filenames
     bindkey "^f" fzf-file-widget

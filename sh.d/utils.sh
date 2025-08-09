@@ -126,7 +126,6 @@ function wallpapermk {
 
 
 # Other aliases
-alias dirs="dirs -v"
 alias mc="mc -u"
 
 alias scheme="rlwrap scheme"

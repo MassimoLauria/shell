@@ -1,10 +1,7 @@
 # -*- mode: sh -*-
 
 if type net.fsuae.FS-UAE >/dev/null 2>&1; then
-   alias fs-uae=net.fsuae.FS-UAE
-   alias fs-uae-launcher="/usr/bin/flatpak run --command=fs-uae-launcher --file-forwarding net.fsuae.FS-UAE"
    alias uae="/usr/bin/flatpak run --command=fs-uae-launcher --file-forwarding net.fsuae.FS-UAE"
-   alias amiga="/usr/bin/flatpak run --command=fs-uae-launcher --file-forwarding net.fsuae.FS-UAE"
 fi
 
 if type org.libretro.RetroArch >/dev/null 2>&1; then

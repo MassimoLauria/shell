@@ -20,6 +20,10 @@ if type rg >/dev/null 2>&1; then
 fi
 
 
+if type $HOME/config/shell/utils/search-file-content.sh 2>&1; then
+    bindkey -s "^s" "^A~/config/shell/utils/search-file-content.sh ^M"
+fi
+
 export FZF_DEFAULT_OPTS="--border"
 
 ### Files search
@@ -71,7 +75,6 @@ function fzf_zsh_special_keys() {
     # Ctrl-F looks for filenames
     bindkey "^f" fzf-file-widget
     bindkey "^t" undefined-key
-
 }
 
 # All setups for fzf

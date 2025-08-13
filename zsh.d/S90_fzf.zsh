@@ -20,7 +20,7 @@ if type rg >/dev/null 2>&1; then
 fi
 
 
-if type $HOME/config/shell/utils/search-file-content.sh 2>&1; then
+if type $HOME/config/shell/utils/search-file-content.sh >/dev/null  2>&1; then
     bindkey -s "^s" "^A~/config/shell/utils/search-file-content.sh ^M"
 fi
 
